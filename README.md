@@ -1,3 +1,58 @@
+# SISWeb
+System Information School
+
+## Installation
+
+1. Clone this repository.
+     ```bash
+     git clone https://github.com/irgifahlevi/InformationSchoolWeb.git
+     ```
+
+2. Install dependencies.
+     ```bash
+     composer install
+     ```
+
+3. Copy the `.env.example` file into `.env` and configure the `.env` file.
+     ```bash
+     cp .env.example .env
+     php artisan key:generate
+     ```
+
+4. Run the database migration.
+     ```bash
+     php artisan migrate
+     ```
+
+5. Run the Laravel development server.
+     ```bash
+     php artisan serve
+     ```
+     The project is now accessible at [http://localhost:8000](http://localhost:8000).
+
+## Directory Structure
+
+Here is the main directory structure in the project:
+
+- `app`: Contains the business logic and application model.
+- `public`: Public access directory, including static files and application entry points.
+- `resources`: Resource files such as views and blade files.
+- `routes`: Route definition and route settings.
+
+## Technology Used
+
+This project was built using several main technologies, including:
+
+- [Laravel](https://laravel.com)
+- [PHP](https://www.php.net)
+- [MySQL](https://www.mysql.com)
+- [jQuery](https://jquery.com/)
+
+## External References
+
+- [Official Laravel Documentation](https://laravel.com/docs)
+- [Laravel Forum](https://laracasts.com/discuss)
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
