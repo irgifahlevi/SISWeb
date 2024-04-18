@@ -29,7 +29,29 @@ System Information School
      php artisan serve
      ```
      The project is now accessible at [http://localhost:8000](http://localhost:8000).
-
+   
+7. Add Controller
+   Default controller
+    ```bash
+     php artisan make:controller ControllerNameFolder/ControllerNameController
+     ```
+   Conroller resource
+     ```bash
+     php artisan make:controller ControllerNameFolder/ControllerNameController -r
+     ````
+9. Rollback Migration
+```
+php artisan migrate:rollback --step=1
+```
+10. Create Model
+    Default Model
+    ```
+    php artisan make:model RegisterUser
+    ```
+    Model and Migration Table
+    ```
+    php artisan make:model RegisterUser -m
+    ```
 ## Directory Structure
 
 Here is the main directory structure in the project:
