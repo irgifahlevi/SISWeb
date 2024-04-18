@@ -21,7 +21,17 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                if ($request->is('login') || $request->is('register')) {
+                    if ($request->user()->role == 'admin') {
+                        //dd($request->user()->role);
+                        return redirect()->route('admin.index'); // redirect ke halaman beranda admin
+                    } elseif ($request->user()->role == 'wali_calon') {
+                        //dd($request->user()->role);
+                        return redirect()->route('wali.index');
+                    } elseif ($request->user()->role == 'siswa') {
+                        return back();
+                    }
+                }
             }
         }
 
