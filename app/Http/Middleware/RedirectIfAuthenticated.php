@@ -29,7 +29,7 @@ class RedirectIfAuthenticated
                         //dd($request->user()->role);
                         return redirect()->route('wali.index');
                     } elseif ($request->user()->role == 'siswa') {
-                        return back();
+                        return redirect()->route('siswa.index');
                     }
                 }
             }

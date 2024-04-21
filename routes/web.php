@@ -34,6 +34,13 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('beranda', [AdminController::class, 'index'])->name('admin.index');
     Route::get('pendaftar_account', [RegistrasiAccountController::class, 'index'])->name('registrasi.index');
     Route::put('update_status/{id}/{status}', [RegistrasiAccountController::class, 'updateStatus'])->name('update.status');
+
+    // Prndaftaran akun siswa
+    Route::get('account_siswa', [RegistrasiAccountController::class, 'accountSiswa'])->name('account_siswa.index');
+    Route::post('save_register', [RegistrasiAccountController::class, 'saveRegister'])->name('store.register');
+    Route::get('show_account/{id}', [RegistrasiAccountController::class, 'accountShow'])->name('account.show');
+    Route::post('update_account', [RegistrasiAccountController::class, 'updateAccount'])->name('update.account');
+    Route::put('update_status_account/{id}/{status}', [RegistrasiAccountController::class, 'updateStatusAccount'])->name('update.status.account');
 });
 
 

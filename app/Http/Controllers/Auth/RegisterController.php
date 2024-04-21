@@ -109,7 +109,7 @@ class RegisterController extends Controller
         $user = $this->create($request->all());
 
         // Otentikasi pengguna setelah berhasil mendaftar
-        $this->guard()->login($user);
+        //$this->guard()->login($user);
 
         // Redirect pengguna ke halaman yang diinginkan setelah pendaftaran berhasil
         return redirect()->route('login');

@@ -76,10 +76,21 @@
       </a>
     </li>
 
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">Kelola User</span>
+    </li>
+
     <li class="menu-item {{\Route::is('registrasi.index') ? 'active' : ''}}">
       <a href="{{route('registrasi.index')}}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div data-i18n="Analytics">Registrasi Account</div>
+        <div data-i18n="Basic">User Account</div>
+      </a>
+    </li>
+
+    <li class="menu-item {{\Route::is('account_siswa.index') ? 'active' : ''}}">
+      <a href="{{route('account_siswa.index')}}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Basic">Siswa Account</div>
       </a>
     </li>
   </ul>
