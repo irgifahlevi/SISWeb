@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\Models\RegisterUser;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseHelpers;
+use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Exception;
-use PhpParser\Node\Stmt\TryCatch;
 
 class RegistrasiAccountController extends Controller
 {
@@ -32,28 +35,41 @@ class RegistrasiAccountController extends Controller
 
     public function updateStatus($id, $status)
     {
-        $data = RegisterUser::findOrFail($id);
-        if ($data->status == 'pending') {
-            $data->status = $status;
-            $data->updated_at = Carbon::now();
-            $data->save();
-            return response()->json([
-                'status' => 200,
-                'message' => 'Status berhasil diupdate'
-            ], 200);
-        }
+        try {
+            $data = RegisterUser::findOrFail($id);
+            if ($data->status == 'pending') {
+                DB::transaction(function () use ($data, $status) {
+                    $data->status = $status;
+                    $data->updated_at = Carbon::now();
+                    $data->save();
 
-        if ($data->status == $status) {
-            return response()->json([
-                'status' => 500,
-                'message' => 'Konfirmasi sudah dilakukan, tidak dapat di update kembali!'
-            ], 500);
-        }
+                    // generate random password
+                    $random_pass = Str::random(8);
+                    $active = 0;
+                    $wali_calon = 'wali_calon';
 
-        return response()->json([
-            'status' => 500,
-            'message' => 'Status sudah di update, tidak dapat di update kembali!'
-        ], 500);
+                    $user = new User();
+
+                    $user->username = $data->username;
+                    $user->email = $data->email;
+                    $user->password = Hash::make($random_pass);
+                    $user->created_by = Auth::user()->username;
+                    $user->row_status = $active;
+                    $user->role = $wali_calon;
+
+                    $user->save();
+                });
+
+                // method 3 parameter
+                $response = ResponseHelpers::SuccessResponse('Your record has been updated', '', 200);
+                return $response;
+            } else {
+                $errorMessage = $data->status == $status ? 'Confirmation has been done, it cannot be updated again!' : 'The status has been updated, it cannot be updated again!';
+                return ResponseHelpers::ErrorResponse($errorMessage, 500);
+            }
+        } catch (Exception $th) {
+            return ResponseHelpers::ErrorResponse('Internal server error, try again later!', 500);
+        }
     }
 
     public function accountSiswa(Request $request)
@@ -86,10 +102,7 @@ class RegistrasiAccountController extends Controller
         );
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->messages()
-            ], 400);
+            return ResponseHelpers::ErrorResponse($validator->messages(), 400);
         }
 
         try {
@@ -104,18 +117,11 @@ class RegistrasiAccountController extends Controller
             $user->role = $siswa;
 
             $user->save();
+
+            return ResponseHelpers::SuccessResponse('Your record has been created', '', 200);
         } catch (Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'message' => $e
-            ], 500);
+            return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
-
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Your record has been created'
-        ], 201);
     }
 
     public function accountShow($id)
@@ -124,16 +130,9 @@ class RegistrasiAccountController extends Controller
             $user = User::where('id', $id)
                 ->where('role', 'siswa')
                 ->firstOrFail();
-
-            return response()->json([
-                'status' => 200,
-                'data' => $user
-            ], 200);
+            return ResponseHelpers::SuccessResponse('', $user, 200);
         } catch (Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'message' => 'Internal Server Error',
-            ], 500);
+            return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }
 
@@ -148,10 +147,7 @@ class RegistrasiAccountController extends Controller
         );
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->messages()
-            ], 400);
+            return ResponseHelpers::ErrorResponse($validator->messages(), 400);
         }
 
         try {
@@ -165,21 +161,12 @@ class RegistrasiAccountController extends Controller
                 $user->username = $request->username;
                 $user->save();
 
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Your record has been updated'
-                ], 201);
+                return ResponseHelpers::SuccessResponse('Your record has been updated', '', 200);
             } else {
-                return response()->json([
-                    'status' => 500,
-                    'message' => 'Invalid status or no changes made'
-                ], 500);
+                return ResponseHelpers::ErrorResponse('Invalid status or no changes made', 500);
             }
         } catch (\Exception $ex) {
-            return response()->json([
-                'status' => 500,
-                'message' => 'Internal Server Error',
-            ], 500);
+            return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }
 
@@ -193,21 +180,12 @@ class RegistrasiAccountController extends Controller
                 $user->row_status = $status;
                 $user->save();
 
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Your record has been updated'
-                ], 201);
+                return ResponseHelpers::SuccessResponse('Your record has been updated', '', 200);
             } else {
-                return response()->json([
-                    'status' => 500,
-                    'message' => 'Invalid status or no changes made'
-                ], 500);
+                return ResponseHelpers::ErrorResponse('The status has been updated, it cannot be updated again!', 500);
             }
         } catch (Exception $ex) {
-            return response()->json([
-                'status' => 500,
-                'message' => 'Internal server error!'
-            ], 500);
+            return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }
 }

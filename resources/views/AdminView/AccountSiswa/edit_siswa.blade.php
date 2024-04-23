@@ -172,7 +172,7 @@
           error: function(response)
           {
             if(response.status == 400){
-              let errors = response.responseJSON.errors;
+              let errors = response.responseJSON.message;
               for (let key in errors) {
                 let errorMessage = errors[key].join(', ');
                 $('#' + key + '-errors').text(errorMessage);

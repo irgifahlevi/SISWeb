@@ -20,7 +20,7 @@
         </div>
           {{-- Tabel --}}
           <div class="card">
-            <h5 class="card-header">Data pendaftaran account login</h5>
+            <h5 class="card-header">Data account siswa</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
@@ -151,7 +151,7 @@
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Inactive'
+        confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.isConfirmed){
           $.ajax({
@@ -224,7 +224,7 @@
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Active'
+        confirmButtonText: 'Yes'
       }).then((result) => {
         console.log(result);
         if (result.isConfirmed){

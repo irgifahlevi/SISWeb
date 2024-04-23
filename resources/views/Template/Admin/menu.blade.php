@@ -82,15 +82,15 @@
 
     <li class="menu-item {{\Route::is('registrasi.index') ? 'active' : ''}}">
       <a href="{{route('registrasi.index')}}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div data-i18n="Basic">User Account</div>
+        <i class='menu-icon tf-icons bx bxs-user-account'></i>
+        <div data-i18n="Basic">Requested account</div>
       </a>
     </li>
 
     <li class="menu-item {{\Route::is('account_siswa.index') ? 'active' : ''}}">
       <a href="{{route('account_siswa.index')}}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div data-i18n="Basic">Siswa Account</div>
+        <i class="menu-icon tf-icons bx bxs-user-pin"></i>
+        <div data-i18n="Basic">Account siswa</div>
       </a>
     </li>
   </ul>
