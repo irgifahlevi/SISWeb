@@ -59,12 +59,12 @@
                           </button>
                           <div class="dropdown-menu">
                             <button class="dropdown-item" type="button" id="accept" data-id="{{$item->id}}">
-                              <i class="bx bx-edit-alt me-1"></i> 
+                              <i class='bx bxs-user-check me-1'></i>
                               Accept
                             </button>
                             <button class="dropdown-item" type="button" id="reject" data-id="{{$item->id}}">
-                              <i class="bx bx-trash me-1"></i> 
-                              Decline
+                              <i class='bx bxs-user-x me-1'></i>
+                              Reject
                             </button>
                           </div>
                         </div>
@@ -81,8 +81,10 @@
             </div>
           </div>
 
-          {{-- Modal edit data --}}
-         
+          {{-- Loading data--}}
+          <div id="loading-overlay" style="display: none;">
+            @include('Template.loading')
+          </div>
           
 
         {{-- Jika data banner kosong --}}
@@ -126,58 +128,67 @@
     var id = $(this).data('id');
     var status = 'decline';
 
-    Swal.fire({
-      customClass:{
-        container: 'my-swal',
-      },
-      title: 'Apa anda yakin?',
-      text: "Request akan di reject dan tidak dapat di ulangi kembali.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Reject'
-    }).then((result) => {
-      if (result.isConfirmed){
-        $.ajax({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          url: '{{ route('update.status', [':id', ':status']) }}'.replace(':id', id).replace(':status', status),
-          type: 'PUT',
-          success: function(response) {
-            if(response.status == 200){
-              Swal.fire({
-                customClass: {
-                  container: 'my-swal',
-                },
-                title: 'Rejected!',
-                text: `${response.message}`,
-                icon: 'success'
-              });
+    // loading 
+    $('#loading-overlay').show();
 
-              // Reload halaman
-              setTimeout(function(){
-                location.reload();
-              }, 600);
-            }
-          },
-          error: function(response){
-            if(response.status == 500){
-              var res = response;
-              Swal.fire({
-              customClass: {
-                container: 'my-swal',
-              },
-              title: `${res.statusText}`,
-              text: `${res.responseJSON.message}`,
-              icon: 'error'
+    setTimeout(() => {
+      Swal.fire({
+        customClass:{
+          container: 'my-swal',
+        },
+        title: 'Apa anda yakin!',
+        text: "Ingin mereject request ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed){
+          $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '{{ route('update.status', [':id', ':status']) }}'.replace(':id', id).replace(':status', status),
+            type: 'PUT',
+            success: function(response) {
+              if(response.status == 200){
+                $('#loading-overlay').hide();
+                Swal.fire({
+                  customClass: {
+                    container: 'my-swal',
+                  },
+                  title: 'Rejected!',
+                  text: `${response.message}`,
+                  icon: 'success'
+                });
+
+                // Reload halaman
+                setTimeout(function(){
+                  location.reload();
+                }, 800);
+              }
+            },
+            error: function(response){
+              if(response.status == 500){
+                var res = response;
+                $('#loading-overlay').hide();
+                Swal.fire({
+                    customClass: {
+                      container: 'my-swal',
+                    },
+                    title: `${res.statusText}`,
+                    text: `${res.responseJSON.message}`,
+                    icon: 'error'
+                });
+              }
+            },
           });
+        } else {
+          $('#loading-overlay').hide();
         }
-      },
-        });
-      }
-    });
+      });
+    }, 800);
   })
 
 
@@ -186,58 +197,67 @@
     var id = $(this).data('id');
     var status = 'accepted';
 
-    Swal.fire({
-      customClass:{
-        container: 'my-swal',
-      },
-      title: 'Apa anda yakin?',
-      text: "Request akan di approve dan tidak dapat di ulangi kembali.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Accepted'
-    }).then((result) => {
-      if (result.isConfirmed){
-        $.ajax({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          url: '{{ route('update.status', [':id', ':status']) }}'.replace(':id', id).replace(':status', status),
-          type: 'PUT',
-          success: function(response) {
-            if(response.status == 200){
-              Swal.fire({
-                customClass: {
-                  container: 'my-swal',
-                },
-                title: 'Accepted!',
-                text: `${response.message}`,
-                icon: 'success'
-              });
+    // loading 
+    $('#loading-overlay').show();
+    setTimeout(() => {
+      Swal.fire({
+        customClass:{
+          container: 'my-swal',
+        },
+        title: 'Apa anda yakin?',
+        text: "Ingin mengapprove request ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed){
+          $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '{{ route('update.status', [':id', ':status']) }}'.replace(':id', id).replace(':status', status),
+            type: 'PUT',
+            success: function(response) {
+              if(response.status == 200){
+                $('#loading-overlay').hide();
+                Swal.fire({
+                  customClass: {
+                    container: 'my-swal',
+                  },
+                  title: 'Accepted!',
+                  text: `${response.message}`,
+                  icon: 'success'
+                });
 
-              // Reload halaman
-              setTimeout(function(){
-                location.reload();
-              }, 600);
-            }
-          },
-          error: function(response){
-            if(response.status == 500){
-              var res = response;
-              Swal.fire({
-              customClass: {
-                container: 'my-swal',
-              },
-              title: `${res.statusText}`,
-              text: `${res.responseJSON.message}`,
-              icon: 'error'
+                // Reload halaman
+                setTimeout(function(){
+                  location.reload();
+                }, 800);
+              }
+            },
+            error: function(response){
+              if(response.status == 500){
+                var res = response;
+                $('#loading-overlay').hide();
+                Swal.fire({
+                  customClass: {
+                    container: 'my-swal',
+                  },
+                  title: `${res.statusText}`,
+                  text: `${res.responseJSON.message}`,
+                  icon: 'error'
+                });
+              }
+            },
           });
         }
-      },
-        });
-      }
+        else {
+          $('#loading-overlay').hide();
+        }
     });
+    }, 800);
   })
 </script>
 @endsection

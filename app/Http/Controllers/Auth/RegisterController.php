@@ -102,16 +102,13 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $validator = $this->validator($request->all());
-
-        $this->validator($request->all())->validate();
-
-        $user = $this->create($request->all());
-
-        // Otentikasi pengguna setelah berhasil mendaftar
-        //$this->guard()->login($user);
-
-        // Redirect pengguna ke halaman yang diinginkan setelah pendaftaran berhasil
-        return redirect()->route('login');
+        try {
+            $validator = $this->validator($request->all());
+            $this->validator($request->all())->validate();
+            $user = $this->create($request->all());
+            return redirect()->route('login')->with('message', 'Registrasi account berhasil diajukan, mohon tunggu beberapa menit');
+        } catch (\Throwable $th) {
+            return redirect()->back();
+        }
     }
 }

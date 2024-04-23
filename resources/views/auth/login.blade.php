@@ -1,6 +1,19 @@
 @extends('auth.template.master')
 
 @section('content')
+@if (session('message'))
+  <div class="bs-toast toast fade show position-absolute top-0 end-0 bg-primary mx-3 my-3" role="alert" aria-live="assertive" aria-atomic="true" >
+  <div class="toast-header">
+    <i class="bx bx-bell me-2"></i>
+    <div class="me-auto fw-semibold">Register notification</div>
+    <small>1 seccond ago</small>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div class="toast-body">
+    {{ session('message') }}
+  </div>
+</div>
+@endif
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
@@ -71,6 +84,12 @@
               <!-- /Logo -->
               <h4 class="mb-2">Login 🚀</h4>
               <p class="mb-4">Silahkan login dengan akun yang sudah disediakan!</p>
+
+              @if (session('error'))
+                  <div class="alert alert-danger">
+                      {{ session('error') }}
+                  </div>
+              @endif
 
                 <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('login') }}">
                     @csrf
