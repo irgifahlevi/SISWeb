@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
 
@@ -41,6 +42,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('show_account/{id}', [RegistrasiAccountController::class, 'accountShow'])->name('account.show');
     Route::post('update_account', [RegistrasiAccountController::class, 'updateAccount'])->name('update.account');
     Route::put('update_status_account/{id}/{status}', [RegistrasiAccountController::class, 'updateStatusAccount'])->name('update.status.account');
+
+    // Menu slider use resource
+    Route::resource('/slider-content', SliderController::class);
 });
 
 

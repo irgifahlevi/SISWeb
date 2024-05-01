@@ -74,20 +74,20 @@ class RegistrasiAccountController extends Controller
 
     public function accountSiswa(Request $request)
     {
-        $search_pendaftar_account = $request->query('search_pendaftar_account');
+        $search_account_siswa = $request->query('search_account_siswa');
 
         // Mulai dengan kueri dasar untuk mendapatkan semua akun siswa
         $query = User::where('role', 'siswa')->orderBy('id', 'desc');
 
         // Jika ada pencarian, tambahkan filter pencarian ke kueri
-        if (!empty($search_pendaftar_account)) {
-            $query->where('username', 'like', '%' . $search_pendaftar_account . '%');
+        if (!empty($search_account_siswa)) {
+            $query->where('username', 'like', '%' . $search_account_siswa . '%');
         }
 
         // Ambil data dengan paginasi
         $account_siswa = $query->paginate(5)->onEachSide(2)->fragment('siswa_account');
 
-        return view('AdminView.AccountSiswa.index', compact('account_siswa', 'search_pendaftar_account'));
+        return view('AdminView.AccountSiswa.index', compact('account_siswa', 'search_account_siswa'));
     }
 
     public function saveRegister(Request $request)

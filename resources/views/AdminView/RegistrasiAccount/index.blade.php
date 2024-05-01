@@ -140,8 +140,8 @@
         text: "Ingin mereject request ?",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#696cff',
+        cancelButtonColor: '#ff3e1d',
         confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.isConfirmed){
@@ -208,8 +208,8 @@
         text: "Ingin mengapprove request ?",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#696cff',
+        cancelButtonColor: '#ff3e1d',
         confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.isConfirmed){

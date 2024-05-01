@@ -1,36 +1,39 @@
-<div class="modal fade" id="add-account-siswa" tabindex="-1" role="dialog" aria-labelledby="modal-add-kategori" aria-hidden="true">
+<div class="modal fade" id="add-slider-modal" tabindex="-1" role="dialog" aria-labelledby="modal-add-kategori" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalCenterTitle">Register akun siswa</h5>
+        <h5 class="modal-title" id="modalCenterTitle">Tambah data</h5>
         <button type="button" class="btn-close close-modal-tambah" data-bs-dismiss="modal" aria-label="Close" ></button>
       </div>
-      <form id="form-register" enctype="multipart/form-data">
+      <form id="form-add-slider" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="row">
             <div class="col mb-3">
-              <label class="form-label">Username<span class="text-danger">*</span></label>
-              <input type="text" class="form-control" name="username" id="username"/>
-              <small class="text-danger mt-2 error-message" id="username-error"></small>
+              <label class="form-label">Title<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="title" id="title"/>
+              <small class="text-danger mt-2 error-message" id="title-error"></small>
             </div>
           </div>
           <div class="row">
             <div class="col mb-3">
-              <label class="form-label">Email<span class="text-danger">*</span></label>
-              <input type="email" class="form-control" name="email" id="email"></input>
-              <small class="text-danger mt-2 error-message" id="email-error"></small>
+              <label class="form-label">Deskripsi</label>
+              <textarea class="form-control" name="deskripsi" id="deskripsi"></textarea>
+              <small class="text-danger mt-2 error-message" id="deskripsi-error"></small>
             </div>
           </div>
           <div class="row">
             <div class="col mb-3">
-              <label class="form-label">Password<span class="text-danger">*</span></label>
-              <input type="password" class="form-control" name="password" id="password"></input>
-              <small class="text-danger mt-2 error-message" id="password-error"></small>
+              <label class="form-label">Gambar<span class="text-danger">*</span></label>
+              <div class="input-group">
+                <input type="file" class="form-control" name="gambar" id="gambar" />
+                <label class="input-group-text">Upload</label>
+              </div>
+              <small class="text-danger mt-2 error-message" id="gambar-error"></small>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
       </form>
     </div>
@@ -40,59 +43,42 @@
 
 @section('scripts')
     <script>
-      $('body').on('click', '#add-siswa', function () {
+      $('body').on('click', '#add-slider', function () {
         //open modal
         $('#loading-overlay').show();
         setTimeout(() => {
           $('#loading-overlay').hide();
-          $('#add-account-siswa').modal('show');
+          $('#add-slider-modal').modal('show');
         }, 800);
       });
 
       // Simpan data
       $(document).ready(function(){
-        $('#form-register').on('submit', function(e){
+        $('#form-add-slider').on('submit', function(e){
           e.preventDefault();
           // console.log('test');
 
-          $('#username').on('input', function() {
-            if ($(this).val() !== '') {
-              $('#username-error').text('');
-            }
-          });
-          $('#username').on('input', function() {
+          $('#title').on('input', function() {
             const inputVal = $(this).val();
             const maxLength = 255;
-              if (inputVal.length <= maxLength) {
-                  $('#username-error').text('');
-              }
-          });
-
-          $('#email').on('input', function() {
-            if ($(this).val() !== '') {
-              $('#email-error').text('');
+            if (inputVal !== '' || inputVal <= maxLength) {
+              $('#title-error').text('');
             }
           });
-          $('#email').on('input', function() {
+
+          $('#deskripsi').on('input', function() {
             const inputVal = $(this).val();
             const maxLength = 255;
-              if (inputVal.length <= maxLength) {
-                  $('#email-error').text('');
-              }
+            if (inputVal !== '' || inputVal.length <= maxLength) {
+              $('#deskripsi-error').text('');
+            }
           });
 
-
-          $('#password').on('input', function() {
-              if ($(this).val() !== '') {
-                  $('#password-error').text('');
-              }
-          });
-          $('#password').on('input', function() {
+          $('#gambar').on('change', function(){
             const inputVal = $(this).val();
-            const maxLength = 500;
-              if (inputVal.length <= maxLength) {
-                  $('#password-error').text('');
-              }
+            if(inputVal !== ''){
+              $('#gambar-error').text('');
+            }
           });
           
           var formData = new FormData(this);
@@ -113,7 +99,7 @@
           setTimeout(() => {
             $.ajax({
               type: 'POST',
-              url: '{{route('store.register')}}',
+              url: '{{route('slider-content.store')}}',
               data: formData,
               dataType: 'json',
               processData: false,
@@ -124,8 +110,8 @@
                     
                     // Tutup modal add banner dan kosongkan form
                     $('#loading-overlay').hide();
-                    $('#add-account-siswa').modal('hide');
-                    $('#form-register')[0].reset();
+                    $('#add-slider-modal').modal('hide');
+                    $('#form-add-slider')[0].reset();
 
                     Swal.fire({
                       customClass: {
@@ -156,8 +142,8 @@
                   //console.log(res);
                   
                   $('#loading-overlay').hide();
-                  $('#add-account-siswa').modal('hide');
-                  $('#form-register')[0].reset();
+                  $('#add-slider-modal').modal('hide');
+                  $('#form-add-slider')[0].reset();
 
                   Swal.fire({
                     customClass: {
@@ -181,13 +167,13 @@
         // Menambahkan event listener pada tombol close
         $('.close-modal-tambah').on('click', function (e) {
           $('.error-message').text(''); // Menghapus pesan error
-          $('#form-register')[0].reset(); // Mereset form
+          $('#form-add-slider')[0].reset(); // Mereset form
         });
         
         // Menambahkan event listener pada modal
-        $('#add-account-siswa').on('hidden.bs.modal', function (e) {
+        $('#add-slider-modal').on('hidden.bs.modal', function (e) {
           $('.error-message').text(''); // Menghapus pesan error
-          $('#form-register')[0].reset(); // Mereset form
+          $('#form-add-slider')[0].reset(); // Mereset form
         });
       });
     </script>
