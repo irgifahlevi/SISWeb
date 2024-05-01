@@ -1,75 +1,67 @@
 @extends('Template.Admin.master_admin')
 @section('content')
-@include('AdminView.AccountSiswa.search')
+@include('AdminView.SliderContent.search')
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row justify-content-center">
       <div class="col-md-12">
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
-        @if (count($account_siswa) > 0)
+        @if (count($slider) > 0)
 
         <div class="mb-3">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" id="add-siswa" >
-            Tambah data akun siswa
+          <button type="button" class="btn btn-primary" id="add-slider" >
+            Tambah slider baru
           </button>
 
           <!-- Modal tambah data -->
-          @include('AdminView.AccountSiswa.add_siswa')
+          @include('AdminView.SliderContent.add_slider')
         </div>
           {{-- Tabel --}}
           <div class="card">
-            <h5 class="card-header">Daftar akun siswa</h5>
+            <h5 class="card-header">Data slider konten</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Username</th>
-                      <th>Email</th>
-                      <th>Status</th>
-                      <th>Role</th>
-                      <th>Created By</th>
+                      <th>Title</th>
+                      <th>Deskripsi</th>
+                      <th>Gambar</th>
+                      <th>Waktu update</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     @php
-                        $nomor = 1 + (($account_siswa->currentPage() - 1) * $account_siswa->perPage());
+                        $nomor = 1 + (($slider->currentPage() - 1) * $slider->perPage());
                     @endphp
-                    @foreach($account_siswa as $item)
+                    @foreach($slider as $item)
                     <tr>
                       <td>{{$nomor++}}</td>
-                      <td>{{ $item->username }}</td>
-                      <td>{{ $item->email }}</td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->title }}</span></td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->deskripsi }}</span></td>
                       <td>
-                        @if ($item->row_status == '0')
-                          <span class="badge bg-success">Active</span>
-                        @elseif($item->row_status == '-1')
-                          <span class="badge bg-primary">Inactive</span>
-                        @endif
+                        <div class="align-items-center">
+                          <img src="{{ asset('storage/slider/' . $item->gambar) }}" alt="{{ $item->gambar }}" class="w-px-40 h-auto rounded-circle" />
+                        </div>
                       </td>
-                      <td>{{ $item->role }}</td>
-                      <td>{{ $item->created_by }}</td>
+                      <td>{{ $item->updated_at }}</td>
                       <td>
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                             <i class="bx bx-dots-vertical-rounded"></i>
                           </button>
                           <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" id="edit-siswa-modal" data-id="{{$item->id}}">
+                            <button class="dropdown-item" type="button" id="edit-slider" data-id="{{$item->id}}">
                               <i class="bx bx-edit-alt me-1"></i> 
-                              Edit
+                              Ubah
                             </button>
-                            <button class="dropdown-item" type="button" id="active" data-id="{{$item->id}}">
-                              <i class='bx bx-refresh me-1'></i>
-                              Active
-                            </button>
-                            <button class="dropdown-item" type="button" id="inactive" data-id="{{$item->id}}">
-                              <i class='bx bx-refresh me-1'></i>
-                              Inactive
+                            <button class="dropdown-item" type="button" id="hapus-data" data-id="{{$item->id}}">
+                              <i class='bx bx-trash me-1'></i>
+                              Hapus
                             </button>
                           </div>
                         </div>
@@ -80,7 +72,7 @@
                 </table>
                 <div class="mt-3">
                   <!-- {{-- {{ $dataBarang->links() }} --}} -->
-                  {!! $account_siswa->appends(Request::except('page'))->render() !!}
+                  {!! $slider->appends(Request::except('page'))->render() !!}
                 </div>
               </div>
             </div>
@@ -90,7 +82,7 @@
             @include('Template.loading')
           </div>
           {{-- Modal edit data --}}
-          @include('AdminView.AccountSiswa.edit_siswa')
+          @include('AdminView.SliderContent.edit_slider')
           
         
         {{-- Jika data banner kosong --}}
@@ -99,8 +91,8 @@
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
                 <div class="card-body">
-                  <h5 class="card-title text-primary">Belum ada memiliki daftar akun siswa! 😞</h5>
-                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-siswa">Tambah akun siswa</button>
+                  <h5 class="card-title text-primary">Belum ada data slider! 😞</h5>
+                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-slider">Tambah data sekarang</button>
                 </div>
               </div>
               <div class="col-sm-5 text-center text-sm-left">
@@ -116,7 +108,7 @@
               </div>
             </div>
           </div>
-          @include('AdminView.AccountSiswa.add_siswa')
+          @include('AdminView.SliderContent.add_slider')
         @endif
       </div>
     </div>
@@ -129,11 +121,8 @@
 
 
 <script>
-
-  $('body').on('click', '#inactive', function(){
+    $('body').on('click', '#hapus-data', function(){
     var id = $(this).data('id');
-    var status = '-1';
-
     // loading 
     $('#loading-overlay').show();
 
@@ -143,7 +132,7 @@
           container: 'my-swal',
         },
         title: 'Apa anda yakin!',
-        text: "Ingin menonaktifkan account ?",
+        text: "Ingin menghapus data ?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#696cff',
@@ -155,8 +144,8 @@
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '{{ route('update.status.account', [':id', ':status']) }}'.replace(':id', id).replace(':status', status),
-            type: 'PUT',
+            url: '{{ route('slider-content.destroy', [':id']) }}'.replace(':id', id),
+            type: 'DELETE',
             success: function(response) {
               if(response.status == 200){
 
@@ -165,7 +154,7 @@
                   customClass: {
                     container: 'my-swal',
                   },
-                  title: 'Inactived!',
+                  title: 'Deleted!',
                   text: `${response.message}`,
                   icon: 'success'
                 });
@@ -198,79 +187,6 @@
       });
 
       //$('#loading-overlay').hide();
-    }, 800);
-  })
-
-
-
-  $('body').on('click', '#active', function(){
-    var id = $(this).data('id');
-    var status = '0';
-
-    // loading 
-    $('#loading-overlay').show();
-
-    setTimeout(() => {
-      Swal.fire({
-        customClass:{
-          container: 'my-swal',
-        },
-        title: 'Apa anda yakin!',
-        text: "Ingin mengaktifkan account ?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#696cff',
-        cancelButtonColor: '#ff3e1d',
-        confirmButtonText: 'Yes'
-      }).then((result) => {
-        console.log(result);
-        if (result.isConfirmed){
-          $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '{{ route('update.status.account', [':id', ':status']) }}'.replace(':id', id).replace(':status', status),
-            type: 'PUT',
-            success: function(response) {
-              if(response.status == 200){
-
-                $('#loading-overlay').hide();
-                Swal.fire({
-                  customClass: {
-                    container: 'my-swal',
-                  },
-                  title: 'Activated!',
-                  text: `${response.message}`,
-                  icon: 'success'
-                });
-
-                // Reload halaman
-                setTimeout(function(){
-                  location.reload();
-                }, 800);
-              }
-            },
-            error: function(response){
-              if(response.status == 500){
-                $('#loading-overlay').hide();
-                var res = response;
-                Swal.fire({
-                  customClass: {
-                    container: 'my-swal',
-                  },
-                  title: `${res.statusText}`,
-                  text: `${res.responseJSON.message}`,
-                  icon: 'error'
-                });
-              }
-            },
-          });
-        } else {
-          $('#loading-overlay').hide();
-        }
-      });
-
-
     }, 800);
   })
 </script>
