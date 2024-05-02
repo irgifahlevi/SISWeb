@@ -105,9 +105,9 @@
             <div data-i18n="Accordion">Slider</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="ui-alerts.html" class="menu-link">
-            <div data-i18n="Alerts">Alerts</div>
+        <li class="menu-item {{\Route::is('ekskul-content.index') ? 'active' : ''}}">
+          <a href="{{route('ekskul-content.index')}}" class="menu-link">
+            <div data-i18n="Alerts">Ekstrakurikuler</div>
           </a>
         </li>
         <li class="menu-item">
