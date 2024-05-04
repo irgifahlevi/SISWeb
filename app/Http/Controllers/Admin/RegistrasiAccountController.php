@@ -12,8 +12,10 @@ use App\Helpers\ResponseHelpers;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Mail\RegisterEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class RegistrasiAccountController extends Controller
@@ -58,6 +60,14 @@ class RegistrasiAccountController extends Controller
                     $user->role = $wali_calon;
 
                     $user->save();
+
+                    $mail_data = [
+                        'to' => $user->username,
+                        'email' => $user->email,
+                        'password' => $random_pass,
+                    ];
+
+                    Mail::to($user->email)->send(new RegisterEmail($mail_data));
                 });
 
                 // method 3 parameter
