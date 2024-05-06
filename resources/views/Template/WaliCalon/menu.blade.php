@@ -75,5 +75,16 @@
         <div data-i18n="Analytics">Dashboard</div>
       </a>
     </li>
+
+    @auth
+        @if(auth()->user()->WaliCalon)
+          <li class="menu-item {{\Route::is('wali-profile.index') ? 'active' : ''}}">
+            <a href="{{route('wali-profile.index')}}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <div data-i18n="Analytics">My Profile</div>
+            </a>
+          </li>
+        @endif
+    @endauth
   </ul>
 </aside>

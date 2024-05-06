@@ -46,6 +46,7 @@
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> --}}
+    <script src="{{asset('Template/js/jquery.mask.min.js')}}"></script>
     <style>
   
       .my-swal {
@@ -104,5 +105,15 @@
       .spinner-border {
         width: 3rem;
         height: 3rem;
+      }
+
+      .detail-card-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .detail-card-label {
+          width: 150px;
       }
     </style>

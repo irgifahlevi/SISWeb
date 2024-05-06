@@ -32,7 +32,8 @@
         },
         "files": [
             "app/Helpers/ResponseHelpers.php",
-            "app/Helpers/GeneralHelpers.php"
+            "app/Helpers/GeneralHelpers.php",
+            "app/Helpers/RupiahHelpers.php"
         ]
     },
     "autoload-dev": {

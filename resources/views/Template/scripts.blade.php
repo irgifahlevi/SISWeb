@@ -17,9 +17,12 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
     <script>
       $(document).ready(function () {
         $('#loading-overlay').hide();
+        $('.rupiah').mask("#.##0", {reverse: true});
+        $('.phone').mask('000-0000-000000');
       });
     </script>

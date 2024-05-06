@@ -36,4 +36,14 @@ class GeneralHelpers
   {
     $model->row_status = -1;
   }
+
+  public static function setRoleWali($model)
+  {
+    $model->role = "wali_calon";
+  }
+
+  public static function setRoleSiswa($model)
+  {
+    $model->role = "siswa";
+  }
 }
