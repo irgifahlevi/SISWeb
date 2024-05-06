@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Admin;
 use Exception;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Mail\RegisterEmail;
 use Illuminate\Support\Str;
 use App\Models\RegisterUser;
 use Illuminate\Http\Request;
+use App\Helpers\GeneralHelpers;
 use App\Helpers\ResponseHelpers;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Mail\RegisterEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -47,17 +48,16 @@ class RegistrasiAccountController extends Controller
 
                     // generate random password
                     $random_pass = Str::random(8);
-                    $active = 0;
-                    $wali_calon = 'wali_calon';
-
                     $user = new User();
 
                     $user->username = $data->username;
                     $user->email = $data->email;
                     $user->password = Hash::make($random_pass);
-                    $user->created_by = Auth::user()->username;
-                    $user->row_status = $active;
-                    $user->role = $wali_calon;
+                    GeneralHelpers::setCreatedBy($user);
+                    GeneralHelpers::setCreatedAt($user);
+                    GeneralHelpers::setUpdatedAtNull($user);
+                    GeneralHelpers::setRowStatusActive($user);
+                    GeneralHelpers::setRoleWali($user);
 
                     $user->save();
 
@@ -117,14 +117,14 @@ class RegistrasiAccountController extends Controller
 
         try {
             $user = new User();
-            $active = 0;
-            $siswa = 'siswa';
             $user->username = $request->username;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
-            $user->created_by = Auth::user()->username;
-            $user->row_status = $active;
-            $user->role = $siswa;
+            GeneralHelpers::setCreatedBy($user);
+            GeneralHelpers::setCreatedAt($user);
+            GeneralHelpers::setUpdatedAtNull($user);
+            GeneralHelpers::setRowStatusActive($user);
+            GeneralHelpers::setRoleSiswa($user);
 
             $user->save();
 

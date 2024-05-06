@@ -9,4 +9,9 @@ class JenisKelamin extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+    public function WaliCalon()
+    {
+        return $this->hasOne(WaliCalonSiswa::class, 'jenis_kelamin_id', 'id');
+    }
 }

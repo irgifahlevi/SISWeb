@@ -3,10 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BiayaPendaftaranController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
+use App\Http\Controllers\Admin\JenisKelaminController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
+use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
 
 /*
@@ -32,6 +35,9 @@ Auth::routes();
 /*
  For role admin
 */
+
+Route::get('jenis-kelamin', [JenisKelaminController::class, 'getKelamin'])->name('data.jenis.kelamin');
+
 Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('beranda', [AdminController::class, 'index'])->name('admin.index');
     Route::get('pendaftar_account', [RegistrasiAccountController::class, 'index'])->name('registrasi.index');
@@ -49,6 +55,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Menu ekskul use resource
     Route::resource('/ekskul-content', EkstrakurikulerController::class);
+
+    // Menu pedaftaran
+    Route::resource('biaya-pendaftaran', BiayaPendaftaranController::class);
 });
 
 
@@ -57,6 +66,12 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 */
 Route::prefix('wali_calon')->middleware(['auth', 'auth.wali_calon'])->group(function () {
     Route::get('beranda', [WaliCalonSiswaController::class, 'index'])->name('wali.index');
+
+    // Profile wali
+    Route::resource('wali-profile', ProfileWaliController::class);
+
+    // Update password
+    Route::put('update_password_wali/{id}', [WaliCalonSiswaController::class, 'updatePassword'])->name('wali.update.passwords');
 });
 
 
