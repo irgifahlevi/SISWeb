@@ -16,33 +16,45 @@
                 <div class="mb-3 table-responsive text-nowrap">
                   <table class="table table-bordered">
                     <thead>
-                      <tr>
-                        <th>No urut.</th>
-                        <th>Pembayaran</th>
-                        <th>Biaya</th>
-                        <th>Gelombang</th>
-                      </tr>
+                        <tr>
+                            <th>No urut.</th>
+                            <th>Kode pembayaran</th>
+                            <th>Pembayaran</th>
+                            <th>Biaya</th>
+                            <th>Gelombang</th>
+                        </tr>
                     </thead>
                     <tbody>
-                      @php
-                          $nomor = 1;
-                      @endphp
-                      @foreach($list_biaya as $item)
-                      <tr>
-                        <td>{{$nomor++}}</td>
-                        <td>{{ $item->nama_biaya }}</td>
-                        <td>{{ formatRupiah($item->nominal_biaya) }}</td>
-                        <td>
-                          @if ($item->InfoPendaftarans)
-                              {{ formatGelombang($item->InfoPendaftarans->gelombang) }}
-                          @else
-                              N/A
-                          @endif
-                      </td>
-                      </tr>
-                      @endforeach
+                        @php
+                            $nomor = 1;
+                            $totalBiaya = 0;
+                        @endphp
+                        @foreach($list_biaya as $item)
+                        <tr>
+                            <td>{{ $nomor++ }}</td>
+                            <td>{{ $item->kode_biaya }}</td>
+                            <td>{{ $item->nama_biaya }}</td>
+                            <td>{{ formatRupiah($item->nominal_biaya) }}</td>
+                            <td>
+                                @if ($item->InfoPendaftarans)
+                                    {{ formatGelombang($item->InfoPendaftarans->gelombang) }}
+                                @else
+                                    N/A
+                                @endif
+                            </td>
+                        </tr>
+                        @php
+                            $totalBiaya += $item->nominal_biaya;
+                        @endphp
+                        @endforeach
+                        <tr>
+                            <td colspan="3"></td>
+                            <td><strong>Total : </strong></td>
+                            <td>{{ formatRupiah($totalBiaya) }}</td>
+                        </tr>
                     </tbody>
-                  </table>
+                </table>
+                
                 </div>
                 @if(count($list_biaya) > 0)
                 <button type="submit" class="btn btn-success deactivate-account" id="form-data-siswa" data-id="{{$info_pendaftaran_id}}">Daftar sekarang</button>

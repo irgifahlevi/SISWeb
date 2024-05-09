@@ -10,6 +10,7 @@ use App\Helpers\GeneralHelpers;
 use App\Helpers\ResponseHelpers;
 use App\Models\BiayaPendaftaran;
 use App\Http\Controllers\Controller;
+use App\Models\ConfigTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -21,14 +22,20 @@ class WaliCalonSiswaController extends Controller
         // Mendapatkan ID pengguna yang sedang login
         $userId = Auth::id();
 
+        // Mendapatkan config pendaftaran
+        $config = ConfigTable::where('key', 'gelombang')
+            ->where('row_status', 0)->first();
+
         // Mengambil satu data wali calon siswa berdasarkan ID pengguna yang sedang login
         $data = WaliCalonSiswa::whereHas('Users', function ($query) use ($userId) {
             $query->where('id', $userId);
         })->first();
 
-        $list_biaya = BiayaPendaftaran::whereHas('InfoPendaftarans', function ($query) {
-            $query->where('row_status', 0);
-        })->get();
+        $list_biaya = BiayaPendaftaran::where('row_status', 0)
+            ->whereHas('InfoPendaftarans', function ($query) use ($config) {
+                $query->where('gelombang', $config->query_code);
+                $query->where('row_status', 0);
+            })->get();
 
         // Cek apakah ada data yang dimuat
         if ($list_biaya->isNotEmpty() && $list_biaya->first()->InfoPendaftarans) {

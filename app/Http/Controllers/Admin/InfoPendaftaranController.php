@@ -7,31 +7,31 @@ use Illuminate\Http\Request;
 use App\Helpers\GeneralHelpers;
 use App\Models\InfoPendaftaran;
 use App\Helpers\ResponseHelpers;
-use App\Models\BiayaPendaftaran;
 use App\Http\Controllers\Controller;
+use App\Models\ConfigTable;
 use Illuminate\Support\Facades\Validator;
 
-class BiayaPendaftaranController extends Controller
+class InfoPendaftaranController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $search_biaya = $request->query('search_biaya');
+        $search_info = $request->query('search_info');
 
-        $query = BiayaPendaftaran::where('row_status', 0)
-            ->whereHas('InfoPendaftarans', function ($query) {
-                $query->where('row_status', 0);
-            });
+        $query = InfoPendaftaran::where('row_status', '0')->orderBy('id', 'desc');
 
-        if (!empty($search_biaya)) {
-            $query->where('nama_biaya', 'like', '%' . $search_biaya . '%');
+        if (!empty($search_info)) {
+            $query->where('deskripsi', 'like', '%' . $search_info . '%');
         }
 
-        $biaya_pendaftaran = $query->paginate(5)->onEachSide(2)->fragment('list_biaya_content');
+        $info_pendaftaran = $query->paginate(5)->onEachSide(2)->fragment('info_pendaftaran');
 
-        return view('AdminView.InfoBiaya.index', compact('biaya_pendaftaran', 'search_biaya'));
+        $key_id = ConfigTable::where('key', 'gelombang')
+            ->where('row_status', 0)->first();
+
+        return view('AdminView.InfoPendaftaran.index', compact('info_pendaftaran', 'search_info', 'key_id'));
     }
 
     /**
@@ -47,15 +47,17 @@ class BiayaPendaftaranController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge(['nominal_biaya' => str_replace('.', '', $request->nominal_biaya)]);
-
-        // Validasi input
         $validator = Validator::make(
             $request->all(),
             [
-                'nama_biaya' => 'required|max:100',
-                'nominal_biaya' => 'required|numeric',
-                'info_pendaftaran_id' => 'required|exists:info_pendaftarans,id',
+                'gelombang' => ['required', 'in:I,II,III,IV,V', function ($attribute, $value, $fail) use ($request) {
+                    $existingGelombang = InfoPendaftaran::where('gelombang', $value)->exists();
+                    if ($existingGelombang) {
+                        $fail('The ' . $attribute . ' has already been taken.');
+                    }
+                }],
+                'status' => 'required|in:active,inactive',
+                'deskripsi' => 'nullable|max:100',
             ]
         );
 
@@ -65,16 +67,16 @@ class BiayaPendaftaranController extends Controller
 
         try {
 
-            $data = new BiayaPendaftaran();
+            $data = new InfoPendaftaran();
 
             $lastData = $data::latest('id')->first();
             $lastDataId = $lastData ? $lastData->id : 0;
-            $kodeGelombang = 'GEL-' . strtoupper(substr($request->nama_biaya, 0, 2)) . '-' . str_pad($lastDataId + 1, 3, '0', STR_PAD_LEFT);
+            $kodeGelombang = 'GEL-' . strtoupper(substr($request->deskripsi, 0, 2)) . '-' . str_pad($lastDataId + 1, 3, '0', STR_PAD_LEFT);
 
-            $data->kode_biaya = $kodeGelombang;
-            $data->nama_biaya = $request->nama_biaya;
-            $data->nominal_biaya = $request->nominal_biaya;
-            $data->info_pendaftaran_id = $request->info_pendaftaran_id;
+            $data->kode_gelombang = $kodeGelombang;
+            $data->gelombang = $request->gelombang;
+            $data->status = $request->status;
+            $data->deskripsi = $request->deskripsi;
 
             GeneralHelpers::setCreatedAt($data);
             GeneralHelpers::setCreatedBy($data);
@@ -95,7 +97,7 @@ class BiayaPendaftaranController extends Controller
     public function show(string $id)
     {
         try {
-            $data = BiayaPendaftaran::where('id', $id)
+            $data = InfoPendaftaran::where('id', $id)
                 ->where('row_status', '0')
                 ->firstOrFail();
             return ResponseHelpers::SuccessResponse('', $data, 200);
@@ -120,9 +122,8 @@ class BiayaPendaftaranController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'nama_biaya' => 'required|max:100',
-                'nominal_biaya' => 'required|numeric',
-                'info_pendaftaran_id' => 'required|exists:info_pendaftarans,id',
+                'status' => 'required|in:active,inactive',
+                'deskripsi' => 'nullable|max:100',
             ]
         );
 
@@ -132,13 +133,12 @@ class BiayaPendaftaranController extends Controller
 
         try {
             if ($id == $request->id) {
-                $data = BiayaPendaftaran::where('id', $id)
+                $data = InfoPendaftaran::where('id', $id)
                     ->where('row_status', '0')
                     ->firstOrFail();
 
-                $data->nama_biaya = $request->nama_biaya;
-                $data->nominal_biaya = $request->nominal_biaya;
-                $data->info_pendaftaran_id = $request->info_pendaftaran_id;
+                $data->status = $request->status;
+                $data->deskripsi = $request->deskripsi;
                 GeneralHelpers::setUpdatedAt($data);
                 $data->save();
 
@@ -156,15 +156,15 @@ class BiayaPendaftaranController extends Controller
      */
     public function destroy(string $id)
     {
-        try {
-            $ekskul = BiayaPendaftaran::where('id', $id)
-                ->where('row_status', '0')
-                ->firstOrFail();
-            GeneralHelpers::setRowStatusInActive($ekskul);
-            $ekskul->save();
-            return ResponseHelpers::SuccessResponse('Your record has been deleted', '', 200);
-        } catch (Exception $th) {
-            return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
-        }
+        //
+    }
+
+    public function getInfo()
+    {
+        $data = InfoPendaftaran::where('row_status', '0')
+            ->where('status', 'active')
+            ->orderBy('id', 'desc')
+            ->get();
+        return ResponseHelpers::SuccessResponse('', $data, 200);
     }
 }

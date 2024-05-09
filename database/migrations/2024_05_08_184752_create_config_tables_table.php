@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('biaya_pendaftarans', function (Blueprint $table) {
+        Schema::create('config_tables', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_biaya');
-            $table->string('nama_biaya');
-            $table->integer('nominal_biaya');
-            $table->unsignedBigInteger('info_pendaftaran_id');
+            $table->string('query_code');
+            $table->string('config_name');
+            $table->string('key');
             $table->string('created_by')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
             $table->tinyInteger('row_status');
-
-            $table->foreign('info_pendaftaran_id')->references('id')->on('info_pendaftarans')->onDelete('cascade');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('biaya_pendaftarans');
+        Schema::dropIfExists('config_tables');
     }
 };

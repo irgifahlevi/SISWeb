@@ -90,9 +90,7 @@
 <script>
   $('body').on('click', `#form-data-siswa`, function () {
     var id = $(this).data('id'); // menangkap ID dari data attribute 'data-id'
-    //id = 1;
-
-    console.log(id);
+    // console.log(id);
     // kosongkan form
     $('#form-register')[0].reset();
     // tampilkan spinner

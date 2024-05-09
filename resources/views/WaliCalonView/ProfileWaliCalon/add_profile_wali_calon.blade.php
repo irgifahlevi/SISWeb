@@ -100,7 +100,7 @@
             success: function(response) {
               // console.log(response);
               if(response.status == 200) {
-                console.log(response);
+
                 var jenisKelamin = '<option value="">Pilih jenis kelamin</option>';
                 $.each(response.data, function(index, kel) {
                   jenisKelamin += '<option value="' + kel.id + '">' + kel.jenis_kelamin + '</option>';
