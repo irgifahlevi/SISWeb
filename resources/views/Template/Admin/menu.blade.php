@@ -204,14 +204,15 @@
             <div data-i18n="Accordion">Slider</div>
           </a>
         </li>
-        <li class="menu-item {{\Route::is('ekskul-content.index') ? 'active' : ''}}">
+        <li class="menu-item {{\Route::is('konten-berita.index') ? 'active' : ''}}">
           <a href="{{route('ekskul-content.index')}}" class="menu-link">
             <div data-i18n="Alerts">Ekstrakurikuler</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="ui-badges.html" class="menu-link">
-            <div data-i18n="Badges">Badges</div>
+        
+        <li class="menu-item {{\Route::is('konten-berita.index') ? 'active' : ''}}">
+          <a href="{{route('konten-berita.index')}}" class="menu-link">
+            <div data-i18n="Alerts">Berita</div>
           </a>
         </li>
         <li class="menu-item">

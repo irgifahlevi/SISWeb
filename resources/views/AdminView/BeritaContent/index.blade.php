@@ -1,6 +1,6 @@
 @extends('Template.Admin.master_admin')
 @section('content')
-@include('AdminView.SliderContent.search')
+@include('AdminView.BeritaContent.search')
 <div id="loading-overlay" style="display: none;">
   @include('Template.loading')
 </div>
@@ -10,55 +10,61 @@
       <div class="col-md-12">
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
-        @if (count($slider) > 0)
+        @if (count($berita) > 0)
 
         <div class="mb-3">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" id="add-slider" >
-            Tambah slider baru
+          <button type="button" class="btn btn-primary" id="add-berita" >
+            Tambah data
           </button>
 
           <!-- Modal tambah data -->
-          @include('AdminView.SliderContent.add_slider')
+          @include('AdminView.BeritaContent.add_berita')
         </div>
           {{-- Tabel --}}
           <div class="card">
-            <h5 class="card-header">Data slider konten</h5>
+            <h5 class="card-header">Data berita konten</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th>No.</th>
+                      <th>Judul</th>
                       <th>Title</th>
-                      <th>Deskripsi</th>
+                      <th>Kategori</th>
                       <th>Gambar</th>
+                      <th>Deskripsi</th>
                       <th>Waktu update</th>
+                      <th>Dibuat</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     @php
-                        $nomor = 1 + (($slider->currentPage() - 1) * $slider->perPage());
+                        $nomor = 1 + (($berita->currentPage() - 1) * $berita->perPage());
                     @endphp
-                    @foreach($slider as $item)
+                    @foreach($berita as $item)
                     <tr>
                       <td>{{$nomor++}}</td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->judul }}</span></td>
                       <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->title }}</span></td>
-                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->deskripsi }}</span></td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->kategori }}</span></td>
                       <td>
                         <div class="align-items-center">
-                          <img src="{{ asset('storage/slider/' . $item->gambar) }}" alt="{{ $item->gambar }}" class="w-px-40 h-auto rounded-circle" />
+                          <img src="{{ asset('storage/berita/' . $item->gambar) }}" alt="{{ $item->gambar }}" class="w-px-40 h-auto rounded-circle" />
                         </div>
                       </td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->deskripsi }}</span></td>
                       <td>{{ $item->updated_at }}</td>
+                      <td>{{ $item->created_by }}</td>
                       <td>
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                             <i class="bx bx-dots-vertical-rounded"></i>
                           </button>
                           <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" id="edit-slider" data-id="{{$item->id}}">
+                            <button class="dropdown-item" type="button" id="edit-berita" data-id="{{$item->id}}">
                               <i class="bx bx-edit-alt me-1"></i> 
                               Ubah
                             </button>
@@ -75,14 +81,15 @@
                 </table>
                 <div class="mt-3">
                   <!-- {{-- {{ $dataBarang->links() }} --}} -->
-                  {!! $slider->appends(Request::except('page'))->render() !!}
+                  {!! $berita->appends(Request::except('page'))->render() !!}
                 </div>
               </div>
             </div>
           </div>
 
+          
           {{-- Modal edit data --}}
-          @include('AdminView.SliderContent.edit_slider')
+          @include('AdminView.BeritaContent.edit_berita')
           
         
         {{-- Jika data banner kosong --}}
@@ -91,8 +98,8 @@
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
                 <div class="card-body">
-                  <h5 class="card-title text-primary">Belum ada data slider! 😞</h5>
-                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-slider">Tambah data sekarang</button>
+                  <h5 class="card-title text-primary">Belum ada data berita! 😞</h5>
+                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-berita">Tambah data sekarang</button>
                 </div>
               </div>
               <div class="col-sm-5 text-center text-sm-left">
@@ -108,7 +115,7 @@
               </div>
             </div>
           </div>
-          @include('AdminView.SliderContent.add_slider')
+          @include('AdminView.BeritaContent.add_berita')
         @endif
       </div>
     </div>
@@ -144,7 +151,7 @@
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '{{ route('slider-content.destroy', [':id']) }}'.replace(':id', id),
+            url: '{{ route('konten-berita.destroy', [':id']) }}'.replace(':id', id),
             type: 'DELETE',
             success: function(response) {
               if(response.status == 200){
