@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Auth;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\RegisterUser;
+use Illuminate\Http\Request;
+use App\Events\NewNotification;
+use App\Helpers\GeneralHelpers;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -106,6 +108,10 @@ class RegisterController extends Controller
             $validator = $this->validator($request->all());
             $this->validator($request->all())->validate();
             $user = $this->create($request->all());
+            $title = 'New User Waiting';
+            $username = $user->username;
+            $email = $user->email;
+            GeneralHelpers::sendNewNotification($title, $username, $email);
             return redirect()->route('login')->with('message', 'Registrasi account berhasil diajukan, mohon tunggu beberapa menit');
         } catch (\Throwable $th) {
             return redirect()->back();
