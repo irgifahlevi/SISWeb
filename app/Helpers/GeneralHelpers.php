@@ -2,8 +2,9 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Events\NewNotification;
+use Illuminate\Support\Facades\Auth;
 
 class GeneralHelpers
 {
@@ -45,5 +46,15 @@ class GeneralHelpers
   public static function setRoleSiswa($model)
   {
     $model->role = "siswa";
+  }
+
+  public static function sendNewNotification($title, $username, $email)
+  {
+    $notificationData = [
+      'title' => $title,
+      'username' => $username,
+      'email' => $email,
+    ];
+    event(new NewNotification($notificationData));
   }
 }
