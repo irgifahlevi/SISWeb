@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\BiayaPendaftaranController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Siswa\SiswaController;
@@ -66,6 +67,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('info-gelombang', [InfoPendaftaranController::class, 'getInfo'])->name('info.gelombang.pendaftaran');
 
     Route::resource('config-pendaftaran', ConfigController::class);
+
+    // Menu berita konten
+    Route::resource('konten-berita', BeritaController::class);
 });
 
 
