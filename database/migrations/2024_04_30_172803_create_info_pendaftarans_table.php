@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('info_pendaftarans', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_gelombang');
             $table->mediumText('deskripsi')->nullable();
             $table->enum('gelombang', ['I', 'II', 'III', 'IV', 'V']);
+            $table->enum('status', ['active', 'inactive']);
             $table->string('created_by')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();

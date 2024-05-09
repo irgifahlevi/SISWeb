@@ -1,7 +1,7 @@
 <?php
 function formatRupiah($nominal)
 {
-  return "Rp " . number_format($nominal, 2, ',', '.');
+  return "Rp " . number_format($nominal, 0, ',', '.');
 }
 
 function formatGelombang($gelombang)

@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BiayaPendaftaranController;
+use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
+use App\Http\Controllers\Admin\InfoPendaftaranController;
 use App\Http\Controllers\Admin\JenisKelaminController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
@@ -56,8 +58,14 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     // Menu ekskul use resource
     Route::resource('/ekskul-content', EkstrakurikulerController::class);
 
-    // Menu pedaftaran
+    // Menu biaya pendaftaran
     Route::resource('biaya-pendaftaran', BiayaPendaftaranController::class);
+
+    // Menu info pendaftaran
+    Route::resource('info-pendaftaran', InfoPendaftaranController::class);
+    Route::get('info-gelombang', [InfoPendaftaranController::class, 'getInfo'])->name('info.gelombang.pendaftaran');
+
+    Route::resource('config-pendaftaran', ConfigController::class);
 });
 
 

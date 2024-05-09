@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('no_pendaftaran');
             $table->string('kode_pendaftaran');
             $table->enum('status', ['Pending', 'Success', 'Failed']);
             $table->tinyInteger('is_bayar');
@@ -21,6 +22,8 @@ return new class extends Migration
             $table->dateTime('tanggal_pendaftaran');
             $table->unsignedBigInteger('info_pendaftaran_id');
             $table->unsignedBigInteger('calon_siswa_id');
+            $table->string('jenis_pembayaran');
+            $table->string('channel_pembayaran')->nullable();
             $table->string('created_by')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
