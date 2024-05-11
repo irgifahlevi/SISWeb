@@ -111,9 +111,10 @@
             <div data-i18n="Accordion">Biaya pendaftaran</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="ui-buttons.html" class="menu-link">
-            <div data-i18n="Buttons">Buttons</div>
+
+        <li class="menu-item {{\Route::is('kelas-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('kelas-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Kelas siswa</div>
           </a>
         </li>
         <li class="menu-item">

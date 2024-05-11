@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
 use App\Http\Controllers\Admin\InfoPendaftaranController;
 use App\Http\Controllers\Admin\JenisKelaminController;
+use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
@@ -70,6 +71,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Menu berita konten
     Route::resource('konten-berita', BeritaController::class);
+
+    // Mantainance kelas siswa
+    Route::resource('kelas-siswa', KelasController::class);
 });
 
 

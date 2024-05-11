@@ -1,26 +1,26 @@
-<div class="modal fade" id="new-modal-password" tabindex="-1" role="dialog" aria-labelledby="modal-edit-password" aria-hidden="true">
+<div class="modal fade" id="edit-modal-kelas" tabindex="-1" role="dialog" aria-labelledby="modal-edit" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title me-2" id="modalCenterTitle">Perbarui password</h5>
-        <button type="button" class="btn-close close-edit-" data-bs-dismiss="modal" aria-label="Close" ></button>
+        <h5 class="modal-title me-2" id="modalCenterTitle">Edit account siswa</h5>
+        <button type="button" class="btn-close close-edit-data" data-bs-dismiss="modal" aria-label="Close" ></button>
       </div>
       <div id="data-container">
-        <form id="new-form-password" enctype="multipart/form-data">
+        <form id="edit-form-kelas" enctype="multipart/form-data">
           <div class="modal-body">
-            <input type="hidden" name="u_id" class="form-control" id="ids">
+            <input type="hidden" name="id" class="form-control" id="id">
             <div class="row">
               <div class="col mb-3">
-                <label class="form-label">Password baru<span class="text-danger">*</span></label>
-                <input type="password" class="form-control" name="password" id="passwords" placeholder="Password baru"/>
-                <small class="text-danger mt-2 error-message" id="password-errors"></small>
+                <label class="form-label">Kelas<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="kelas" id="kelass"/>
+                <small class="text-danger mt-2 error-messages" id="kelas-errors"></small>
               </div>
             </div>
             <div class="row">
               <div class="col mb-3">
-                <label class="form-label">Konfirmasi password baru<span class="text-danger">*</span></label>
-                <input type="password" class="form-control" name="password_confirmation" id="password_confirmations" placeholder="Password baru"/>
-                <small class="text-danger mt-2 error-message" id="password_confirmation-errors"></small>
+                <label class="form-label">Ruangan<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="ruangan" id="ruangans"/>
+                <small class="text-danger mt-2 error-messages" id="ruangan-errors"></small>
               </div>
             </div>
           </div>
@@ -34,33 +34,41 @@
 </div>
 
 <script>
-  $('body').on('click', `#edit-password`, function () {
+
+
+
+
+  $('body').on('click', `#edit-kelas`, function () {
     var id = $(this).data('id'); // menangkap ID dari data attribute 'data-id'
-    // id = 13;
+    //id = 11;
     // kosongkan form
-    $('#new-form-password')[0].reset();
+    $('#edit-form-kelas')[0].reset();
     // tampilkan spinner
     $('#loading-overlay').show();
 
 
     setTimeout(() => {
       $.ajax({
-      url: `wali-profile/${id}`,
+      url: `kelas-siswa/${id}`,
       method: 'GET',
       dataType: 'json',
       success: function (response) {
         if(response.status == 200) {
           let data = response.data;
 
-          $('#new-modal-password').modal('show');
-          $('#new-modal-password #data-container').hide();      
+          $('#edit-modal-kelas').modal('show');
+
+          $('#edit-modal-kelas #data-container').hide();
+          
           // sembunyikan spinner
-          $('#loading-overlay').hide();   
+          $('#loading-overlay').hide();
+          
           // tampilkan data pada form
-          $('#new-modal-password #data-container').show();
+          $('#edit-modal-kelas #data-container').show();
 
-          $('#new-form-password').find('input[name="u_id"]').val(data.user_id);
-
+          $('#edit-modal-kelas').find('input[name="id"]').val(data.id);
+          $('#edit-modal-kelas').find('input[name="kelas"]').val(data.kelas);
+          $('#edit-modal-kelas').find('input[name="ruangan"]').val(data.ruangan);
         }
       },
       error: function(response)
@@ -76,7 +84,7 @@
             text: `${res.responseJSON.message}`,
             icon: 'error'
           });
-          $('#new-form-password')[0].reset();
+          $('#edit-form-kelas')[0].reset();
           // sembunyikan spinner
           $('#loading-overlay').hide();
         }
@@ -87,45 +95,43 @@
   });
 
   $(document).ready(function(){
-    $('#new-form-password').on('submit', function(e){
+    $('#edit-form-kelas').on('submit', function(e){
       e.preventDefault();
       // console.log('test');
-      var id = $('#new-modal-password').find('input[name="u_id"]').val();
-      const password = $('#new-modal-password').find('input[name="password"]').val();
-      const password_confirmation = $('#new-modal-password').find('input[name="password_confirmation"]').val();
+      const id = $('#edit-modal-kelas').find('input[name="id"]').val();
+      const kelas = $('#edit-modal-kelas').find('input[name="kelas"]').val();
+      const ruangan = $('#edit-modal-kelas').find('input[name="ruangan"]').val();
 
       const formData = new FormData();
 
       formData.append('_method', 'PUT'); // formData gak fungsi di method PUT
       formData.append('id', id);
-      formData.append('password', password);
-      formData.append('password_confirmation', password_confirmation);
-
+      formData.append('kelas', kelas);
+      formData.append('ruangan', ruangan);
 
       // console.log(formData);
 
-      $('#passwords').on('input', function() {
+      $('#kelass').on('input', function() {
         const inputVal = $(this).val();
-        const maxLength = 8;
+        const maxLength = 10;
         if (inputVal !== '' || inputVal <= maxLength) {
-          $('#password-errors').text('');
+          $('#kelas-errors').text('');
         }
       });
 
-      $('#password_confirmation').on('input', function() {
+      $('#ruangans').on('input', function() {
         const inputVal = $(this).val();
-        const maxLength = 8;
+        const maxLength = 10;
         if (inputVal !== '' || inputVal <= maxLength) {
-          $('#password_confirmation-errors').text('');
+          $('#ruangan-errors').text('');
         }
       });
-      
 
       $('#loading-overlay').show();
       
       setTimeout(() => {
         $.ajax({
-          url: '{{ route('wali.update.passwords', ':id') }}'.replace(':id', id),
+          url: '{{ route('kelas-siswa.update', ':id') }}'.replace(':id', id),
           type: 'POST',
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -137,8 +143,8 @@
           success: function(response){
             if(response.status == 200){
                 // Tutup modal edit banner dan reset form
-                $('#new-modal-password').modal('hide');
-                $('#new-form-password')[0].reset();
+                $('#edit-modal-kelas').modal('hide');
+                $('#edit-form-kelas')[0].reset();
                 $('#loading-overlay').hide();
 
                 Swal.fire({
@@ -169,8 +175,8 @@
               var res = response;
               //console.log(res);
               
-              $('#new-modal-password').modal('hide');
-              $('#new-form-password')[0].reset();
+              $('#edit-modal-kelas').modal('hide');
+              $('#edit-form-kelas')[0].reset();
               $('#loading-overlay').hide();
 
               Swal.fire({
@@ -196,13 +202,13 @@
   $(document).ready(function () {
 
     // Menambahkan event listener pada tombol close
-    $('.close-edit-').on('click', function (e) {
-      $('.error-message').text('');
+    $('.close-edit-data').on('click', function (e) {
+      $('.error-messages').text('');
     });
     
     // Menambahkan event listener pada modal
-    $('#new-modal-password').on('hidden.bs.modal', function (e) {
-      $('.error-message').text('');
+    $('#edit-modal-kelas').on('hidden.bs.modal', function (e) {
+      $('.error-messages').text('');
     });
   });
 </script>

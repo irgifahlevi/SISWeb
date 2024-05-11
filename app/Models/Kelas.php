@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Siswa;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Kelas extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+
+    public function Siswa()
+    {
+        return $this->hasOne(Siswa::class, 'kelas_id', 'id');
+    }
 }
