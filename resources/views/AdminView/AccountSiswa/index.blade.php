@@ -1,6 +1,9 @@
 @extends('Template.Admin.master_admin')
 @section('content')
 @include('AdminView.AccountSiswa.search')
+<div id="loading-overlay" style="display: none;">
+  @include('Template.loading')
+</div>
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row justify-content-center">
@@ -12,14 +15,14 @@
         <div class="mb-3">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary" id="add-siswa" >
-            Tambah data akun siswa
+            Tambah data
           </button>
 
           <!-- Modal tambah data -->
           @include('AdminView.AccountSiswa.add_siswa')
         </div>
           {{-- Tabel --}}
-          <div class="card">
+          <div class="card mb-3">
             <h5 class="card-header">Daftar akun siswa</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
@@ -63,6 +66,12 @@
                               <i class="bx bx-edit-alt me-1"></i> 
                               Edit
                             </button>
+                            @if(!$item->SiswaUser)
+                              <button class="dropdown-item" type="button" id="add-profile" data-id="{{$item->id}}">
+                                <i class="bx bx-edit-alt me-1"></i> 
+                                Buat profile
+                              </button>
+                            @endif
                             <button class="dropdown-item" type="button" id="active" data-id="{{$item->id}}">
                               <i class='bx bx-refresh me-1'></i>
                               Active
@@ -86,11 +95,17 @@
             </div>
           </div>
 
-          <div id="loading-overlay" style="display: none;">
-            @include('Template.loading')
+          <div class="card">
+            <div class="card-body">
+              <div class="alert alert-warning">
+                <h6 class="alert-heading fw-bold mb-1">Silakan lengkapi profil siswa setelah membuat akun!</h6>
+                <em class="mb-0">Note : Tombol "Buat Profil" akan otomatis menghilang setelah profil siswa dibuat.</em>
+              </div>
+            </div>
           </div>
           {{-- Modal edit data --}}
           @include('AdminView.AccountSiswa.edit_siswa')
+          @include('AdminView.ProfileSiswa.add_profile_siswa')
           
         
         {{-- Jika data banner kosong --}}

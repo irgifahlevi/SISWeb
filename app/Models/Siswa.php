@@ -10,8 +10,17 @@ class Siswa extends Model
     protected $guarded = [];
     use HasFactory;
 
-    public function Kelas()
+    public function KelasSiswa()
     {
         return $this->belongsTo(Kelas::class, 'kelas_id', 'id');
+    }
+    public function JenisKelaminSiswa()
+    {
+        return $this->belongsTo(JenisKelamin::class, 'jenis_kelamin_id', 'id');
+    }
+
+    public function UserSiswa()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

@@ -11,7 +11,8 @@ class JenisKelaminController extends Controller
 {
     public function getKelamin()
     {
-        $data = JenisKelamin::where('row_status', '0')
+        $data = JenisKelamin::select('id', 'jenis_kelamin') // Mengubah 'kelas' menjadi 'jenis_kelamin'
+            ->where('row_status', '0')
             ->whereIn('jenis_kelamin', ['Laki-laki', 'Perempuan'])
             ->orderBy('id', 'desc')
             ->get();

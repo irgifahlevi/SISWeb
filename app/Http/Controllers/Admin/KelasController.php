@@ -159,4 +159,13 @@ class KelasController extends Controller
             return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }
+
+    public function dataKelas()
+    {
+        $data = Kelas::select('id', 'kelas')
+            ->where('row_status', '0')
+            ->orderBy('id', 'desc')
+            ->get();
+        return ResponseHelpers::SuccessResponse('', $data, 200);
+    }
 }
