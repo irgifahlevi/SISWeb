@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\BiayaPendaftaranController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\FasilitasController;
+use App\Http\Controllers\Admin\VisiMisiController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
 use App\Http\Controllers\Admin\InfoPendaftaranController;
 use App\Http\Controllers\Admin\JenisKelaminController;
@@ -56,6 +59,15 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Menu slider use resource
     Route::resource('/slider-content', SliderController::class);
+
+    // Menu galeri use resource
+    Route::resource('galeri-content', GaleriController::class);
+
+    // Menu fasilitas use resource
+    Route::resource('fasilitas', FasilitasController::class);
+
+    // Menu Visi misi use resource
+    Route::resource('visimisi', VisiMisiController::class);
 
     // Menu ekskul use resource
     Route::resource('/ekskul-content', EkstrakurikulerController::class);

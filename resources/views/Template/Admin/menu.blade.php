@@ -57,7 +57,7 @@
           </g>
         </svg>
       </span>
-      <span class="app-brand-text demo menu-text fw-bolder ms-2">ISWEB</span>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2">SISWEB</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -105,7 +105,7 @@
             <div data-i18n="Accordion">Info pendaftaran</div>
           </a>
         </li>
-        
+
         <li class="menu-item {{\Route::is('biaya-pendaftaran.index') ? 'active' : ''}}">
           <a href="{{route('biaya-pendaftaran.index')}}" class="menu-link">
             <div data-i18n="Accordion">Biaya pendaftaran</div>
@@ -210,25 +210,25 @@
             <div data-i18n="Alerts">Ekstrakurikuler</div>
           </a>
         </li>
-        
+
         <li class="menu-item {{\Route::is('konten-berita.index') ? 'active' : ''}}">
           <a href="{{route('konten-berita.index')}}" class="menu-link">
             <div data-i18n="Alerts">Berita</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="ui-buttons.html" class="menu-link">
-            <div data-i18n="Buttons">Buttons</div>
+        <li class="menu-item {{\Route::is('galeri-content.index ')? 'active' : ''}}">
+          <a href="{{route('galeri-content.index')}}" class="menu-link">
+            <div data-i18n="Buttons">Galeri</div>
           </a>
         </li>
         <li class="menu-item">
-          <a href="ui-carousel.html" class="menu-link">
-            <div data-i18n="Carousel">Carousel</div>
+          <a href="{{route('fasilitas.index')}}" class="menu-link">
+            <div data-i18n="Carousel">Fasilitas</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="ui-collapse.html" class="menu-link">
-            <div data-i18n="Collapse">Collapse</div>
+        <li class="menu-item {{ \Route::is('visimisi.index')? 'active' : '' }}">
+          <a href="{{ Route('visimisi.index') }}" class="menu-link">
+            <div data-i18n="Collapse">Visi Misi</div>
           </a>
         </li>
         <li class="menu-item">

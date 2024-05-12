@@ -80,7 +80,7 @@
               $('#gambar-error').text('');
             }
           });
-          
+
           var formData = new FormData(this);
 
           $.ajaxSetup({
@@ -89,7 +89,7 @@
             }
           });
 
-          // for debug 
+          // for debug
           // for (let data of formData.entries()) {
           //   console.log(data[0] + ': ' + data[1]);
           // }
@@ -107,7 +107,7 @@
               success: function(response)
               {
                   if(response.status == 200){
-                    
+
                     // Tutup modal add banner dan kosongkan form
                     $('#loading-overlay').hide();
                     $('#add-slider-modal').modal('hide');
@@ -121,7 +121,7 @@
                       text: `${response.message}`,
                       icon: 'success'
                     });
-                    
+
                     // Reload halaman
                     setTimeout(function(){
                       location.reload();
@@ -140,7 +140,7 @@
                 if(response.status == 500){
                   var res = response;
                   //console.log(res);
-                  
+
                   $('#loading-overlay').hide();
                   $('#add-slider-modal').modal('hide');
                   $('#form-add-slider')[0].reset();
@@ -158,7 +158,7 @@
               },
             })
           }, 900);
-          
+
         });
       });
 
@@ -169,7 +169,7 @@
           $('.error-message').text(''); // Menghapus pesan error
           $('#form-add-slider')[0].reset(); // Mereset form
         });
-        
+
         // Menambahkan event listener pada modal
         $('#add-slider-modal').on('hidden.bs.modal', function (e) {
           $('.error-message').text(''); // Menghapus pesan error
