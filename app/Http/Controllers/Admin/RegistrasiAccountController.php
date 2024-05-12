@@ -95,7 +95,7 @@ class RegistrasiAccountController extends Controller
         }
 
         // Ambil data dengan paginasi
-        $account_siswa = $query->paginate(5)->onEachSide(2)->fragment('siswa_account');
+        $account_siswa = $query->with('SiswaUser')->paginate(10)->onEachSide(2)->fragment('siswa_account');
 
         return view('AdminView.AccountSiswa.index', compact('account_siswa', 'search_account_siswa'));
     }

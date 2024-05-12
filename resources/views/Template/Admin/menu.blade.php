@@ -117,6 +117,12 @@
             <div data-i18n="Accordion">Kelas siswa</div>
           </a>
         </li>
+
+        <li class="menu-item {{\Route::is('profile-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('profile-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Profile siswa</div>
+          </a>
+        </li>
         <li class="menu-item">
           <a href="ui-carousel.html" class="menu-link">
             <div data-i18n="Carousel">Carousel</div>

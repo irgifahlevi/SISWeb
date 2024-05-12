@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(WaliCalonSiswa::class, 'user_id', 'id');
     }
+
+    public function SiswaUser()
+    {
+        return $this->hasOne(Siswa::class, 'user_id', 'id');
+    }
 }
