@@ -135,7 +135,7 @@ class ProfileSiswaController extends Controller
     public function show(string $id)
     {
         try {
-            $data = Siswa::findOrFail($id)
+            $data = Siswa::where('id', $id)
                 ->where('row_status', 0)
                 ->whereHas('KelasSiswa', function ($query) {
                     $query->where('row_status', 0);
@@ -146,7 +146,7 @@ class ProfileSiswaController extends Controller
                 ->whereHas('UserSiswa', function ($query) {
                     $query->where('row_status', 0);
                 })
-                ->first();
+                ->firstOrFail();
             if (!$data) {
                 return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
             }
@@ -258,5 +258,14 @@ class ProfileSiswaController extends Controller
         } catch (Exception $th) {
             return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
+    }
+
+    public function dataSiswa()
+    {
+        $data = Siswa::select('id', 'nama_lengkap')
+            ->where('row_status', '0')
+            ->orderBy('id', 'desc')
+            ->get();
+        return ResponseHelpers::SuccessResponse('', $data, 200);
     }
 }
