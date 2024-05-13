@@ -1,77 +1,68 @@
 @extends('Template.Admin.master_admin')
 @section('content')
-@include('AdminView.ProfileSiswa.search')
+@include('AdminView.WaliSiswa.search')
+<div id="loading-overlay" style="display: none;">
+  @include('Template.loading')
+</div>
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row justify-content-center">
       <div class="col-md-12">
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
-        @if (count($profile_siswa) > 0)
+        @if (count($wali_siswa) > 0)
+
+        <div class="mb-3">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" id="add-wali" >
+            Tambah data
+          </button>
+
+          <!-- Modal tambah data -->
+          @include('AdminView.WaliSiswa.add_wali_siswa')
+        </div>
           {{-- Tabel --}}
           <div class="card">
-            <h5 class="card-header">Daftar siswa</h5>
+            <h5 class="card-header">Daftar wali siswa</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Nama siswa</th>
-                      <th>Email</th>
+                      <th>Nama</th>
                       <th>NIK</th>
-                      <th>No KK</th>
-                      <th>No NISN</th>
                       <th>No Telp</th>
-                      <th>Jenis Kelamin</th>
-                      <th>Kelas</th>
-                      <th>Ruangan</th>
-                      <th>Tempat lahir</th>
-                      <th>Tgl lahir</th>
-                      <th>Agama</th>
                       <th>Alamat</th>
-                      <th>Kelurahan</th>
-                      <th>Kecamatan</th>
-                      <th>Kota</th>
-                      <th>Kode POS</th>
-                      <th>Tempat tinggal</th>
-                      <th>Tahun masuk</th>
-                      <th>NIS lokal</th>
-                      <th>Anak ke</th>
-                      <th>Jumlah saudara</th>
+                      <th>Hubungan status</th>
+                      <th>Wali dari</th>
+                      <th>Siswa kelas</th>
+                      <th>Pekerjaan</th>
+                      <th>Penghasilan</th>
+                      <th>Pendidikan</th>
+                      <th>Jenis Kelamin</th>
                       <th>Updated at</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     @php
-                        $nomor = 1 + (($profile_siswa->currentPage() - 1) * $profile_siswa->perPage());
+                        $nomor = 1 + (($wali_siswa->currentPage() - 1) * $wali_siswa->perPage());
                     @endphp
-                    @foreach($profile_siswa as $item)
+                    @foreach($wali_siswa as $item)
                     <tr>
                       <td>{{$nomor++}}</td>
                       <td>{{ $item->nama_lengkap }}</td>
-                      <td>{{ $item->UserSiswa->email }}</td>
                       <td>{{ $item->nik }}</td>
-                      <td>{{ $item->no_kk }}</td>
-                      <td>{{ $item->no_nisn }}</td>
                       <td>{{formatNoTelpon($item->no_telepon)}}</td>
-                      <td>{{ $item->JenisKelaminSiswa->jenis_kelamin }}</td>
-                      <td>{{ $item->KelasSiswa->kelas }}</td>
-                      <td>{{ $item->KelasSiswa->ruangan }}</td>
-                      <td>{{ $item->tempat_lahir }}</td>
-                      <td>{{ $item->tanggal_lahir }}</td>
-                      <td>{{ $item->agama }}</td>
                       <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->alamat }}</span></td>
-                      <td>{{ $item->kelurahan }}</td>
-                      <td>{{ $item->kecamatan }}</td>
-                      <td>{{ $item->kota }}</td>
-                      <td>{{ $item->kode_pos }}</td>
-                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->tempat_tinggal }}</span></td>
-                      <td>{{ $item->tahun_masuk }}</td>
-                      <td>{{ $item->nis_lokal }}</td>
-                      <td>{{ $item->anak_ke }}</td>
-                      <td>{{ $item->jumlah_saudara }}</td>
+                      <td>{{ $item->hubungan_status }}</td>
+                      <td>{{ $item->Siswa->nama_lengkap }}</td>
+                      <td>{{ $item->Siswa->KelasSiswa->kelas }}</td>
+                      <td>{{ $item->pekerjaan }}</td>
+                      <td>{{formatRupiah($item->penghasilan)}}</td>
+                      <td>{{ $item->pendidikan }}</td>
+                      <td>{{ $item->JenisKelaminWali->jenis_kelamin }}</td>
                       <td>{{ $item->updated_at }}</td>
                       <td>
                         <div class="dropdown">
@@ -79,7 +70,7 @@
                             <i class="bx bx-dots-vertical-rounded"></i>
                           </button>
                           <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" id="edit-siswa" data-id="{{$item->id}}">
+                            <button class="dropdown-item" type="button" id="edit-wali" data-id="{{$item->id}}">
                               <i class="bx bx-edit-alt me-1"></i> 
                               Ubah
                             </button>
@@ -96,17 +87,14 @@
                 </table>
                 <div class="mt-3">
                   <!-- {{-- {{ $dataBarang->links() }} --}} -->
-                  {!! $profile_siswa->appends(Request::except('page'))->render() !!}
+                  {!! $wali_siswa->appends(Request::except('page'))->render() !!}
                 </div>
               </div>
             </div>
           </div>
 
-          <div id="loading-overlay" style="display: none;">
-            @include('Template.loading')
-          </div>
           {{-- Modal edit data --}}
-          @include('AdminView.ProfileSiswa.edit_profile_siswa')
+          @include('AdminView.WaliSiswa.edit_wali_siswa')
           
         
         {{-- Jika data banner kosong --}}
@@ -115,8 +103,8 @@
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
                 <div class="card-body">
-                  <h5 class="card-title text-primary">Belum ada data siswa! 😞</h5>
-                  <a href="{{route('account_siswa.index')}}" class="btn btn-sm btn-outline-primary" type="button" id="add-biaya">Tambah data sekarang</a>
+                  <h5 class="card-title text-primary">Belum ada data wali siswa! 😞</h5>
+                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-wali">Tambah data sekarang</button>
                 </div>
               </div>
               <div class="col-sm-5 text-center text-sm-left">
@@ -132,6 +120,7 @@
               </div>
             </div>
           </div>
+          @include('AdminView.WaliSiswa.add_wali_siswa')
         @endif
       </div>
     </div>
@@ -165,7 +154,7 @@
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          url: '{{ route('profile-siswa.destroy', [':id']) }}'.replace(':id', id),
+          url: '{{ route('wali-siswa.destroy', [':id']) }}'.replace(':id', id),
           type: 'DELETE',
           success: function(response) {
             if(response.status == 200){

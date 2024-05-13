@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\JenisKelaminController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\ProfileSiswaController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
+use App\Http\Controllers\Admin\WaliSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
 
@@ -44,6 +45,7 @@ Auth::routes();
 Route::get('jenis-kelamin', [JenisKelaminController::class, 'getKelamin'])->name('data.jenis.kelamin');
 Route::get('data-kelas', [KelasController::class, 'dataKelas'])->name('data.kelas');
 Route::get('info-gelombang', [InfoPendaftaranController::class, 'getInfo'])->name('info.gelombang.pendaftaran');
+Route::get('data-siswa', [ProfileSiswaController::class, 'dataSiswa'])->name('data.siswa');
 
 Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('beranda', [AdminController::class, 'index'])->name('admin.index');
@@ -80,6 +82,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Profile siswa
     Route::resource('profile-siswa', ProfileSiswaController::class);
+
+    // Wali siswa
+    Route::resource('wali-siswa', WaliSiswaController::class);
 });
 
 
