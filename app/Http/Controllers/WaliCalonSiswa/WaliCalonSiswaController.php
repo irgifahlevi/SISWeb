@@ -4,13 +4,14 @@ namespace App\Http\Controllers\WaliCalonSiswa;
 
 use Exception;
 use App\Models\User;
+use App\Models\ConfigTable;
+use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use App\Models\WaliCalonSiswa;
 use App\Helpers\GeneralHelpers;
 use App\Helpers\ResponseHelpers;
 use App\Models\BiayaPendaftaran;
 use App\Http\Controllers\Controller;
-use App\Models\ConfigTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -40,12 +41,24 @@ class WaliCalonSiswaController extends Controller
         // Cek apakah ada data yang dimuat
         if ($list_biaya->isNotEmpty() && $list_biaya->first()->InfoPendaftarans) {
             // Mengambil ID dari InfoPendaftarans pada data pertama
-            $info_pendaftaran_id = $list_biaya->first()->InfoPendaftarans->id;
+            $info_pendaftaran_id = $list_biaya->first()->InfoPendaftarans->kode_gelombang;
         } else {
             // Jika tidak ada data yang sesuai, atur $info_pendaftaran_id menjadi null
             $info_pendaftaran_id = null;
         }
-        return view('WaliCalonView.index', compact('data', 'list_biaya', 'info_pendaftaran_id'));
+
+        // list data pendaftaran before payment
+        $list_pendaftaran = Pendaftaran::with('CalonWaliPendaftaran', 'CalonSiswaPendaftaran')
+            ->where('row_status', 0)
+            ->where('wali_calon_siswa_id', $data->id)
+            ->whereHas('CalonWaliPendaftaran', function ($query) {
+                $query->where('row_status', 0);
+            })->whereHas('CalonSiswaPendaftaran', function ($query) {
+                $query->where('row_status', 0);
+            })->orderBy('id', 'desc')
+            ->get();
+
+        return view('WaliCalonView.index', compact('data', 'list_biaya', 'info_pendaftaran_id', 'list_pendaftaran'));
     }
 
     public function updatePassword(Request $request, string $id)

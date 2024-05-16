@@ -15,4 +15,9 @@ class InfoPendaftaran extends Model
     {
         return $this->hasMany(BiayaPendaftaran::class, 'info_pendaftaran_id', 'id');
     }
+
+    public function Pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class, 'info_pendaftaran_id', 'id');
+    }
 }

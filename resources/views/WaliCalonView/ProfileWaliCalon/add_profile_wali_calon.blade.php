@@ -192,9 +192,9 @@
           });
 
           //for debug 
-          for (let data of formData.entries()) {
-            console.log(data[0] + ': ' + data[1]);
-          }
+          // for (let data of formData.entries()) {
+          //   console.log(data[0] + ': ' + data[1]);
+          // }
 
           $('#loading-overlay').show();
 

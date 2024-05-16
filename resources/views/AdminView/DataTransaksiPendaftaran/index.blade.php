@@ -1,81 +1,70 @@
 @extends('Template.Admin.master_admin')
 @section('content')
-@include('AdminView.RegistrasiAccount.search')
+@include('AdminView.DataTransaksiPendaftaran.search')
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row justify-content-center">
       <div class="col-md-12">
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
-        @if (count($pendaftar_account) > 0)
+
+        @if (count($data) > 0)
 
           {{-- Tabel --}}
           <div class="card">
-            <h5 class="card-header">Data pendaftaran account login</h5>
+            <h5 class="card-header">Data transaksi</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th style="width: 70px;">No.</th>
-                      <th>Username</th>
-                      <th>Email</th>
-                      <th>Status</th>
-                      <th>Login</th>
-                      <th>Waktu login</th>
-                      <th>Aksi</th>
+                      <th>Nama pendaftar</th>
+                      <th>Email pendaftar</th>
+                      <th>Calon siswa</th>
+                      <th>Kode pendaftaran</th>
+                      <th>No pendaftaran</th>
+                      <th>Gel pendaftaran</th>
+                      <th>Tgl pendaftaran</th>
+                      <th>Jenis pendaftaran</th>
+                      <th>Total pembayaran</th>
+                      <th>Channel pembayaran</th>                
+                      <th>Status pembayaran</th>
+                      <th>Tgl pembayaran</th>
                     </tr>
                   </thead>
                   <tbody>
                     @php
-                        $nomor = 1 + (($pendaftar_account->currentPage() - 1) * $pendaftar_account->perPage());
+                        $nomor = 1 + (($data->currentPage() - 1) * $data->perPage());
                     @endphp
-                    @foreach($pendaftar_account as $item)
+                    @foreach($data as $item)
                     <tr>
                       <td>{{$nomor++}}</td>
-                      <td>{{ $item->username }}</td>
-                      <td>{{ $item->email }}</td>
+                      <td>{{ $item->CalonWaliPendaftaran->Users->username }}</td>
+                      <td>{{ $item->CalonWaliPendaftaran->Users->email }}</td>
+                      <td>{{ $item->CalonSiswaPendaftaran->nama_lengkap }}</td>
+                      <td>{{ $item->kode_pendaftaran }}</td>
+                      <td>{{ $item->no_pendaftaran }}</td>
+                      <td>{{ formatGelombang($item->InfoBiayaPendaftaran->gelombang) }}</td>
+                      <td>{{ $item->tanggal_pendaftaran }}</td>
+                      <td>{{ $item->jenis_pembayaran }}</td>
+                      <td>{{ formatRupiah($item->total_bayar)}}</td>
+                      <td>{{ $item->channel_pembayaran }}</td>
                       <td>
-                        @if ($item->status == 'accepted')
-                          <span class="badge bg-success">{{$item->status}}</span>
-                        @elseif($item->status == 'pending')
-                          <span class="badge bg-primary">{{$item->status}}</span>
-                        @elseif($item->status == 'decline')
-                          <span class="badge bg-warning">{{$item->status}}</span>
+                        @if ($item->is_bayar == 1)
+                          <span class="badge bg-success">Lunas</span>
+                        @elseif($item->is_bayar == -1)
+                          <span class="badge bg-warning">Belum lunas</span>
                         @endif
                       </td>
-                      <td>
-                        @if ($item->login == 'yes')
-                          <span class="badge bg-success">{{$item->login}}</span>
-                        @elseif($item->login == 'no')
-                          <span class="badge bg-primary">{{$item->login}}</span>
-                        @endif
-                      </td>
-                      <td>{{ $item->login_date }}</td>
-                      <td>
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" id="accept" data-id="{{$item->id}}">
-                              <i class='bx bxs-user-check me-1'></i>
-                              Accept
-                            </button>
-                            <button class="dropdown-item" type="button" id="reject" data-id="{{$item->id}}">
-                              <i class='bx bxs-user-x me-1'></i>
-                              Reject
-                            </button>
-                          </div>
-                        </div>
-                      </td>
+                      <td>{{ $item->updated_at }}</td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
                 <div class="mt-3">
                   <!-- {{-- {{ $dataBarang->links() }} --}} -->
-                  {!! $pendaftar_account->appends(Request::except('page'))->render() !!}
+                  {!! $data->appends(Request::except('page'))->render() !!}
                 </div>
               </div>
             </div>
@@ -93,7 +82,7 @@
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
                 <div class="card-body">
-                  <h5 class="card-title text-primary">Belum ada data request pendaftaran account! 😞</h5>
+                  <h5 class="card-title text-primary">Belum ada transaksi apapun! 😞</h5>
                   <p class="mb-4">
                     Silahkan kembali lagi nanti
                   </p>

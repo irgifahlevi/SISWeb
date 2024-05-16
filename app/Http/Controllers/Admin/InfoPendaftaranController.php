@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
+use App\Models\ConfigTable;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Helpers\GeneralHelpers;
 use App\Models\InfoPendaftaran;
 use App\Helpers\ResponseHelpers;
 use App\Http\Controllers\Controller;
-use App\Models\ConfigTable;
 use Illuminate\Support\Facades\Validator;
 
 class InfoPendaftaranController extends Controller
@@ -69,11 +70,8 @@ class InfoPendaftaranController extends Controller
 
             $data = new InfoPendaftaran();
 
-            $lastData = $data::latest('id')->first();
-            $lastDataId = $lastData ? $lastData->id : 0;
-            $kodeGelombang = 'GEL-' . strtoupper(substr($request->deskripsi, 0, 2)) . '-' . str_pad($lastDataId + 1, 3, '0', STR_PAD_LEFT);
-
-            $data->kode_gelombang = $kodeGelombang;
+            $kode_random = GeneralHelpers::generateRandomText(20);
+            $data->kode_gelombang = $kode_random;
             $data->gelombang = $request->gelombang;
             $data->status = $request->status;
             $data->deskripsi = $request->deskripsi;

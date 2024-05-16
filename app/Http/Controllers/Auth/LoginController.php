@@ -49,13 +49,18 @@ class LoginController extends Controller
             return redirect()->route('admin.index'); // redirect ke halaman beranda admin
         } elseif ($user->role == 'wali_calon' && $user->row_status == '0') {
             // Mencari user berdasarkan email
-            $userData = RegisterUser::where('email', $request->email)->firstOrFail();
-            if ($userData->login != 'yes') {
-                $userData->login = 'yes';
-                $userData->login_date = Carbon::now();
-                $userData->save();
+            $userData = RegisterUser::where('email', $request->email)->first();
+            if ($userData) {
+                if ($userData->login != 'yes') {
+                    $userData->login = 'yes';
+                    $userData->login_date = Carbon::now();
+                    $userData->save();
+                    return redirect()->route('wali.index'); // redirect ke halaman beranda staff
+                }
+            } else {
+                Auth::logout();
+                return redirect()->route('login')->with('error', 'Invalid user, please try again later.');
             }
-            return redirect()->route('wali.index'); // redirect ke halaman beranda staff
         } elseif ($user->role == 'siswa' && $user->row_status == '0') {
             return redirect()->route('siswa.index');
         } else {

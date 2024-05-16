@@ -15,6 +15,11 @@ class JenisKelamin extends Model
         return $this->hasOne(WaliCalonSiswa::class, 'jenis_kelamin_id', 'id');
     }
 
+    public function CalonSiswa()
+    {
+        return $this->hasOne(CalonSiswa::class, 'jenis_kelamin_id', 'id');
+    }
+
     public function SiswaJenisKelamin()
     {
         return $this->hasOne(Siswa::class, 'jenis_kelamin_id', 'id');

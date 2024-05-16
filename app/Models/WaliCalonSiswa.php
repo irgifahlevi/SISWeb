@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\JenisKelamin;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class WaliCalonSiswa extends Model
 {
@@ -18,5 +17,15 @@ class WaliCalonSiswa extends Model
     public function JenisKelamin()
     {
         return $this->belongsTo(JenisKelamin::class, 'jenis_kelamin_id', 'id');
+    }
+
+    public function CalonSiswaWali()
+    {
+        return $this->hasMany(CalonSiswa::class, 'wali_calon_siswa_id', 'id');
+    }
+
+    public function PendaftaranCalonWali()
+    {
+        return $this->hasMany(Pendaftaran::class, 'wali_calon_siswa_id', 'id');
     }
 }
