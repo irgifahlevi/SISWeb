@@ -14,6 +14,8 @@ function formatGelombang($gelombang)
     return "III (Tiga)";
   } else if ($gelombang == "IV") {
     return "IV (Empat)";
+  } else if ($gelombang == "V") {
+    return "V (Lima)";
   }
 }
 

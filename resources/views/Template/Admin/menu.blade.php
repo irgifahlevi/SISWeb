@@ -97,6 +97,24 @@
     <li class="menu-item">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-box"></i>
+        <div data-i18n="User interface">Data pendaftaran</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item {{\Route::is('transaki-pendaftaran.index') ? 'active' : ''}}">
+          <a href="{{route('transaki-pendaftaran.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Transaksi</div>
+          </a>
+        </li>
+        <li class="menu-item {{\Route::is('data-pendaftaran-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('data-pendaftaran-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Calon siswa</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-box"></i>
         <div data-i18n="User interface">Master data</div>
       </a>
       <ul class="menu-sub">

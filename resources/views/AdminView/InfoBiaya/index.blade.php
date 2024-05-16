@@ -26,7 +26,7 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>No.</th>
+                      <th style="width: 70px;">No.</th>
                       <th>Kode</th>
                       <th>Nama biaya</th>
                       <th>Nominal</th>
@@ -41,7 +41,7 @@
                     @foreach($biaya_pendaftaran as $item)
                     <tr>
                       <td>{{$nomor++}}</td>
-                      <td>{{ $item->kode_biaya }}</td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->kode_biaya }}</span></td>
                       <td>{{ $item->nama_biaya }}</td>
                       <td>{{ formatRupiah($item->nominal_biaya) }}</td>
                       <td>{{ formatGelombang($item->InfoPendaftarans->gelombang) }}</td>

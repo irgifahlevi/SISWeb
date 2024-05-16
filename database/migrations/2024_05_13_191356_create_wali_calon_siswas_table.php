@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('penghasilan');
             $table->enum('pendidikan', ['Tidak sekolah', 'SD', 'SLTP', 'SLTA', 'S1', 'S2']);
             $table->unsignedBigInteger('jenis_kelamin_id');
-            $table->unsignedBigInteger('calon_siswa_id')->nullable();
             $table->string('created_by')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
@@ -30,7 +29,6 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('jenis_kelamin_id')->references('id')->on('jenis_kelamins')->onDelete('cascade');
-            $table->foreign('calon_siswa_id')->references('id')->on('calon_siswas')->onDelete('cascade');
         });
     }
 

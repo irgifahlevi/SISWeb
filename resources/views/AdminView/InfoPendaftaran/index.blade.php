@@ -26,7 +26,7 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>No.</th>
+                      <th style="width: 70px;">No.</th>
                       <th>Kode</th>
                       <th>Deskripsi</th>
                       <th>Gelombang</th>
