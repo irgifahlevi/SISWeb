@@ -71,7 +71,7 @@
     <!-- Dashboard -->
     <li class="menu-item {{\Route::is('wali.index') ? 'active' : ''}}">
       <a href="{{route('wali.index')}}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <i class="menu-icon tf-icons bx bxs-spreadsheet"></i>
         <div data-i18n="Analytics">Dashboard</div>
       </a>
     </li>
@@ -80,7 +80,7 @@
         @if(auth()->user()->WaliCalon)
           <li class="menu-item {{\Route::is('wali-profile.index') ? 'active' : ''}}">
             <a href="{{route('wali-profile.index')}}" class="menu-link">
-              <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <i class="menu-icon tf-icons bx bxs-user-circle"></i>
               <div data-i18n="Analytics">My Profile</div>
             </a>
           </li>

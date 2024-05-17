@@ -5,18 +5,31 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\CalonSiswa;
 
 class DataPendaftaranSiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Pendaftaran::with('CalonWaliPendaftaran', 'CalonSiswaPendaftaran.JenisKelaminCalonSiswa', 'InfoBiayaPendaftaran.BiayaPendaftaran')
+        $search_data = $request->query('search_data');
+
+        $query = CalonSiswa::with('WaliCalonSiswa.Users', 'PendaftaranCalonSiswa', 'JenisKelaminCalonSiswa')
             ->where('row_status', 0)
-            ->firstOrFail();
-        return view('AdminView.DataPendaftaranSiswa.index');
+            ->whereHas('PendaftaranCalonSiswa', function ($query) {
+                $query->where('status', 'Success');
+                $query->where('is_bayar', 1);
+            })->orderBy('id', 'desc');
+
+        if (!empty($search_data)) {
+            $query->where('nama_lengkap', 'like', '%' . $search_data . '%');
+        }
+
+        $data = $query->paginate(10)->onEachSide(2)->fragment('transaksi');
+
+        return view('AdminView.DataPendaftaranSiswa.index', compact('data', 'search_data'));
     }
 
     /**
@@ -40,7 +53,14 @@ class DataPendaftaranSiswaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = CalonSiswa::with('WaliCalonSiswa.Users', 'PendaftaranCalonSiswa', 'JenisKelaminCalonSiswa')
+            ->where('id', $id)
+            ->where('row_status', 0)
+            ->whereHas('PendaftaranCalonSiswa', function ($query) {
+                $query->where('status', 'Success');
+                $query->where('is_bayar', 1);
+            })->first();
+        return view('AdminView.DataPendaftaranSiswa.profile_pendaftar', compact('data'));
     }
 
     /**

@@ -47,4 +47,18 @@ class PaymentHelpers
   {
     return Carbon::now();
   }
+
+  public static function setPaymentType($type)
+  {
+    $paymentTypes = [
+      "credit_card" => "Credit card",
+      "gopay" => "Gopay",
+      "qris" => "Qris",
+      "shopeepay" => "Shopeepay",
+      "bank_transfer" => "Bank transfer",
+      "echannel" => "Mandiri bill",
+      "akulaku" => "Akulaku",
+    ];
+    return $paymentTypes[$type] ?? "Alfamart / Indomaret";
+  }
 }
