@@ -48,15 +48,18 @@ class WaliCalonSiswaController extends Controller
         }
 
         // list data pendaftaran before payment
-        $list_pendaftaran = Pendaftaran::with('CalonWaliPendaftaran', 'CalonSiswaPendaftaran')
-            ->where('row_status', 0)
-            ->where('wali_calon_siswa_id', $data->id)
-            ->whereHas('CalonWaliPendaftaran', function ($query) {
-                $query->where('row_status', 0);
-            })->whereHas('CalonSiswaPendaftaran', function ($query) {
-                $query->where('row_status', 0);
-            })->orderBy('id', 'desc')
-            ->get();
+        $list_pendaftaran = "";
+        if ($data) {
+            $list_pendaftaran = Pendaftaran::with('CalonWaliPendaftaran', 'CalonSiswaPendaftaran')
+                ->where('row_status', 0)
+                ->where('wali_calon_siswa_id', $data->id)
+                ->whereHas('CalonWaliPendaftaran', function ($query) {
+                    $query->where('row_status', 0);
+                })->whereHas('CalonSiswaPendaftaran', function ($query) {
+                    $query->where('row_status', 0);
+                })->orderBy('id', 'desc')
+                ->get();
+        }
 
         return view('WaliCalonView.index', compact('data', 'list_biaya', 'info_pendaftaran_id', 'list_pendaftaran'));
     }

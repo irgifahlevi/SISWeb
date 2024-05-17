@@ -21,6 +21,10 @@
           <!-- Modal tambah data -->
           @include('AdminView.AccountSiswa.add_siswa')
         </div>
+        <div class="alert alert-primary">
+          <h6 class="alert-heading fw-bold mb-1">Silakan lengkapi profil siswa setelah membuat akun!</h6>
+          <em class="mb-0">Note : Tombol "Buat profil" akan otomatis menghilang setelah profil siswa dibuat.</em>
+        </div>
           {{-- Tabel --}}
           <div class="card mb-3">
             <h5 class="card-header">Daftar akun siswa</h5>
@@ -68,8 +72,8 @@
                             </button>
                             @if(!$item->SiswaUser)
                               <button class="dropdown-item" type="button" id="add-profile" data-id="{{$item->id}}">
-                                <i class="bx bx-edit-alt me-1"></i> 
-                                Buat profile
+                                <i class="bx bx-user-pin me-1"></i>
+                                Buat profil
                               </button>
                             @endif
                             <button class="dropdown-item" type="button" id="active" data-id="{{$item->id}}">
@@ -91,15 +95,6 @@
                   <!-- {{-- {{ $dataBarang->links() }} --}} -->
                   {!! $account_siswa->appends(Request::except('page'))->render() !!}
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-body">
-              <div class="alert alert-warning">
-                <h6 class="alert-heading fw-bold mb-1">Silakan lengkapi profil siswa setelah membuat akun!</h6>
-                <em class="mb-0">Note : Tombol "Buat Profil" akan otomatis menghilang setelah profil siswa dibuat.</em>
               </div>
             </div>
           </div>

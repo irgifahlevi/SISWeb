@@ -17,7 +17,7 @@
                   <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>No urut.</th>
+                            <th style="width: 70px;">No urut.</th>
                             <th>Kode pembayaran</th>
                             <th>Pembayaran</th>
                             <th>Biaya</th>
@@ -127,12 +127,12 @@
                                   <div class="dropdown-menu">
                                     @if ($item->status =='Success' && $item->is_bayar == 1)
                                       <button class="dropdown-item" type="button" id="invoice" data-id="{{$item->kode_pendaftaran}}">
-                                        <i class="bx bx-edit-alt me-1"></i> 
+                                        <i class='bx bx-show-alt me-1'></i>
                                         Lihat invoice
                                       </button>
                                     @else
                                       <button class="dropdown-item" type="button" id="bayar-pendaftaran" data-id="{{$item->token_pembayaran}}">
-                                        <i class="bx bx-edit-alt me-1"></i> 
+                                        <i class='bx bx-barcode me-1'></i>
                                         Bayar
                                       </button>
                                       @include('WaliCalonView.PendaftaranSiswa.payment_midtrans')

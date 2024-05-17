@@ -76,30 +76,73 @@
       </a>
     </li>
 
-    <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">Kelola User</span>
-    </li>
-
-    <li class="menu-item {{\Route::is('registrasi.index') ? 'active' : ''}}">
-      <a href="{{route('registrasi.index')}}" class="menu-link">
-        <i class='menu-icon tf-icons bx bxs-user-account'></i>
-        <div data-i18n="Basic">Requested account</div>
-      </a>
-    </li>
-
-    <li class="menu-item {{\Route::is('account_siswa.index') ? 'active' : ''}}">
-      <a href="{{route('account_siswa.index')}}" class="menu-link">
-        <i class="menu-icon tf-icons bx bxs-user-pin"></i>
-        <div data-i18n="Basic">Account siswa</div>
-      </a>
-    </li>
-
-    <li class="menu-item">
+    <li class="menu-item {{ request()->routeIs('registrasi.index', 'account_siswa.index') ? 'active' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-box"></i>
+        <i class="menu-icon tf-icons bx bxs-user-account"></i>
+        <div data-i18n="User interface">Akun</div>
+      </a>
+      <ul class="menu-sub" {{ request()->routeIs('registrasi.index', 'account_siswa.index') ? 'style=display:block' : '' }} >
+        <li class="menu-item {{\Route::is('registrasi.index') ? 'active' : ''}}">
+          <a href="{{route('registrasi.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Akun request</div>
+          </a>
+        </li>
+
+        <li class="menu-item {{\Route::is('account_siswa.index') ? 'active' : ''}}">
+          <a href="{{route('account_siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Akun siswa</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+
+    <li class="menu-item {{ request()->routeIs('profile-siswa.index', 'wali-siswa.index') ? 'active' : '' }}">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bxs-group"></i>
+        <div data-i18n="User interface">Data siswa & wali</div>
+      </a>
+      <ul class="menu-sub" {{ request()->routeIs('profile-siswa.index', 'wali-siswa.index') ? 'style=display:block' : '' }} >
+        <li class="menu-item {{\Route::is('profile-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('profile-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Siswa</div>
+          </a>
+        </li>
+
+        <li class="menu-item {{\Route::is('wali-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('wali-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Wali</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-item {{ request()->routeIs('profile-siswa.index', 'wali-siswa.index') ? 'active' : '' }}">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
+        <div data-i18n="User interface">Tagihan siswa</div>
+      </a>
+      <ul class="menu-sub" {{ request()->routeIs('profile-siswa.index', 'wali-siswa.index') ? 'style=display:block' : '' }} >
+        <li class="menu-item {{\Route::is('profile-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('profile-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Siswa</div>
+          </a>
+        </li>
+
+        <li class="menu-item {{\Route::is('wali-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('wali-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Wali</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-item {{ request()->routeIs('transaki-pendaftaran.index', 'data-pendaftaran-siswa.index') ? 'active' : '' }}">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-columns"></i>
         <div data-i18n="User interface">Data pendaftaran</div>
       </a>
-      <ul class="menu-sub">
+      <ul class="menu-sub" {{ request()->routeIs('transaki-pendaftaran.index', 'data-pendaftaran-siswa.index') ? 'style=display:block' : '' }} >
         <li class="menu-item {{\Route::is('transaki-pendaftaran.index') ? 'active' : ''}}">
           <a href="{{route('transaki-pendaftaran.index')}}" class="menu-link">
             <div data-i18n="Accordion">Transaksi</div>
@@ -112,12 +155,14 @@
         </li>
       </ul>
     </li>
-    <li class="menu-item">
+
+
+    <li class="menu-item {{ request()->routeIs('info-pendaftaran.index', 'biaya-pendaftaran.index', 'kelas-siswa.index') ? 'active' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-box"></i>
         <div data-i18n="User interface">Master data</div>
       </a>
-      <ul class="menu-sub">
+      <ul class="menu-sub" {{ request()->routeIs('info-pendaftaran.index', 'biaya-pendaftaran.index', 'kelas-siswa.index') ? 'style=display:block' : '' }} >
         <li class="menu-item {{\Route::is('info-pendaftaran.index') ? 'active' : ''}}">
           <a href="{{route('info-pendaftaran.index')}}" class="menu-link">
             <div data-i18n="Accordion">Info pendaftaran</div>
@@ -136,106 +181,20 @@
           </a>
         </li>
 
-        <li class="menu-item {{\Route::is('profile-siswa.index') ? 'active' : ''}}">
-          <a href="{{route('profile-siswa.index')}}" class="menu-link">
-            <div data-i18n="Accordion">Profile siswa</div>
-          </a>
-        </li>
-
-        <li class="menu-item {{\Route::is('wali-siswa.index') ? 'active' : ''}}">
-          <a href="{{route('wali-siswa.index')}}" class="menu-link">
-            <div data-i18n="Accordion">Wali siswa</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-carousel.html" class="menu-link">
-            <div data-i18n="Carousel">Carousel</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-collapse.html" class="menu-link">
-            <div data-i18n="Collapse">Collapse</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-dropdowns.html" class="menu-link">
-            <div data-i18n="Dropdowns">Dropdowns</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-footer.html" class="menu-link">
-            <div data-i18n="Footer">Footer</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-list-groups.html" class="menu-link">
-            <div data-i18n="List Groups">List groups</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-modals.html" class="menu-link">
-            <div data-i18n="Modals">Modals</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-navbar.html" class="menu-link">
-            <div data-i18n="Navbar">Navbar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-offcanvas.html" class="menu-link">
-            <div data-i18n="Offcanvas">Offcanvas</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-pagination-breadcrumbs.html" class="menu-link">
-            <div data-i18n="Pagination &amp; Breadcrumbs">Pagination &amp; Breadcrumbs</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-progress.html" class="menu-link">
-            <div data-i18n="Progress">Progress</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-spinners.html" class="menu-link">
-            <div data-i18n="Spinners">Spinners</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-tabs-pills.html" class="menu-link">
-            <div data-i18n="Tabs &amp; Pills">Tabs &amp; Pills</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-toasts.html" class="menu-link">
-            <div data-i18n="Toasts">Toasts</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-tooltips-popovers.html" class="menu-link">
-            <div data-i18n="Tooltips & Popovers">Tooltips &amp; popovers</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-typography.html" class="menu-link">
-            <div data-i18n="Typography">Typography</div>
-          </a>
-        </li>
       </ul>
     </li>
-    <li class="menu-item">
+    <li class="menu-item {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index') ? 'active' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-box"></i>
+        <i class="menu-icon tf-icons bx bxs-book-content"></i>
         <div data-i18n="User interface">Kelola content</div>
       </a>
-      <ul class="menu-sub">
+      <ul class="menu-sub" {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index') ? 'style=display:block' : '' }} >
         <li class="menu-item {{\Route::is('slider-content.index') ? 'active' : ''}}">
           <a href="{{route('slider-content.index')}}" class="menu-link">
             <div data-i18n="Accordion">Slider</div>
           </a>
         </li>
-        <li class="menu-item {{\Route::is('konten-berita.index') ? 'active' : ''}}">
+        <li class="menu-item {{\Route::is('ekskul-content.index') ? 'active' : ''}}">
           <a href="{{route('ekskul-content.index')}}" class="menu-link">
             <div data-i18n="Alerts">Ekstrakurikuler</div>
           </a>
@@ -244,86 +203,6 @@
         <li class="menu-item {{\Route::is('konten-berita.index') ? 'active' : ''}}">
           <a href="{{route('konten-berita.index')}}" class="menu-link">
             <div data-i18n="Alerts">Berita</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-buttons.html" class="menu-link">
-            <div data-i18n="Buttons">Buttons</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-carousel.html" class="menu-link">
-            <div data-i18n="Carousel">Carousel</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-collapse.html" class="menu-link">
-            <div data-i18n="Collapse">Collapse</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-dropdowns.html" class="menu-link">
-            <div data-i18n="Dropdowns">Dropdowns</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-footer.html" class="menu-link">
-            <div data-i18n="Footer">Footer</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-list-groups.html" class="menu-link">
-            <div data-i18n="List Groups">List groups</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-modals.html" class="menu-link">
-            <div data-i18n="Modals">Modals</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-navbar.html" class="menu-link">
-            <div data-i18n="Navbar">Navbar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-offcanvas.html" class="menu-link">
-            <div data-i18n="Offcanvas">Offcanvas</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-pagination-breadcrumbs.html" class="menu-link">
-            <div data-i18n="Pagination &amp; Breadcrumbs">Pagination &amp; Breadcrumbs</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-progress.html" class="menu-link">
-            <div data-i18n="Progress">Progress</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-spinners.html" class="menu-link">
-            <div data-i18n="Spinners">Spinners</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-tabs-pills.html" class="menu-link">
-            <div data-i18n="Tabs &amp; Pills">Tabs &amp; Pills</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-toasts.html" class="menu-link">
-            <div data-i18n="Toasts">Toasts</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-tooltips-popovers.html" class="menu-link">
-            <div data-i18n="Tooltips & Popovers">Tooltips &amp; popovers</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="ui-typography.html" class="menu-link">
-            <div data-i18n="Typography">Typography</div>
           </a>
         </li>
       </ul>

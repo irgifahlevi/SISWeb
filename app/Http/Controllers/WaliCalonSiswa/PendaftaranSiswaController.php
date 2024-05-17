@@ -276,7 +276,7 @@ class PendaftaranSiswaController extends Controller
                         if ($request->fraud_status == 'accept') {
 
                             $data->is_bayar = PaymentHelpers::setTrue();
-                            $data->channel_pembayaran = $request->payment_type;
+                            $data->channel_pembayaran = PaymentHelpers::setPaymentType($request->payment_type);
                             PaymentHelpers::setSuccess($data);
                             GeneralHelpers::setUpdatedAt($data);
                             $data->save();
@@ -285,7 +285,7 @@ class PendaftaranSiswaController extends Controller
                     }
                 } else if ($request->transaction_status == 'settlement') {
                     $data->is_bayar = PaymentHelpers::setTrue();
-                    $data->channel_pembayaran = $request->payment_type;
+                    $data->channel_pembayaran = PaymentHelpers::setPaymentType($request->payment_type);
                     PaymentHelpers::setSuccess($data);
                     GeneralHelpers::setUpdatedAt($data);
                     $data->save();
