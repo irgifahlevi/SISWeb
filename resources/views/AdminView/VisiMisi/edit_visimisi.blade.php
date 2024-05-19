@@ -91,10 +91,10 @@
             $('#edit-modal-visimisi #data-container').show();
 
             $('#edit-modal-visimisi').find('input[name="id"]').val(data.id);
-            $('#edit-modal-visimisi').find('input[name="visi"]').val(data.visi);
-            $('#edit-modal-visimisi').find('input[name="misi"]').val(data.misi);
             $('#edit-modal-visimisi').find('input[name="title"]').val(data.title);
             $('#edit-modal-visimisi').find('textarea[name="deskripsi"]').val(data.deskripsi);
+            $('#edit-modal-visimisi').find('textarea[name="visi"]').val(data.visi);
+            $('#edit-modal-visimisi').find('textarea[name="misi"]').val(data.misi);
           }
         },
         error: function(response)
@@ -135,9 +135,9 @@
 
         formData.append('_method', 'PUT'); // formData gak fungsi di method PUT
         formData.append('id', id);
+        formData.append('title', title);
         formData.append('visi', visi);
         formData.append('misi', misi);
-        formData.append('title', title);
         formData.append('deskripsi', deskripsi);
         if(gambar !== undefined){
           formData.append('gambar', gambar);
@@ -158,6 +158,22 @@
           const maxLength = 255;
           if (inputVal !== '' || inputVal.length <= maxLength) {
             $('#deskripsi-errors').text('');
+          }
+        });
+
+        $('#visis').on('input', function() {
+          const inputVal = $(this).val();
+          const maxLength = 255;
+          if (inputVal !== '' || inputVal.length <= maxLength) {
+            $('#visi-errors').text('');
+          }
+        });
+
+        $('#misis').on('input', function() {
+          const inputVal = $(this).val();
+          const maxLength = 255;
+          if (inputVal !== '' || inputVal.length <= maxLength) {
+            $('#misi-errors').text('');
           }
         });
 

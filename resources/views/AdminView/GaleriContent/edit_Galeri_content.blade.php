@@ -13,7 +13,7 @@
                 <div class="col mb-3">
                   <label class="form-label">Nama Kegiatan<span class="text-danger">*</span></label>
                   <input type="text" class="form-control" name="nama_kegiatan" id="nama_kegiatans"/>
-                  <small class="text-danger mt-2 error-messages" id="title-errors"></small>
+                  <small class="text-danger mt-2 error-messages" id="nama_kegiatan-errors"></small>
                 </div>
               </div>
               <div class="row">
@@ -118,6 +118,7 @@
         // console.log('test');
         const id = $('#edit-modal-galeri').find('input[name="id"]').val();
         const title = $('#edit-modal-galeri').find('input[name="title"]').val();
+        const nama_kegiatan = $('#edit-modal-galeri').find('input[name="nama_kegiatan"]').val();
         const deskripsi = $('#edit-modal-galeri').find('textarea[name="deskripsi"]').val();
         const gambar = $('#edit-modal-galeri').find('input[name="gambar"]')[0].files[0];
 
@@ -134,6 +135,13 @@
 
         // console.log(formData);
 
+        $('#nama_kegiatans').on('input', function() {
+          const inputVal = $(this).val();
+          const maxLength = 255;
+          if (inputVal !== '' || inputVal <= maxLength) {
+            $('#nama_kegiatan-errors').text('');
+          }
+        });
         $('#titles').on('input', function() {
           const inputVal = $(this).val();
           const maxLength = 255;

@@ -114,7 +114,7 @@ class PengantarKepsekController extends Controller
             [
                 'title'=> 'required|string|max:255|min:4',
                 'deskripsi'=> 'nullable|max:500',
-                'gambar'=> 'required|image|mimes:jpeg,png|max:1000',
+                'gambar'=> 'nullable|image|mimes:jpeg,png|max:1000',
             ]
             );
 

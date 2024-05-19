@@ -122,7 +122,7 @@ class VisiMisiController extends Controller
                 'misi' => 'required|max:500|min:4',
                 'title' => 'required|string|max:255|min:4',
                 'deskripsi' => 'nullable|max:500',
-                'gambar' => 'required|image|mimes:jpeg,png|max:500',
+                'gambar' => 'nullable|image|mimes:jpeg,png|max:500',
             ]
         );
 
@@ -145,10 +145,10 @@ class VisiMisiController extends Controller
                     $visimisi->gambar = $fileImage;
                 }
 
-                $visimisi->visi = $request->visi;
-                $visimisi->misi = $request->misi;
                 $visimisi->title = $request->title;
                 $visimisi->deskripsi = $request->deskripsi;
+                $visimisi->visi = $request->visi;
+                $visimisi->misi = $request->misi;
                 GeneralHelpers::setUpdatedAt($visimisi);
 
                 $visimisi->save();
