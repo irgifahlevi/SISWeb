@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\FasilitasController;
 use App\Http\Controllers\Admin\VisiMisiController;
+use App\Http\Controllers\Admin\SejarahController;
+use App\Http\Controllers\Admin\PengantarKepsekController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
 use App\Http\Controllers\Admin\InfoPendaftaranController;
 use App\Http\Controllers\Admin\JenisKelaminController;
@@ -68,6 +70,12 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Menu Visi misi use resource
     Route::resource('visimisi', VisiMisiController::class);
+
+    // Menu Sejarah use resource
+    Route::resource('sejarah', SejarahController::class);
+
+    // Menu Pengantar Kepsek use resource
+    Route::resource('pengantarKepsek', PengantarKepsekController::class);
 
     // Menu ekskul use resource
     Route::resource('/ekskul-content', EkstrakurikulerController::class);

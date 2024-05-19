@@ -231,14 +231,14 @@
             <div data-i18n="Collapse">Visi Misi</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="ui-dropdowns.html" class="menu-link">
-            <div data-i18n="Dropdowns">Dropdowns</div>
+        <li class="menu-item {{ \Route::is('sejarah.index')? 'active' : '' }}">
+          <a href="{{ Route('sejarah.index') }}" class="menu-link">
+            <div data-i18n="Dropdowns">Sejarah</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="ui-footer.html" class="menu-link">
-            <div data-i18n="Footer">Footer</div>
+        <li class="menu-item {{ \Route::is('PengantarKepsek.index')? 'active' : '' }}">
+          <a href="{{ Route('pengantarKepsek.index') }}" class="menu-link">
+            <div data-i18n="Footer">Pengantar Kepsek</div>
           </a>
         </li>
         <li class="menu-item">
