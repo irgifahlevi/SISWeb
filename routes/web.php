@@ -15,7 +15,9 @@ use App\Http\Controllers\Admin\JenisKelaminController;
 use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Admin\ProfileSiswaController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
+use App\Http\Controllers\Admin\TagihanSiswaController;
 use App\Http\Controllers\Admin\TransaksiPendaftaranSiswaController;
+use App\Http\Controllers\Admin\TransaksiTagihanSiswaController;
 use App\Http\Controllers\Admin\WaliSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\PendaftaranSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
@@ -48,6 +50,7 @@ Auth::routes();
 
 Route::get('jenis-kelamin', [JenisKelaminController::class, 'getKelamin'])->name('data.jenis.kelamin');
 Route::get('data-kelas', [KelasController::class, 'dataKelas'])->name('data.kelas');
+Route::get('data-kelas-siswa', [KelasController::class, 'dataKelasSiswaAny'])->name('data.kelas.siswa');
 Route::get('info-gelombang', [InfoPendaftaranController::class, 'getInfo'])->name('info.gelombang.pendaftaran');
 Route::get('data-siswa', [ProfileSiswaController::class, 'dataSiswa'])->name('data.siswa');
 
@@ -95,6 +98,15 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Data pendaftaran siswa
     Route::resource('data-pendaftaran-siswa', DataPendaftaranSiswaController::class);
+
+    // Membuat tagihan siswa
+    Route::resource('tagihan-siswa', TagihanSiswaController::class);
+
+    // Update tagihan apabila tagihan siswa gagal
+    Route::put('tagihan-update/{id}', [TagihanSiswaController::class, 'tagihanUpdate'])->name('regenerate.tagihan');
+
+    // Transaksi tagihan siswa
+    Route::resource('transaki-tagihan', TransaksiTagihanSiswaController::class);
 });
 
 

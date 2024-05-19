@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nama_tagihan');
             $table->date('tanggal_dibuat');
             $table->date('jatuh_tempo');
-            $table->string('keterangan');
+            $table->enum('kategori_tagihan', ['spp', 'iuran', 'uas', 'uts', 'kursus', 'buku']);
             $table->integer('nominal_tagihan');
             $table->enum('status', ['belum_dibayar', 'dibayar', 'dibatalkan'])->default('belum_dibayar');
             $table->string('jenis_pembayaran')->nullable();

@@ -117,21 +117,21 @@
       </ul>
     </li>
 
-    <li class="menu-item {{ request()->routeIs('profile-siswa.index', 'wali-siswa.index') ? 'active' : '' }}">
+    <li class="menu-item {{ request()->routeIs('tagihan-siswa.index', 'transaki-tagihan.index') ? 'active' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-credit-card-front"></i>
         <div data-i18n="User interface">Tagihan siswa</div>
       </a>
-      <ul class="menu-sub" {{ request()->routeIs('profile-siswa.index', 'wali-siswa.index') ? 'style=display:block' : '' }} >
-        <li class="menu-item {{\Route::is('profile-siswa.index') ? 'active' : ''}}">
-          <a href="{{route('profile-siswa.index')}}" class="menu-link">
-            <div data-i18n="Accordion">Siswa</div>
+      <ul class="menu-sub" {{ request()->routeIs('tagihan-siswa.index', 'transaki-tagihan.index') ? 'style=display:block' : '' }} >
+        <li class="menu-item {{\Route::is('tagihan-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('tagihan-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Daftar tagihan</div>
           </a>
         </li>
 
-        <li class="menu-item {{\Route::is('wali-siswa.index') ? 'active' : ''}}">
-          <a href="{{route('wali-siswa.index')}}" class="menu-link">
-            <div data-i18n="Accordion">Wali</div>
+        <li class="menu-item {{\Route::is('transaki-tagihan.index') ? 'active' : ''}}">
+          <a href="{{route('transaki-tagihan.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Transaksi tagihan</div>
           </a>
         </li>
       </ul>

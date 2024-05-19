@@ -14,7 +14,7 @@ class Kelas extends Model
 
     public function Siswa()
     {
-        return $this->hasOne(Siswa::class, 'kelas_id', 'id');
+        return $this->hasMany(Siswa::class, 'kelas_id', 'id');
     }
 
     public function KelasTagihan()

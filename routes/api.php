@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HandleAfterPaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WaliCalonSiswa\PendaftaranSiswaController;
@@ -21,3 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // After payment 
 Route::post('/after-payment-pendaftaran', [PendaftaranSiswaController::class, 'updateStatus']);
+
+// Handle payment
+Route::post('handle-payment', [HandleAfterPaymentController::class, 'handleTransaction']);

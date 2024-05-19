@@ -23,3 +23,16 @@ function formatNoTelpon($noTelpon)
 {
   return "+62" . $noTelpon;
 }
+
+function setFormatKategoriTagihan($type)
+{
+  $paymentTypes = [
+    "spp" => "SPP",
+    "iuran" => "Iuran",
+    "uts" => "UTS",
+    "uas" => "UAS",
+    "kursus" => "Kursus",
+    "buku" => "Buku",
+  ];
+  return $paymentTypes[$type] ?? "Lainnya";
+}

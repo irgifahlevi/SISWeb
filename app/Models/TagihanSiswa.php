@@ -10,7 +10,7 @@ class TagihanSiswa extends Model
     protected $guarded = [];
     use HasFactory;
 
-    public function TagihanSiswa()
+    public function TagihanSiswas()
     {
         return $this->belongsTo(Siswa::class, 'siswa_id', 'id');
     }

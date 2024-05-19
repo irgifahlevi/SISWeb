@@ -168,4 +168,16 @@ class KelasController extends Controller
             ->get();
         return ResponseHelpers::SuccessResponse('', $data, 200);
     }
+
+    public function dataKelasSiswaAny()
+    {
+        $data = Kelas::select('id', 'kelas')
+            ->where('row_status', '0')
+            ->whereHas('Siswa', function ($query) {
+                $query->where('row_status', '0');  // Asumsi Anda juga ingin memeriksa status siswa
+            })
+            ->orderBy('id', 'desc')
+            ->get();
+        return ResponseHelpers::SuccessResponse('', $data, 200);
+    }
 }
