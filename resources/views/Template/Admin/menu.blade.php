@@ -57,7 +57,7 @@
           </g>
         </svg>
       </span>
-      <span class="app-brand-text demo menu-text fw-bolder ms-2">ISWEB</span>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2">SISWEB</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -168,7 +168,7 @@
             <div data-i18n="Accordion">Info pendaftaran</div>
           </a>
         </li>
-        
+
         <li class="menu-item {{\Route::is('biaya-pendaftaran.index') ? 'active' : ''}}">
           <a href="{{route('biaya-pendaftaran.index')}}" class="menu-link">
             <div data-i18n="Accordion">Biaya pendaftaran</div>
@@ -199,7 +199,7 @@
             <div data-i18n="Alerts">Ekstrakurikuler</div>
           </a>
         </li>
-        
+
         <li class="menu-item {{\Route::is('konten-berita.index') ? 'active' : ''}}">
           <a href="{{route('konten-berita.index')}}" class="menu-link">
             <div data-i18n="Alerts">Berita</div>
