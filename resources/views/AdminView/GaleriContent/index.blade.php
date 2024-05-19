@@ -19,7 +19,7 @@
           </button>
 
           <!-- Modal tambah data -->
-          @include('AdminView.GaleriContent.add_Galeri_Content');
+          @include('AdminView.GaleriContent.add_Galeri_Content')
         </div>
           {{-- Tabel --}}
           <div class="card">
@@ -30,6 +30,7 @@
                   <thead>
                     <tr>
                       <th>No.</th>
+                      <th>Nama Kegiatan</th>
                       <th>Title</th>
                       <th>Deskripsi</th>
                       <th>Gambar</th>
@@ -44,6 +45,7 @@
                     @foreach($galeri as $item)
                     <tr>
                       <td>{{$nomor++}}</td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->nama_kegiatan }}</span></td>
                       <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->title }}</span></td>
                       <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->deskripsi }}</span></td>
                       <td>
@@ -82,7 +84,7 @@
           </div>
 
           {{-- Modal edit data --}}
-          @include('AdminView.VisiMisi.edit_visimisi')
+          @include('AdminView.GaleriContent.edit_Galeri_Content')
 
 
         {{-- Jika data banner kosong --}}

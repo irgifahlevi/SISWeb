@@ -115,7 +115,7 @@ class SejarahController extends Controller
             [
                 'title'=> 'required|string|max:255|min:4',
                 'deskripsi'=> 'nullable|max:500',
-                'gambar'=> 'required|image|mimes:jpeg,png|max:1000',
+                'gambar'=> 'nullable|image|mimes:jpeg,png|max:1000',
             ]
             );
 
@@ -162,7 +162,7 @@ class SejarahController extends Controller
             $sejarah = Sejarah::where('id', $id)->where('row_status', '0')->firstOrFail();
             $image_exists = Storage::exists('public/sejarah/' . $sejarah->gambar);
             if($image_exists){
-                Storage::deleted('public/sejarah'. $sejarah->gambar);
+                Storage::delete('public/sejarah'. $sejarah->gambar);
             }
             GeneralHelpers::setRowStatusInActive($sejarah);
             $sejarah->save();

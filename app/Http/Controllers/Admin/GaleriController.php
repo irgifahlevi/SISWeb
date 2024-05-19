@@ -55,7 +55,7 @@ class GaleriController extends Controller
                 'nama_kegiatan' => 'required|string|max:255|min:4',
                 'title' => 'required|string|max:255|min:4',
                 'deskripsi' => 'nullable|max:500',
-                'gambar' => 'required|image|mimes:jpeg,png|max:500',
+                'gambar' => 'required|image|mimes:jpeg,png|max:1000',
             ]
             );
 
@@ -124,7 +124,7 @@ class GaleriController extends Controller
                 'nama_kegiatan' => 'required|string|max:255|min:4',
                 'title' => 'required|string|max:255|min:4',
                 'deskripsi' => 'nullable|max:500',
-                'gambar' => 'nullable|image|mimes:jpeg,png|max:500',
+                'gambar' => 'nullable|image|mimes:jpeg,png|max:1000',
             ]
         );
 
