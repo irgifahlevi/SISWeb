@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('no_nisn')->nullable();
             $table->string('no_telepon', 20)->nullable();
             $table->unsignedBigInteger('jenis_kelamin_id');
+            $table->unsignedBigInteger('wali_calon_siswa_id');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->enum('agama', ['Islam'])->default('Islam');
@@ -41,6 +42,7 @@ return new class extends Migration
             $table->tinyInteger('row_status');
 
             $table->foreign('jenis_kelamin_id')->references('id')->on('jenis_kelamins')->onDelete('cascade');
+            $table->foreign('wali_calon_siswa_id')->references('id')->on('wali_calon_siswas')->onDelete('cascade');
         });
     }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\BiayaPendaftaranController;
 use App\Http\Controllers\Admin\ConfigController;
+use App\Http\Controllers\Admin\DataPendaftaranSiswaController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\GaleriController;
@@ -17,9 +18,14 @@ use App\Http\Controllers\Admin\EkstrakurikulerController;
 use App\Http\Controllers\Admin\InfoPendaftaranController;
 use App\Http\Controllers\Admin\JenisKelaminController;
 use App\Http\Controllers\Admin\KelasController;
+use App\Http\Controllers\Admin\ProfileSiswaController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
+use App\Http\Controllers\Admin\TransaksiPendaftaranSiswaController;
+use App\Http\Controllers\Admin\WaliSiswaController;
+use App\Http\Controllers\WaliCalonSiswa\PendaftaranSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
+use App\Models\Pendaftaran;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +52,9 @@ Auth::routes();
 */
 
 Route::get('jenis-kelamin', [JenisKelaminController::class, 'getKelamin'])->name('data.jenis.kelamin');
+Route::get('data-kelas', [KelasController::class, 'dataKelas'])->name('data.kelas');
+Route::get('info-gelombang', [InfoPendaftaranController::class, 'getInfo'])->name('info.gelombang.pendaftaran');
+Route::get('data-siswa', [ProfileSiswaController::class, 'dataSiswa'])->name('data.siswa');
 
 Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     Route::get('beranda', [AdminController::class, 'index'])->name('admin.index');
@@ -85,7 +94,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Menu info pendaftaran
     Route::resource('info-pendaftaran', InfoPendaftaranController::class);
-    Route::get('info-gelombang', [InfoPendaftaranController::class, 'getInfo'])->name('info.gelombang.pendaftaran');
+
 
     Route::resource('config-pendaftaran', ConfigController::class);
 
@@ -94,6 +103,18 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Mantainance kelas siswa
     Route::resource('kelas-siswa', KelasController::class);
+
+    // Profile siswa
+    Route::resource('profile-siswa', ProfileSiswaController::class);
+
+    // Wali siswa
+    Route::resource('wali-siswa', WaliSiswaController::class);
+
+    // Transaksi pendaftaran siswa
+    Route::resource('transaki-pendaftaran', TransaksiPendaftaranSiswaController::class);
+
+    // Data pendaftaran siswa
+    Route::resource('data-pendaftaran-siswa', DataPendaftaranSiswaController::class);
 });
 
 
@@ -108,6 +129,9 @@ Route::prefix('wali_calon')->middleware(['auth', 'auth.wali_calon'])->group(func
 
     // Update password
     Route::put('update_password_wali/{id}', [WaliCalonSiswaController::class, 'updatePassword'])->name('wali.update.passwords');
+
+    // Pendaftaran siswa
+    Route::resource('pendaftaran-siswa', PendaftaranSiswaController::class);
 });
 
 

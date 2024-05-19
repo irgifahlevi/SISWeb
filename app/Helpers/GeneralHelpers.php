@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use App\Events\NewNotification;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,5 +57,39 @@ class GeneralHelpers
       'email' => $email,
     ];
     event(new NewNotification($notificationData));
+  }
+
+  public static function generateRandomText($length)
+  {
+    $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomCode = '';
+    for ($i = 0; $i < $length; $i++) {
+      $randomCode .= $alphabet[rand(0, strlen($alphabet) - 1)];
+    }
+    return $randomCode;
+  }
+
+  public static function generateRandomNumber($length)
+  {
+    $result = '';
+    for ($i = 0; $i < $length; $i++) {
+      $result .= random_int(0, 9);
+    }
+    return $result;
+  }
+
+  public static function pendingStatusPayment($model)
+  {
+    $model->status = "Pending";
+  }
+
+  public static function successStatusPayment($model)
+  {
+    $model->status = "Success";
+  }
+
+  public static function failedStatusPayment($model)
+  {
+    $model->status = "Failed";
   }
 }

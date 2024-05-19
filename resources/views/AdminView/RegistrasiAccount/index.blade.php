@@ -17,7 +17,7 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>No.</th>
+                      <th style="width: 70px;">No.</th>
                       <th>Username</th>
                       <th>Email</th>
                       <th>Status</th>

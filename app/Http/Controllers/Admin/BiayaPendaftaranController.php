@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Helpers\GeneralHelpers;
 use App\Models\InfoPendaftaran;
@@ -67,11 +68,8 @@ class BiayaPendaftaranController extends Controller
 
             $data = new BiayaPendaftaran();
 
-            $lastData = $data::latest('id')->first();
-            $lastDataId = $lastData ? $lastData->id : 0;
-            $kodeGelombang = 'GEL-' . strtoupper(substr($request->nama_biaya, 0, 2)) . '-' . str_pad($lastDataId + 1, 3, '0', STR_PAD_LEFT);
-
-            $data->kode_biaya = $kodeGelombang;
+            $kode_random = GeneralHelpers::generateRandomText(20);
+            $data->kode_biaya = $kode_random;
             $data->nama_biaya = $request->nama_biaya;
             $data->nominal_biaya = $request->nominal_biaya;
             $data->info_pendaftaran_id = $request->info_pendaftaran_id;
@@ -117,6 +115,7 @@ class BiayaPendaftaranController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->merge(['nominal_biaya' => str_replace('.', '', $request->nominal_biaya)]);
         $validator = Validator::make(
             $request->all(),
             [

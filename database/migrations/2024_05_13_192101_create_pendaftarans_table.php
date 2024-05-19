@@ -22,8 +22,10 @@ return new class extends Migration
             $table->dateTime('tanggal_pendaftaran');
             $table->unsignedBigInteger('info_pendaftaran_id');
             $table->unsignedBigInteger('calon_siswa_id');
+            $table->unsignedBigInteger('wali_calon_siswa_id');
             $table->string('jenis_pembayaran');
             $table->string('channel_pembayaran')->nullable();
+            $table->string('token_pembayaran')->nullable();
             $table->string('created_by')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
@@ -31,6 +33,7 @@ return new class extends Migration
 
             $table->foreign('info_pendaftaran_id')->references('id')->on('info_pendaftarans')->onDelete('cascade');
             $table->foreign('calon_siswa_id')->references('id')->on('calon_siswas')->onDelete('cascade');
+            $table->foreign('wali_calon_siswa_id')->references('id')->on('wali_calon_siswas')->onDelete('cascade');
         });
     }
 
