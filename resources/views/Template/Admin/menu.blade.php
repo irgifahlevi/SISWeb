@@ -183,12 +183,12 @@
 
       </ul>
     </li>
-    <li class="menu-item {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index') ? 'active' : '' }}">
+    <li class="menu-item {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index', 'galeri-content.index', 'fasilitas.index', 'visimisi.index', 'sejarah.index', 'pengantarKepsek.index') ? 'active' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-book-content"></i>
         <div data-i18n="User interface">Kelola content</div>
       </a>
-      <ul class="menu-sub" {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index') ? 'style=display:block' : '' }} >
+      <ul class="menu-sub" {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index', 'galeri-content.index', 'fasilitas.index', 'visimisi.index', 'sejarah.index', 'pengantarKepsek.index') ? 'style=display:block' : '' }} >
         <li class="menu-item {{\Route::is('slider-content.index') ? 'active' : ''}}">
           <a href="{{route('slider-content.index')}}" class="menu-link">
             <div data-i18n="Accordion">Slider</div>
@@ -203,6 +203,32 @@
         <li class="menu-item {{\Route::is('konten-berita.index') ? 'active' : ''}}">
           <a href="{{route('konten-berita.index')}}" class="menu-link">
             <div data-i18n="Alerts">Berita</div>
+          </a>
+        </li>
+
+        <li class="menu-item {{\Route::is('galeri-content.index')? 'active' : ''}}">
+          <a href="{{route('galeri-content.index')}}" class="menu-link">
+            <div data-i18n="Buttons">Galeri</div>
+          </a>
+        </li>
+        <li class="menu-item {{\Route::is('fasilitas.index')? 'active' : ''}}">
+          <a href="{{route('fasilitas.index')}}" class="menu-link">
+            <div data-i18n="Carousel">Fasilitas</div>
+          </a>
+        </li>
+        <li class="menu-item {{ \Route::is('visimisi.index')? 'active' : '' }}">
+          <a href="{{ Route('visimisi.index') }}" class="menu-link">
+            <div data-i18n="Collapse">Visi Misi</div>
+          </a>
+        </li>
+        <li class="menu-item {{ \Route::is('sejarah.index')? 'active' : '' }}">
+          <a href="{{ Route('sejarah.index') }}" class="menu-link">
+            <div data-i18n="Dropdowns">Sejarah</div>
+          </a>
+        </li>
+        <li class="menu-item {{ \Route::is('pengantarKepsek.index')? 'active' : '' }}">
+          <a href="{{ Route('pengantarKepsek.index') }}" class="menu-link">
+            <div data-i18n="Footer">Pengantar Kepsek</div>
           </a>
         </li>
       </ul>
