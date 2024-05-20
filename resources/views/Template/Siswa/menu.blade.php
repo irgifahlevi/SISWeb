@@ -75,5 +75,22 @@
         <div data-i18n="Analytics">Dashboard</div>
       </a>
     </li>
+
+    @auth 
+      @if (auth()->user()->SiswaUser)  
+        <li class="menu-item {{\Route::is('profile-saya.index') ? 'active' : ''}}">
+          <a href="{{route('profile-saya.index')}}" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+            <div data-i18n="Analytics">Profil saya</div>
+          </a>
+        </li>
+        <li class="menu-item {{\Route::is('tagihan-saya.index') ? 'active' : ''}}">
+          <a href="{{route('tagihan-saya.index')}}" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-receipt"></i>
+            <div data-i18n="Analytics">Tagihan saya</div>
+          </a>
+        </li>
+      @endif
+    @endauth
   </ul>
 </aside>

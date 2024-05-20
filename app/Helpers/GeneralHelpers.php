@@ -2,9 +2,10 @@
 
 namespace App\Helpers;
 
-use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use App\Events\NewNotification;
+use App\Models\BiayaPendaftaran;
 use Illuminate\Support\Facades\Auth;
 
 class GeneralHelpers
@@ -78,18 +79,19 @@ class GeneralHelpers
     return $result;
   }
 
-  public static function pendingStatusPayment($model)
+  public static function generateKodeBiaya($nama_biaya)
   {
-    $model->status = "Pending";
-  }
+    $inisial = strtoupper(substr($nama_biaya, 0, 2));
+    $spasiPosition = strpos($nama_biaya, ' ');
+    if ($spasiPosition !== false) {
+      $inisial .= strtoupper(substr($nama_biaya, $spasiPosition + 1, 1));
+    } else {
+      $inisial = strtoupper(substr($nama_biaya, 0, 3));
+    }
 
-  public static function successStatusPayment($model)
-  {
-    $model->status = "Success";
-  }
+    $tanggal = Carbon::now()->format('Y');
 
-  public static function failedStatusPayment($model)
-  {
-    $model->status = "Failed";
+    $random_number = self::generateRandomNumber(4);
+    return $inisial . "-" . $random_number . "-" . $tanggal;
   }
 }

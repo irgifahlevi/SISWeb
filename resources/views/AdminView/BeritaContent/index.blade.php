@@ -12,7 +12,7 @@
         {{-- Jika jumlah data banner lebih dari 0 --}}
         @if (count($berita) > 0)
 
-        <div class="mb-3">
+          <div class="mb-3">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary" id="add-berita" >
             Tambah data
@@ -20,7 +20,7 @@
 
           <!-- Modal tambah data -->
           @include('AdminView.BeritaContent.add_berita')
-        </div>
+          </div>
           {{-- Tabel --}}
           <div class="card">
             <h5 class="card-header">Data berita konten</h5>

@@ -12,15 +12,15 @@
         {{-- Jika jumlah data banner lebih dari 0 --}}
         @if (count($galeri) > 0)
 
-        <div class="mb-3">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" id="add-galeri" >
-            Tambah galeri baru
-          </button>
+          <div class="mb-3">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" id="add-galeri" >
+              Tambah data
+            </button>
 
-          <!-- Modal tambah data -->
-          @include('AdminView.GaleriContent.add_Galeri_Content')
-        </div>
+            <!-- Modal tambah data -->
+            @include('AdminView.GaleriContent.add_Galeri_Content')
+          </div>
           {{-- Tabel --}}
           <div class="card">
             <h5 class="card-header">Data galeri konten</h5>

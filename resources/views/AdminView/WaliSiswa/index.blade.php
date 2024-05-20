@@ -54,7 +54,11 @@
                       <td>{{$nomor++}}</td>
                       <td>{{ $item->nama_lengkap }}</td>
                       <td>{{ $item->nik }}</td>
-                      <td>{{formatNoTelpon($item->no_telepon)}}</td>
+                      <td>
+                        @if ($item->no_telepon)
+                          {{formatNoTelpon($item->no_telepon)}}                            
+                        @endif
+                      </td>
                       <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->alamat }}</span></td>
                       <td>{{ $item->hubungan_status }}</td>
                       <td>{{ $item->Siswa->nama_lengkap }}</td>

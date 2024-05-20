@@ -13,7 +13,7 @@
                 <div class="col mb-3">
                   <label class="form-label">Nama fasilitas<span class="text-danger">*</span></label>
                   <input type="text" class="form-control" name="nama_fasilitas" id="nama_fasilitass"/>
-                  <small class="text-danger mt-2 error-messages" id="fasilitas-errors"></small>
+                  <small class="text-danger mt-2 error-messages" id="nama_fasilitas-errors"></small>
                 </div>
               </div>
               <div class="row">
@@ -79,7 +79,6 @@
             $('#edit-modal-fasilitas').find('input[name="id"]').val(data.id);
             $('#edit-modal-fasilitas').find('input[name="nama_fasilitas"]').val(data.nama_fasilitas);
             $('#edit-modal-fasilitas').find('textarea[name="deskripsi"]').val(data.deskripsi);
-            $('#edit-modal-fasilitas').find('input[name="gambar"]').val(data.gambar);
           }
         },
         error: function(response)
@@ -128,26 +127,27 @@
 
         $('#nama_fasilitass').on('input', function() {
           const inputVal = $(this).val();
-          const maxLength = 255;
-          if (inputVal !== '' || inputVal <= maxLength) {
+          const maxLength = 500;
+          if (inputVal !== '' || inputVal.length <= maxLength) {
             $('#nama_fasilitas-errors').text('');
           }
         });
 
         $('#deskripsis').on('input', function() {
           const inputVal = $(this).val();
-          const maxLength = 255;
+          const maxLength = 1000;
           if (inputVal !== '' || inputVal.length <= maxLength) {
             $('#deskripsi-errors').text('');
           }
         });
 
         $('#gambars').on('change', function(){
-          const inputVal = $(this).val();
-          if(inputVal !== ''){
-            $('#gambar-errors').text('');
-          }
-        });
+        const inputVal = $(this).val();
+        if(inputVal !== ''){
+          $('#gambar-errors').text('');
+        }
+      });
+      
 
 
         $('#loading-overlay').show();

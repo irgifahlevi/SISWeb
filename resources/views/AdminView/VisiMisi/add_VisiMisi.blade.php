@@ -77,34 +77,34 @@
         $('#form-add-visimisi').on('submit', function(e){
             e.preventDefault();
 
-        $('#visi').on('input', function(){
+        $('#title').on('input', function() {
             const inputVal = $(this).val();
             const maxLength = 255;
-            if(inputVal !== '' || inputVal <= maxLength){
-                $('#visi-error').text('');
+            if (inputVal !== '' || inputVal <= maxLength) {
+                $('#title-error').text('');
             }
         });
 
-        $('#misi').on('input', function(){
+        $('#visi').on('input', function() {
             const inputVal = $(this).val();
-            const maxLength = 255;
-            if(inputVal !== '' || inputVal <= maxLength){
+            const maxLength = 500;
+            if (inputVal !== '' || inputVal <= maxLength) {
+                $('#visi-error').text('');
+            }
+        });
+        $('#misi').on('input', function() {
+            const inputVal = $(this).val();
+            const maxLength = 500;
+            if (inputVal !== '' || inputVal <= maxLength) {
                 $('#misi-error').text('');
             }
         });
 
-        $('#deskripsi').on('input', function(){
-            const inputVal = $(this).val();
-            const maxLength = 255;
-            if (inputVal !=='' || inputVal.length<= maxLength){
-            $('#deskripsi-error').text('');
-            }
-        });
-
         $('#gambar').on('change', function(){
-        if(inputVal !== ''){
-            $('#gambar-error').text('')
-        }
+            const inputVal = $(this).val();
+            if(inputVal !== ''){
+                $('#gambar-error').text('');
+            }
         });
 
         var formData = new FormData(this);

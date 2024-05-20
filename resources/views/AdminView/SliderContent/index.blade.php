@@ -15,7 +15,7 @@
         <div class="mb-3">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary" id="add-slider" >
-            Tambah slider baru
+            Tambah data
           </button>
 
           <!-- Modal tambah data -->

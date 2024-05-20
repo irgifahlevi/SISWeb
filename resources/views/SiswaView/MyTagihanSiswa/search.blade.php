@@ -8,10 +8,10 @@
           <input
             type="text"
             class="form-control border-0 shadow-none"
-            placeholder="Search..."
+            placeholder="Cari nama tagihan..."
             aria-label="Search..."
-            value="{{$search_data}}"
-            name="search_data"
+            value="{{$search_tagihan}}"
+            name="search_tagihan"
           />
         </form>
       </div>

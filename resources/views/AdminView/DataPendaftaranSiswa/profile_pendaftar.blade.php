@@ -8,7 +8,7 @@
         {{-- Jika jumlah data banner lebih dari 0 --}}
        
         @if ($data)
-          <div class="card mt-4">
+          <div class="card">
             <h5 class="card-header">Detail data</h5>
             <hr class="m-0" />
             <div class="card-body">

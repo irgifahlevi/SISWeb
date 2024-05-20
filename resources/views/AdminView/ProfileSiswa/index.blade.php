@@ -55,7 +55,11 @@
                       <td>{{ $item->nik }}</td>
                       <td>{{ $item->no_kk }}</td>
                       <td>{{ $item->no_nisn }}</td>
-                      <td>{{formatNoTelpon($item->no_telepon)}}</td>
+                      <td>
+                        @if ($item->no_telepon)
+                          {{formatNoTelpon($item->no_telepon)}}                            
+                        @endif
+                      </td>
                       <td>{{ $item->JenisKelaminSiswa->jenis_kelamin }}</td>
                       <td>{{ $item->KelasSiswa->kelas }}</td>
                       <td>{{ $item->KelasSiswa->ruangan }}</td>
