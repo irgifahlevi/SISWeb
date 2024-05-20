@@ -136,6 +136,8 @@ class TagihanSiswaController extends Controller
                     \Midtrans\Config::$isSanitized = config('midtrans.midtrans_sanitized');
                     \Midtrans\Config::$is3ds = config('midtrans.midtrans_3ds');
 
+                    $no_telp = formatNoTelpon($siswa->no_telepon);
+
                     $params = array(
                         'transaction_details' => array(
                             'order_id' => $data->kode_tagihan,
@@ -147,7 +149,7 @@ class TagihanSiswaController extends Controller
                             'first_name' => $siswa->nama_lengkap,
                             'last_name' => '',
                             'email' => $users->email,
-                            'phone' => $siswa->no_telepon,
+                            'phone' => $no_telp,
                         ),
                     );
 
@@ -215,6 +217,7 @@ class TagihanSiswaController extends Controller
 
                 $users = User::select('email')
                     ->where('id', $tagihan->TagihanSiswas->user_id)->firstOrFail();
+                $no_telp = formatNoTelpon($tagihan->TagihanSiswas->no_telepon);
                 // Process generate snap token
                 \Midtrans\Config::$serverKey = config('midtrans.midtrans_server_key');
                 \Midtrans\Config::$isProduction = config('midtrans.midtrans_production');
@@ -232,7 +235,7 @@ class TagihanSiswaController extends Controller
                         'first_name' => $tagihan->TagihanSiswas->nama_lengkap,
                         'last_name' => '',
                         'email' => $users->email,
-                        'phone' => $tagihan->TagihanSiswas->no_telepon,
+                        'phone' => $no_telp,
                     ),
                 );
 

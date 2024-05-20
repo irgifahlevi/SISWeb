@@ -15,7 +15,7 @@
         <div class="mb-3">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary" id="add-fasilitas" >
-            Tambah fasilitas baru
+            Tambah data
           </button>
 
           <!-- Modal tambah data -->

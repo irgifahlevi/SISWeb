@@ -18,20 +18,20 @@ class VisiMisiController extends Controller
      */
     public function index(Request $request)
     {
-        $search_visimisi = $request->query('search_visimisi');
+        $search_data = $request->query('search_data');
 
         // Mulai dengan kueri dasar untuk mendapatkan semua akun siswa
         $query = VisiMisi::where('row_status', '0')->orderBy('id', 'desc');
 
         // Jika ada pencarian, tambahkan filter pencarian ke kueri
-        if (!empty($search_visimisi)) {
-            $query->where('nama_visimisi', 'like', '%' . $search_visimisi . '%');
+        if (!empty($search_data)) {
+            $query->where('title', 'like', '%' . $search_data . '%');
         }
 
         // Ambil data dengan paginasi
         $visimisi = $query->paginate(5)->onEachSide(2)->fragment('visimisi_content');
 
-        return view('AdminView.VisiMisi.index', compact('visimisi', 'search_visimisi'));
+        return view('AdminView.VisiMisi.index', compact('visimisi', 'search_data'));
     }
 
     /**
@@ -56,16 +56,16 @@ class VisiMisiController extends Controller
                 'deskripsi' => 'nullable|max:500',
                 'gambar' => 'required|image|mimes:jpeg,png|max:500',
             ]
-            );
+        );
 
         if ($validator->fails()) {
-            return ResponseHelpers::ErrorResponse($validator->messages(),400);
+            return ResponseHelpers::ErrorResponse($validator->messages(), 400);
         }
 
         try {
             $image = $request->file('gambar');
             $imageName = time() . '.' .
-            $image->getClientOriginalExtension();
+                $image->getClientOriginalExtension();
             $path = $image->storeAs('public/visimisi', $imageName);
             $imagePath = basename($path);
 
@@ -83,8 +83,8 @@ class VisiMisiController extends Controller
 
             $visimisi->save();
 
-            return ResponseHelpers::SuccessResponse('Data berhasil ditambahkan', '' , 200);
-        } catch(Exception $e){
+            return ResponseHelpers::SuccessResponse('Data berhasil ditambahkan', '', 200);
+        } catch (Exception $e) {
             return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }
@@ -94,10 +94,10 @@ class VisiMisiController extends Controller
      */
     public function show(string $id)
     {
-        try{
+        try {
             $visimisi = VisiMisi::where('id', $id)->where('row_status', '0')->firstOrFail();
             return ResponseHelpers::SuccessResponse('', $visimisi, 200);
-        } catch(Exception $th){
+        } catch (Exception $th) {
             return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }
@@ -167,16 +167,16 @@ class VisiMisiController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
+        try {
             $visimisi =  VisiMisi::where('id', $id)->where('row_Status', '0')->firstOrFail();
-            $image_exists = Storage::exists('public/visimisi/' .$visimisi->gambar);
-            if ($image_exists){
-                Storage::delete('public/visimisi/'.$visimisi->gambar);
+            $image_exists = Storage::exists('public/visimisi/' . $visimisi->gambar);
+            if ($image_exists) {
+                Storage::delete('public/visimisi/' . $visimisi->gambar);
             }
             GeneralHelpers::setRowStatusInActive($visimisi);
             $visimisi->save();
             return ResponseHelpers::SuccessResponse('Your Record has been deleted', '', 200);
-        } catch(Exception $th) {
+        } catch (Exception $th) {
             return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }

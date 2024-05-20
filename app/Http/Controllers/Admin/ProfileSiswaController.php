@@ -29,7 +29,7 @@ class ProfileSiswaController extends Controller
             })
             ->whereHas('UserSiswa', function ($query) {
                 $query->where('row_status', 0);
-            });
+            })->orderBy('id', 'desc');
 
         if (!empty($search_profile_siswa)) {
             $query->where('nama_lengkap', 'like', '%' . $search_profile_siswa . '%');

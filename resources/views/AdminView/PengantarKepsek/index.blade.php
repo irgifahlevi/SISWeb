@@ -1,6 +1,6 @@
 @extends('Template.Admin.master_admin')
 @section('content')
-{{-- @include('AdminView.pengantarKepsek.search') --}}
+@include('AdminView.PengantarKepsek.search')
 <div id="loading-overlay" style="display: none;">
   @include('Template.loading')
 </div>
@@ -15,7 +15,7 @@
         <div class="mb-3">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary" id="add-pengantarKepsek" >
-            Tambah Pengantar Kepsek baru
+            Tambah data
           </button>
 
           <!-- Modal tambah data -->

@@ -51,18 +51,18 @@ class FasilitasController extends Controller
             $request->all(),
             [
                 'nama_fasilitas' => 'required|string|max:255|min:4',
-                'deskripsi' => 'nullable|max:500',
-                'gambar' => 'required|image|mimes:jpeg,png|max:500',
+                'deskripsi' => 'nullable|max:2000',
+                'gambar' => 'required|image|mimes:jpeg,png|max:1000',
             ]
-            );
+        );
         if ($validator->fails()) {
-            return ResponseHelpers::ErrorResponse($validator->messages(),400);
+            return ResponseHelpers::ErrorResponse($validator->messages(), 400);
         }
 
         try {
             $image = $request->file('gambar');
             $imageName = time() . '.' .
-            $image->getClientOriginalExtension();
+                $image->getClientOriginalExtension();
             $path = $image->storeAs('public/fasilitas', $imageName);
             $imagePath = basename($path);
 
@@ -78,11 +78,10 @@ class FasilitasController extends Controller
 
             $fasilitas->save();
 
-            return ResponseHelpers::SuccessResponse('Data berhasil ditambahkan', '' , 200);
-        } catch(Exception $e){
+            return ResponseHelpers::SuccessResponse('Data berhasil ditambahkan', '', 200);
+        } catch (Exception $e) {
             return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
-
     }
 
     /**
@@ -90,10 +89,10 @@ class FasilitasController extends Controller
      */
     public function show(string $id)
     {
-        try{
+        try {
             $fasilitas = Fasilitas::where('id', $id)->where('row_status', '0')->firstOrFail();
             return ResponseHelpers::SuccessResponse('', $fasilitas, 200);
-        } catch(Exception $th){
+        } catch (Exception $th) {
             return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }
@@ -115,8 +114,8 @@ class FasilitasController extends Controller
             $request->all(),
             [
                 'nama_fasilitas' => 'required|string|max:255|min:4',
-                'deskripsi' => 'nullable|max:500',
-                'gambar' => 'nullable|image|mimes:jpeg,png|max:500',
+                'deskripsi' => 'nullable|max:2000',
+                'gambar' => 'nullable|image|mimes:jpeg,png|max:1000',
             ]
         );
 
@@ -159,16 +158,16 @@ class FasilitasController extends Controller
      */
     public function destroy(string $id)
     {
-        try{
+        try {
             $fasilitas =  Fasilitas::where('id', $id)->where('row_Status', '0')->firstOrFail();
-            $image_exists = Storage::exists('public/fasilitas/' .$fasilitas->gambar);
-            if ($image_exists){
-                Storage::delete('public/fasilitas/'.$fasilitas->gambar);
+            $image_exists = Storage::exists('public/fasilitas/' . $fasilitas->gambar);
+            if ($image_exists) {
+                Storage::delete('public/fasilitas/' . $fasilitas->gambar);
             }
             GeneralHelpers::setRowStatusInActive($fasilitas);
             $fasilitas->save();
             return ResponseHelpers::SuccessResponse('Your Record has been deleted', '', 200);
-        } catch(Exception $th) {
+        } catch (Exception $th) {
             return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }

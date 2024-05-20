@@ -49,19 +49,21 @@
                     @foreach($data as $item)
                     <tr>
                       <td>{{$nomor++}}</td>
-                      <td>{{ $item->no_tagihan }}</td>
-                      <td>{{ $item->kode_tagihan }}</td>
-                      <td>{{ $item->nama_tagihan  }}</td>
-                      <td>{{ $item->TagihanKelas->kelas  }}</td>
-                      <td>{{ $item->TagihanSiswas->nama_lengkap  }}</td>
-                      <td>{{ $item->jatuh_tempo  }}</td>
-                      <td>{{ setFormatKategoriTagihan($item->kategori_tagihan)  }}</td>
-                      <td>{{ formatRupiah($item->nominal_tagihan)  }}</td>
+                      <td>{{$item->no_tagihan}}</td>
+                      <td>{{$item->kode_tagihan}}</td>
+                      <td>{{$item->nama_tagihan}}</td>
+                      <td>{{$item->TagihanKelas->kelas}}</td>
+                      <td>{{$item->TagihanSiswas->nama_lengkap}}</td>
+                      <td>{{$item->jatuh_tempo}}</td>
+                      <td>{{setFormatKategoriTagihan($item->kategori_tagihan)}}</td>
+                      <td>{{formatRupiah($item->nominal_tagihan)}}</td>
                       <td>
                         @if ($item->status == 'dibayar')
                           <span class="badge bg-success">Dibayar</span>
                         @elseif($item->status == 'belum_dibayar')
                           <span class="badge bg-warning">Belum dibayar</span>
+                        @elseif($item->status == 'dibatalkan')
+                          <span class="badge bg-danger">Dibatalkan</span>
                         @endif
                       </td>
                       <td>
@@ -160,7 +162,7 @@
                   customClass: {
                     container: 'my-swal',
                   },
-                  title: 'Deleted!',
+                  title: 'Updated!',
                   text: `${response.message}`,
                   icon: 'success'
                 });

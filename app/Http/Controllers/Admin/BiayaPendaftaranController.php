@@ -24,7 +24,7 @@ class BiayaPendaftaranController extends Controller
         $query = BiayaPendaftaran::where('row_status', 0)
             ->whereHas('InfoPendaftarans', function ($query) {
                 $query->where('row_status', 0);
-            });
+            })->orderBy('id', 'desc');
 
         if (!empty($search_biaya)) {
             $query->where('nama_biaya', 'like', '%' . $search_biaya . '%');
@@ -68,7 +68,7 @@ class BiayaPendaftaranController extends Controller
 
             $data = new BiayaPendaftaran();
 
-            $kode_random = GeneralHelpers::generateRandomText(20);
+            $kode_random = GeneralHelpers::generateKodeBiaya($request->nama_biaya);
             $data->kode_biaya = $kode_random;
             $data->nama_biaya = $request->nama_biaya;
             $data->nominal_biaya = $request->nominal_biaya;

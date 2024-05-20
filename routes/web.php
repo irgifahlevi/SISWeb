@@ -1,33 +1,35 @@
 <?php
 
+use App\Models\Pendaftaran;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\BeritaController;
-use App\Http\Controllers\Admin\BiayaPendaftaranController;
-use App\Http\Controllers\Admin\ConfigController;
-use App\Http\Controllers\Admin\DataPendaftaranSiswaController;
+use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\Siswa\SiswaController;
-use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\GaleriController;
-use App\Http\Controllers\Admin\FasilitasController;
-use App\Http\Controllers\Admin\VisiMisiController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SejarahController;
-use App\Http\Controllers\Admin\PengantarKepsekController;
+use App\Http\Controllers\Admin\VisiMisiController;
+use App\Http\Controllers\Admin\FasilitasController;
+use App\Http\Controllers\Admin\WaliSiswaController;
+use App\Http\Controllers\Admin\JenisKelaminController;
+use App\Http\Controllers\Admin\ProfileSiswaController;
+use App\Http\Controllers\Admin\TagihanSiswaController;
+use App\Http\Controllers\Siswa\MyProfileSiswaController;
+use App\Http\Controllers\Siswa\MyTagihanSiswaController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
 use App\Http\Controllers\Admin\InfoPendaftaranController;
-use App\Http\Controllers\Admin\JenisKelaminController;
-use App\Http\Controllers\Admin\KelasController;
-use App\Http\Controllers\Admin\ProfileSiswaController;
+use App\Http\Controllers\Admin\PengantarKepsekController;
+use App\Http\Controllers\Admin\BiayaPendaftaranController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
-use App\Http\Controllers\Admin\TagihanSiswaController;
-use App\Http\Controllers\Admin\TransaksiPendaftaranSiswaController;
-use App\Http\Controllers\Admin\TransaksiTagihanSiswaController;
-use App\Http\Controllers\Admin\WaliSiswaController;
-use App\Http\Controllers\WaliCalonSiswa\PendaftaranSiswaController;
+use App\Http\Controllers\Admin\DataPendaftaranSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
+use App\Http\Controllers\Admin\TransaksiTagihanSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
-use App\Models\Pendaftaran;
+use App\Http\Controllers\Admin\TransaksiPendaftaranSiswaController;
+use App\Http\Controllers\WaliCalonSiswa\PendaftaranSiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -152,6 +154,12 @@ Route::prefix('wali_calon')->middleware(['auth', 'auth.wali_calon'])->group(func
 */
 Route::prefix('siswa')->middleware(['auth', 'auth.siswa'])->group(function () {
     Route::get('beranda', [SiswaController::class, 'index'])->name('siswa.index');
+
+    // My profile
+    Route::resource('profile-saya', MyProfileSiswaController::class);
+
+    // My tagihan
+    Route::resource('tagihan-saya', MyTagihanSiswaController::class);
 });
 
 Route::get('logout', function () {

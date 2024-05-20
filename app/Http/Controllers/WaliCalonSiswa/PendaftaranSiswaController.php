@@ -227,14 +227,19 @@ class PendaftaranSiswaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $kode)
     {
 
+        $user_id = Auth::id();
+
+        $wali_calon_siswa = WaliCalonSiswa::select('id')->where('user_id', $user_id)->first();
         $data = Pendaftaran::with('CalonWaliPendaftaran', 'CalonSiswaPendaftaran', 'InfoBiayaPendaftaran.BiayaPendaftaran')
-            ->where('kode_pendaftaran', $id)
+            ->where('kode_pendaftaran', $kode)
+            ->where('wali_calon_siswa_id', $wali_calon_siswa->id)
             ->where('status', 'success')
-            ->firstOrFail();
-        return view('WaliCalonView.PendaftaranSiswa.view_invoice_pendaftaran', compact('data'));
+            ->first();
+
+        return view('WaliCalonView.PendaftaranSiswa.view_invoice_pendaftaran', compact('data', 'kode'));
     }
 
     /**

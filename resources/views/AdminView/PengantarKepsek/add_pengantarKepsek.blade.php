@@ -79,9 +79,10 @@
         });
 
         $('#gambar').on('change', function(){
-        if(inputVal !== ''){
-            $('#gambar-error').text('')
-        }
+            const inputVal = $(this).val();
+            if(inputVal !== ''){
+                $('#gambar-error').text('');
+            }
         });
 
         var formData = new FormData(this);

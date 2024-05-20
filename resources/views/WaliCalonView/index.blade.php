@@ -64,7 +64,7 @@
             </div>
             @if (count($list_pendaftaran) > 0)
               <div class="card">
-                <h5 class="card-header">Daftar biaya pendaftaran</h5>
+                <h5 class="card-header">Data pendaftar</h5>
                 <div class="card-body">
                   <div class="mb-3 table-responsive text-nowrap">
                     <table class="table table-bordered">
