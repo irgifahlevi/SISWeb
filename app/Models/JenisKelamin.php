@@ -29,4 +29,9 @@ class JenisKelamin extends Model
     {
         return $this->hasOne(WaliSiswa::class, 'jenis_kelamin_id', 'id');
     }
+
+    public function ProfilePendidik()
+    {
+        return $this->hasMany(ProfilePendidik::class, 'jenis_kelamin_id', 'id');
+    }
 }

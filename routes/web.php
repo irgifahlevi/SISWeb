@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\PengantarKepsekController;
 use App\Http\Controllers\Admin\BiayaPendaftaranController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
 use App\Http\Controllers\Admin\DataPendaftaranSiswaController;
+use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
 use App\Http\Controllers\Admin\TransaksiTagihanSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
@@ -129,6 +130,10 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Transaksi tagihan siswa
     Route::resource('transaki-tagihan', TransaksiTagihanSiswaController::class);
+
+    // Tenaga pendidik
+    Route::resource('tenaga-pendidik', TenagaPendidikController::class);
+    Route::get('tenaga-pendidik-detail/{id}', [TenagaPendidikController::class, 'getDetail'])->name('detail.tenaga.pendidik');
 });
 
 
