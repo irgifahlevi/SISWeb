@@ -9,4 +9,9 @@ class TenagaPendidik extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+    public function TenagaProfilePendidik()
+    {
+        return $this->hasOne(ProfilePendidik::class, 'tenaga_pendidik_id', 'id');
+    }
 }
