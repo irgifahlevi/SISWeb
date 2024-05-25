@@ -49,7 +49,7 @@ class PengantarKepsekController extends Controller
             $request->all(),
             [
                 'title' => 'required|string|max:255|min:4',
-                'deskripsi' => 'nullable|max:500',
+                'deskripsi' => 'nullable|max:2000',
                 'gambar' => 'required|image|mimes:jpeg,png|max:1000',
             ]
         );
@@ -113,7 +113,7 @@ class PengantarKepsekController extends Controller
             $request->all(),
             [
                 'title' => 'required|string|max:255|min:4',
-                'deskripsi' => 'nullable|max:500',
+                'deskripsi' => 'nullable|max:2000',
                 'gambar' => 'nullable|image|mimes:jpeg,png|max:1000',
             ]
         );

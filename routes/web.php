@@ -11,12 +11,14 @@ use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SejarahController;
+use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Admin\VisiMisiController;
 use App\Http\Controllers\Admin\FasilitasController;
 use App\Http\Controllers\Admin\WaliSiswaController;
 use App\Http\Controllers\Admin\JenisKelaminController;
 use App\Http\Controllers\Admin\ProfileSiswaController;
 use App\Http\Controllers\Admin\TagihanSiswaController;
+use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\Siswa\MyProfileSiswaController;
 use App\Http\Controllers\Siswa\MyTagihanSiswaController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
@@ -25,7 +27,6 @@ use App\Http\Controllers\Admin\PengantarKepsekController;
 use App\Http\Controllers\Admin\BiayaPendaftaranController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
 use App\Http\Controllers\Admin\DataPendaftaranSiswaController;
-use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
 use App\Http\Controllers\Admin\TransaksiTagihanSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
@@ -46,9 +47,7 @@ use App\Http\Controllers\WaliCalonSiswa\PendaftaranSiswaController;
  Default route
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ClientController::class, 'index'])->name('index');
 
 Auth::routes();
 
