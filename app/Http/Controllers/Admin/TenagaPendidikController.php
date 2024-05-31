@@ -77,7 +77,7 @@ class TenagaPendidikController extends Controller
                 'kecamatan' => 'nullable|max:20',
                 'kota' => 'nullable|max:20',
                 'kode_pos' => 'nullable|numeric|digits:5',
-                'email' => 'nullable|email:rfc,dns|max:255|unique:profile_pendidiks',
+                'email' => 'nullable|email|max:255|unique:profile_pendidiks',
                 'foto' => 'required|image|mimes:jpeg,png|max:1000',
 
             ]
@@ -165,6 +165,18 @@ class TenagaPendidikController extends Controller
         } catch (Exception $th) {
             return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
+    }
+    public function showPendidik(string $id)
+    {
+        $profile_pendidik = ProfilePendidik::with('JenisKelaminPendidik', 'ProfilePendidik')
+        ->whereHas('ProfilePendidik', function ($query) {
+            $query->where('row_status', 0);
+        })
+        ->where('id', $id)
+        ->where('row_status', 0)
+        ->firstOrFail();
+        // dd($profile_pendidik);
+    return view('ClientView.ProfilePendidikContent.index', compact('profile_pendidik'));
     }
 
     /**

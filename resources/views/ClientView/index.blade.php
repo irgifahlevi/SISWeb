@@ -2,22 +2,23 @@
 @section('content')
         <!-- start banner Area -->
         <section class="banner-area relative" id="home">
-          <div class="overlay overlay-bg"></div>	
+          <div class="overlay overlay-bg"></div>
           <div class="container">
             <div class="row fullscreen d-flex align-items-center justify-content-between">
               <div class="banner-content col-lg-9 col-md-12">
                 <h1 class="text-uppercase">
-                  Selamat datang di <br> MTs Al-Quraniyah Ulujami			
+                  Selamat datang di <br> MTs Al-Quraniyah Ulujami
                 </h1>
                 <p class="pt-10 pb-10">
                   Menghasilkan lulusan yang Cerdas, Disiplin, Inovatif, dan berukhuwah islamiyah
                 </p>
-              </div>										
+                <a class="genric-btn primary" href="{{ Route('login') }}">Login</a>
+              </div>
             </div>
-          </div>					
+          </div>
         </section>
         <!-- End banner Area -->
-    
+
         <!-- Start feature Area -->
         <section class="feature-area">
           <div class="container">
@@ -30,7 +31,7 @@
                   <div class="desc-wrap">
                     <p>
                       Kami menyiapkan program pendidikan yang berkualitas dengan sarana dan prasarana yang memadai.
-                    </p>								
+                    </p>
                   </div>
                 </div>
               </div>
@@ -42,7 +43,7 @@
                   <div class="desc-wrap">
                     <p>
                       Mendukung tumbuh kembang peserta didik secara optimal serta membentuk perilaku hidup bersih dan sehat.
-                    </p>								
+                    </p>
                   </div>
                 </div>
               </div>
@@ -54,17 +55,18 @@
                   <div class="desc-wrap">
                     <p>
                       Mampu menjawab tantangan bekal pendidikan bagi peserta didik di masa depan.
-                    </p>								
+                    </p>
                   </div>
                 </div>
-              </div>												
+              </div>
             </div>
-          </div>	
+          </div>
         </section>
         <!-- End feature Area -->
-        
+
+
         {{-- pengantar kepsek --}}
-        <section class="popular-course-area section-gap">
+        <section class="popular-course-area section-gap" id="pengantarKepsek">
           <div class="container">
             <div class="section-top-border">
               <div class="title text-center">
@@ -86,586 +88,306 @@
               </div>
           </div>
         </section>
-          
-        <!-- Start popular-course Area -->
-        <section class="popular-course-area section-gap">
-          <div class="container">
-            <div class="row d-flex justify-content-center">
-              <div class="menu-content pb-70 col-lg-8">
-                <div class="title text-center">
-                  <h1 class="mb-10">Popular Courses we offer</h1>
-                  <p>There is a moment in the life of any aspiring.</p>
+
+        <section class="popular-course-area section-gap" id="profilependidik">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="menu-content pb-70 col-lg-8">
+                        <div class="title text-center">
+                            <h1 class="mb-10">Profile Pendidik</h1>
+                            <p>Berikut Adalah Profile Pendidik</p>
+                          </div>
+                    </div>
                 </div>
-              </div>
-            </div>						
-            <div class="row">
-              <div class="active-popular-carusel">
-                <div class="single-popular-carusel">
-                  <div class="thumb-wrap relative">
-                    <div class="thumb relative">
-                      <div class="overlay overlay-bg"></div>	
-                      <img class="img-fluid" src="{{asset('ClientTemplate/img/p1.jpg')}}" alt="">
+                <div class="row">
+                    <div class="active-popular-carusel">
+                        @foreach ($profile_pendidik as $item)
+                            <div class="single-popular-carusel">
+                                <div class="thumb-wrap relative">
+                                    <div class="thumb relative">
+                                        <div class="overlay overlay-bg"></div>
+                                        <img class="img-fluid" src="{{ asset('storage/pendidik/' . $item->foto) }}" alt="">
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <a href="{{ route('profilePendidik.show', $item->id) }}">
+                                        <h4>
+                                            {{ $item->ProfilePendidik->nama_lengkap }}
+                                        </h4>
+                                    </a><br>
+                                    <p>
+                                        Jabatan : {{ $item->ProfilePendidik->jabatan }}<br>
+                                        Mata Pelajaran : {{ $item->ProfilePendidik->mapel }}<br>
+                                        No NIP : {{ $item->ProfilePendidik->nip }}
+                                        <br>
+                                        No NUPTK : {{ $item->ProfilePendidik->no_nuptk }}
+                                        <br>
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="meta d-flex justify-content-between">
-                      <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>35</p>
-                      <h4>$150</h4>
-                    </div>									
-                  </div>
-                  <div class="details">
-                    <a href="#">
-                      <h4>
-                        Learn Designing
-                      </h4>
-                    </a>
-                    <p>
-                      When television was young, there was a hugely popular show based on the still popular fictional characte										
-                    </p>
-                  </div>
-                </div>	
-                <div class="single-popular-carusel">
-                  <div class="thumb-wrap relative">
-                    <div class="thumb relative">
-                      <div class="overlay overlay-bg"></div>	
-                      <img class="img-fluid" src="{{asset('ClientTemplate/img/p2.jpg')}}" alt="">
-                    </div>
-                    <div class="meta d-flex justify-content-between">
-                      <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>35</p>
-                      <h4>$150</h4>
-                    </div>									
-                  </div>
-                  <div class="details">
-                    <a href="#">
-                      <h4>
-                        Learn React js beginners
-                      </h4>
-                    </a>
-                    <p>
-                      When television was young, there was a hugely popular show based on the still popular fictional characte										
-                    </p>
-                  </div>
-                </div>	
-                <div class="single-popular-carusel">
-                  <div class="thumb-wrap relative">
-                    <div class="thumb relative">
-                      <div class="overlay overlay-bg"></div>	
-                      <img class="img-fluid" src="{{asset('ClientTemplate/img/p3.jpg')}}" alt="">
-                    </div>
-                    <div class="meta d-flex justify-content-between">
-                      <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>35</p>
-                      <h4>$150</h4>
-                    </div>									
-                  </div>
-                  <div class="details">
-                    <a href="#">
-                      <h4>
-                        Learn Photography
-                      </h4>
-                    </a>
-                    <p>
-                      When television was young, there was a hugely popular show based on the still popular fictional characte										
-                    </p>
-                  </div>
-                </div>	
-                <div class="single-popular-carusel">
-                  <div class="thumb-wrap relative">
-                    <div class="thumb relative">
-                      <div class="overlay overlay-bg"></div>	
-                      <img class="img-fluid" src="{{asset('ClientTemplate/img/p4.jpg')}}" alt="">
-                    </div>
-                    <div class="meta d-flex justify-content-between">
-                      <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>35</p>
-                      <h4>$150</h4>
-                    </div>									
-                  </div>
-                  <div class="details">
-                    <a href="#">
-                      <h4>
-                        Learn Surveying
-                      </h4>
-                    </a>
-                    <p>
-                      When television was young, there was a hugely popular show based on the still popular fictional characte										
-                    </p>
-                  </div>
                 </div>
-                <div class="single-popular-carusel">
-                  <div class="thumb-wrap relative">
-                    <div class="thumb relative">
-                      <div class="overlay overlay-bg"></div>	
-                      <img class="img-fluid" src="{{asset('ClientTemplate/img/p1.jpg')}}" alt="">
-                    </div>
-                    <div class="meta d-flex justify-content-between">
-                      <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>35</p>
-                      <h4>$150</h4>
-                    </div>									
-                  </div>
-                  <div class="details">
-                    <a href="#">
-                      <h4>
-                        Learn Designing
-                      </h4>
-                    </a>
-                    <p>
-                      When television was young, there was a hugely popular show based on the still popular fictional characte										
-                    </p>
-                  </div>
-                </div>	
-                <div class="single-popular-carusel">
-                  <div class="thumb-wrap relative">
-                    <div class="thumb relative">
-                      <div class="overlay overlay-bg"></div>	
-                      <img class="img-fluid" src="{{asset('ClientTemplate/img/p2.jpg')}}" alt="">
-                    </div>
-                    <div class="meta d-flex justify-content-between">
-                      <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>35</p>
-                      <h4>$150</h4>
-                    </div>									
-                  </div>
-                  <div class="details">
-                    <a href="#">
-                      <h4>
-                        Learn React js beginners
-                      </h4>
-                    </a>
-                    <p>
-                      When television was young, there was a hugely popular show based on the still popular fictional characte										
-                    </p>
-                  </div>
-                </div>	
-                <div class="single-popular-carusel">
-                  <div class="thumb-wrap relative">
-                    <div class="thumb relative">
-                      <div class="overlay overlay-bg"></div>	
-                      <img class="img-fluid" src="{{asset('ClientTemplate/img/p3.jpg')}}" alt="">
-                    </div>
-                    <div class="meta d-flex justify-content-between">
-                      <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>35</p>
-                      <h4>$150</h4>
-                    </div>									
-                  </div>
-                  <div class="details">
-                    <a href="#">
-                      <h4>
-                        Learn Photography
-                      </h4>
-                    </a>
-                    <p>
-                      When television was young, there was a hugely popular show based on the still popular fictional characte										
-                    </p>
-                  </div>
-                </div>	
-                <div class="single-popular-carusel">
-                  <div class="thumb-wrap relative">
-                    <div class="thumb relative">
-                      <div class="overlay overlay-bg"></div>	
-                      <img class="img-fluid" src="{{asset('ClientTemplate/img/p4.jpg')}}" alt="">
-                    </div>
-                    <div class="meta d-flex justify-content-between">
-                      <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span>35</p>
-                      <h4>$150</h4>
-                    </div>									
-                  </div>
-                  <div class="details">
-                    <a href="#">
-                      <h4>
-                        Learn Surveying
-                      </h4>
-                    </a>
-                    <p>
-                      When television was young, there was a hugely popular show based on the still popular fictional characte										
-                    </p>
-                  </div>
-                </div>							
-              </div>
             </div>
-          </div>	
         </section>
-        <!-- End popular-course Area -->
-        
-    
-        <!-- Start search-course Area -->
-        <section class="search-course-area relative">
+        <!-- End Profile Pendidik -->
+
+        <!-- Start Visi Misi-->
+        <section class="search-course-area relative" id="visimisi">
           <div class="overlay overlay-bg"></div>
           <div class="container">
-            <div class="row justify-content-between align-items-center">
-              <div class="col-lg-6 col-md-6 search-course-left">
-                <h1 class="text-white">
-                  Get reduced fee <br>
-                  during this Summer!
+            <div class="row justify-content-center align-items-center">
+              <div class="col-lg-8 search-course-left p-4 text-white justify-content-center">
+                <h1 class="text-white ">
+                 Motivasi Sekolah <br>
                 </h1>
                 <p>
-                  inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach.
+                    MTS Alquraniyah Jakarta Ulujami, menyiapkan program pendidikan yang berkualitas dengan lingkungan yang sehat, asri dan nyaman serta didukung oleh tenaga pendidik yang professional serta sarana yang memadai akan menghasilkan lulusan yang Cerdas, Disiplin, Inovatif, dan berukhuwah islamiyah
                 </p>
+                <a class="genric-btn primary" href="{{ Route('register') }}">Registrasi</a>
                 <div class="row details-content">
                   <div class="col single-detials">
                     <span class="lnr lnr-graduation-hat"></span>
-                    <a href="#"><h4>Expert Instructors</h4></a>		
+                    <a href="#"><h4>Visi</h4></a>
                     <p>
-                      Usage of the Internet is becoming more common due to rapid advancement of technology and power.
-                    </p>						
+                        {{$visi_misi->visi}}
+                    </p>
                   </div>
                   <div class="col single-detials">
                     <span class="lnr lnr-license"></span>
-                    <a href="#"><h4>Certification</h4></a>		
-                    <p>
-                      Usage of the Internet is becoming more common due to rapid advancement of technology and power.
-                    </p>						
-                  </div>								
+                    <a href="#"><h4>Misi</h4></a>
+                    <ul class="unordered-list">
+                        <li>{{$visi_misi->misi}}</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6 search-course-right section-gap">
-                <form class="form-wrap" action="#">
-                  <h4 class="text-white pb-20 text-center mb-30">Search for Available Course</h4>		
-                  <input type="text" class="form-control" name="name" placeholder="Your Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Name'" >
-                  <input type="phone" class="form-control" name="phone" placeholder="Your Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Phone Number'" >
-                  <input type="email" class="form-control" name="email" placeholder="Your Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address'" >
-                  <div class="form-select" id="service-select">
-                    <select>
-                      <option datd-display="">Choose Course</option>
-                      <option value="1">Course One</option>
-                      <option value="2">Course Two</option>
-                      <option value="3">Course Three</option>
-                      <option value="4">Course Four</option>
-                    </select>
-                  </div>									
-                  <button class="primary-btn text-uppercase">Submit</button>
-                </form>
-              </div>
             </div>
-          </div>	
+          </div>
         </section>
-        <!-- End search-course Area -->
-        
-      
-        <!-- Start upcoming-event Area -->
-        <section class="upcoming-event-area section-gap">
+        <!-- End  Visi-->
+
+
+        <!-- Start Ekstrakulikuler -->
+        <section class="upcoming-event-area section-gap" id="ekstrakulikuler">
           <div class="container">
             <div class="row d-flex justify-content-center">
               <div class="menu-content pb-70 col-lg-8">
                 <div class="title text-center">
-                  <h1 class="mb-10">Upcoming Events of our Institute</h1>
-                  <p>If you are a serious astronomy fanatic like a lot of us</p>
+                  <h1 class="mb-10">Ektrakulikuler</h1>
+                  <p>Berikut adalah Ekstrakulikuler sekolah</p>
                 </div>
               </div>
-            </div>								
+            </div>
             <div class="row">
               <div class="active-upcoming-event-carusel">
-                <div class="single-carusel row align-items-center">
-                  <div class="col-12 col-md-6 thumb">
-                    <img class="img-fluid" src="{{asset('ClientTemplate/img/e1.jpg')}}" alt="">
-                  </div>
-                  <div class="detials col-12 col-md-6">
-                    <p>25th February, 2018</p>
-                    <a href="#"><h4>The Universe Through
-                    A Child S Eyes</h4></a>
-                    <p>
-                      For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens.
-                    </p>
-                  </div>
+                  @foreach ($ekstrakulikuler as $item )
+                  <div class="single-carusel row align-items-center">
+                        <div class="col-12 col-md-6 thumb">
+                            <img class="img-fluid" src="{{asset('storage/ekskul/'. $item->gambar)}}" alt="">
+                        </div>
+                        <div class="detials col-12 col-md-6">
+                            <p>{{ $item->created_at->translatedFormat('l, d F Y') }}</p>
+                            <h4 class="mb-0">{{ $item->title }}</h4>
+                            <p>Jenis Ekskul : {{ $item->jenis }}</p>
+                            <h6 class="mt-3">{{ $item->nama_kegiatan }}</h6>
+                        <p>
+                            {{ $item->deskripsi }}
+                        </p>
+                    </div>
                 </div>
-                <div class="single-carusel row align-items-center">
-                  <div class="col-12 col-md-6 thumb">
-                    <img class="img-fluid" src="{{asset('ClientTemplate/img/e2.jpg')}}" alt="">
-                  </div>
-                  <div class="detials col-12 col-md-6">
-                    <p>25th February, 2018</p>
-                    <a href="#"><h4>The Universe Through
-                    A Child S Eyes</h4></a>
-                    <p>
-                      For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens.
-                    </p>
-                  </div>
-                </div>	
-                <div class="single-carusel row align-items-center">
-                  <div class="col-12 col-md-6 thumb">
-                    <img class="img-fluid" src="{{asset('ClientTemplate/img/e1.jpg')}}" alt="">
-                  </div>
-                  <div class="detials col-12 col-md-6">
-                    <p>25th February, 2018</p>
-                    <a href="#"><h4>The Universe Through
-                    A Child S Eyes</h4></a>
-                    <p>
-                      For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens.
-                    </p>
-                  </div>
-                </div>	
-                <div class="single-carusel row align-items-center">
-                  <div class="col-12 col-md-6 thumb">
-                    <img class="img-fluid" src="{{asset('ClientTemplate/img/e1.jpg')}}" alt="">
-                  </div>
-                  <div class="detials col-12 col-md-6">
-                    <p>25th February, 2018</p>
-                    <a href="#"><h4>The Universe Through
-                    A Child S Eyes</h4></a>
-                    <p>
-                      For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens.
-                    </p>
-                  </div>
+                @endforeach
                 </div>
-                <div class="single-carusel row align-items-center">
-                  <div class="col-12 col-md-6 thumb">
-                    <img class="img-fluid" src="{{asset('ClientTemplate/img/e2.jpg')}}" alt="">
-                  </div>
-                  <div class="detials col-12 col-md-6">
-                    <p>25th February, 2018</p>
-                    <a href="#"><h4>The Universe Through
-                    A Child S Eyes</h4></a>
-                    <p>
-                      For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens.
-                    </p>
-                  </div>
-                </div>	
-                <div class="single-carusel row align-items-center">
-                  <div class="col-12 col-md-6 thumb">
-                    <img class="img-fluid" src="{{asset('ClientTemplate/img/e1.jpg')}}" alt="">
-                  </div>
-                  <div class="detials col-12 col-md-6">
-                    <p>25th February, 2018</p>
-                    <a href="#"><h4>The Universe Through
-                    A Child S Eyes</h4></a>
-                    <p>
-                      For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens.
-                    </p>
-                  </div>
-                </div>																						
-              </div>
             </div>
-          </div>	
+        </div>
         </section>
-        <!-- End upcoming-event Area -->
-              
-        <!-- Start review Area -->
-        <section class="review-area section-gap relative">
-          <div class="overlay overlay-bg"></div>
-          <div class="container">				
-            <div class="row">
-              <div class="active-review-carusel">
-                <div class="single-review item">
-                  <div class="title justify-content-start d-flex">
-                    <a href="#"><h4>Fannie Rowe</h4></a>
-                    <div class="star">
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                    </div>
-                  </div>
-                  <p>
-                    Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-                  </p>
-                </div>
-                <div class="single-review item">
-                  <div class="title justify-content-start d-flex">
-                    <a href="#"><h4>Hulda Sutton</h4></a>
-                    <div class="star">
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                    </div>
-                  </div>
-                  <p>
-                    Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-                  </p>
-                </div>
-                <div class="single-review item">
-                  <div class="title justify-content-start d-flex">
-                    <a href="#"><h4>Fannie Rowe</h4></a>
-                    <div class="star">
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                    </div>
-                  </div>
-                  <p>
-                    Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-                  </p>
-                </div>
-                <div class="single-review item">
-                  <div class="title justify-content-start d-flex">
-                    <a href="#"><h4>Hulda Sutton</h4></a>
-                    <div class="star">
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                    </div>
-                  </div>
-                  <p>
-                    Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-                  </p>
-                </div>	
-                <div class="single-review item">
-                  <div class="title justify-content-start d-flex">
-                    <a href="#"><h4>Fannie Rowe</h4></a>
-                    <div class="star">
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                    </div>
-                  </div>
-                  <p>
-                    Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-                  </p>
-                </div>
-                <div class="single-review item">
-                  <div class="title justify-content-start d-flex">
-                    <a href="#"><h4>Hulda Sutton</h4></a>
-                    <div class="star">
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                    </div>
-                  </div>
-                  <p>
-                    Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-                  </p>
-                </div>
-                <div class="single-review item">
-                  <img src="{{asset('ClientTemplate/img/b1.jpg')}}" alt="">
-                  <div class="title justify-content-start d-flex">
-                    <a href="#"><h4>Fannie Rowe</h4></a>
-                    <div class="star">
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                    </div>
-                  </div>
-                  <p>
-                    Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-                  </p>
-                </div>
-                <div class="single-review item">
-                  <div class="title justify-content-start d-flex">
-                    <a href="#"><h4>Hulda Sutton</h4></a>
-                    <div class="star">
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star checked"></span>
-                      <span class="fa fa-star"></span>
-                      <span class="fa fa-star"></span>
-                    </div>
-                  </div>
-                  <p>
-                    Accessories Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker. Here you can find the best computer accessory for your laptop, monitor, printer, scanner, speaker.
-                  </p>
-                </div>																												
-              </div>
-            </div>
-          </div>	
-        </section>
-        <!-- End review Area -->	
-        
+        <!-- End Ekstrakulikuler -->
+
         <!-- Start cta-one Area -->
-        <section class="cta-one-area relative section-gap">
+        <section class="cta-one-area relative section-gap" id="sejarah">
           <div class="container">
             <div class="overlay overlay-bg"></div>
             <div class="row justify-content-center">
               <div class="wrap">
-                <h1 class="text-white">Become an instructor</h1>
+                <h1 class="text-white">Sejarah Sekolah</h1>
+                <h6 class="text-white"></h6>
                 <p>
-                  There is a moment in the life of any aspiring astronomer that it is time to buy that first telescope. It’s exciting to think about setting up your own viewing station whether that is on the deck.
+                    {{ $sejarah->deskripsi }}
                 </p>
-                <a class="primary-btn wh" href="#">Apply for the post</a>								
-              </div>					
+              </div>
             </div>
-          </div>	
+          </div>
         </section>
         <!-- End cta-one Area -->
-    
-        <!-- Start blog Area -->
-        <section class="blog-area section-gap" id="blog">
+
+        <!-- Start blog berita -->
+        <section class="blog-area section-gap" id="berita">
           <div class="container">
             <div class="row d-flex justify-content-center">
               <div class="menu-content pb-70 col-lg-8">
                 <div class="title text-center">
-                  <h1 class="mb-10">Latest posts from our Blog</h1>
-                  <p>In the history of modern astronomy there is.</p>
+                  <h1 class="mb-10">Berita Sekolah</h1>
+                  <p>Berikut adalah berita Sekolah</p>
                 </div>
-              </div>
-            </div>					
-            <div class="row">
-              <div class="col-lg-3 col-md-6 single-blog">
-                <div class="thumb">
-                  <img class="img-fluid" src="{{asset('ClientTemplate/img/b1.jpg')}}" alt="">								
-                </div>
-                <p class="meta">25 April, 2018  |  By <a href="#">Mark Wiens</a></p>
-                <a href="blog-single.html">
-                  <h5>Addiction When Gambling Becomes A Problem</h5>
-                </a>
-                <p>
-                  Computers have become ubiquitous in almost every facet of our lives. At work, desk jockeys spend hours in front of their.
-                </p>
-                <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>		
-              </div>
-              <div class="col-lg-3 col-md-6 single-blog">
-                <div class="thumb">
-                  <img class="img-fluid" src="{{asset('ClientTemplate/img/b2.jpg')}}" alt="">								
-                </div>
-                <p class="meta">25 April, 2018  |  By <a href="#">Mark Wiens</a></p>
-                <a href="blog-single.html">
-                  <h5>Computer Hardware Desktops And Notebooks</h5>
-                </a>
-                <p>
-                  Ah, the technical interview. Nothing like it. Not only does it cause anxiety, but it causes anxiety for several different reasons. 
-                </p>
-                <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>						
-              </div>
-              <div class="col-lg-3 col-md-6 single-blog">
-                <div class="thumb">
-                  <img class="img-fluid" src="{{asset('ClientTemplate/img/b3.jpg')}}" alt="">								
-                </div>
-                <p class="meta">25 April, 2018  |  By <a href="#">Mark Wiens</a></p>
-                <a href="blog-single.html">
-                  <h5>Make Myspace Your Best Designed Space</h5>
-                </a>
-                <p>
-                  Plantronics with its GN Netcom wireless headset creates the next generation of wireless headset and other products such as wireless.
-                </p>
-                <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>									
-              </div>
-              <div class="col-lg-3 col-md-6 single-blog">
-                <div class="thumb">
-                  <img class="img-fluid" src="{{asset('ClientTemplate/img/b4.jpg')}}" alt="">								
-                </div>
-                <p class="meta">25 April, 2018  |  By <a href="#">Mark Wiens</a></p>
-                <a href="blog-single.html">
-                  <h5>Video Games Playing With Imagination</h5>
-                </a>
-                <p>
-                  About 64% of all on-line teens say that do things online that they wouldn’t want their parents to know about.   11% of all adult internet 
-                </p>
-                <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>							
-              </div>							
-            </div>
-          </div>	
-        </section>
-        <!-- End blog Area -->			
-        
-    
-        <!-- Start cta-two Area -->
-        <section class="cta-two-area">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-8 cta-left">
-                <h1>Not Yet Satisfied with our Trend?</h1>
-              </div>
-              <div class="col-lg-4 cta-right">
-                <a class="primary-btn wh" href="#">view our blog</a>
               </div>
             </div>
-          </div>	
+            <div class="row">
+                @foreach ($berita as $item )
+                <div class="col-lg-3 col-md-6 single-blog">
+                    <div class="thumb">
+                        <img class="img-fluid" src="{{asset('storage/berita/'. $item->gambar)}}" alt="">
+                    </div>
+                    <p class="meta"> {{ $item->created_at->translatedFormat('l, d F Y') }} | {{ $item->created_by }}</p>
+                    <a href="blog-single.html">
+                        <h5>{{ $item->judul }}</h5>
+                    </a>
+                    <p>
+                        {{ $item->kategori }}
+                    </p>
+                    <div class="description">
+                        <p >
+                            {{ $item->title }} <br>
+                        </p>
+                    </div>
+                    <a href="{{ route('berita.show', $item->id) }}" class="details-btn d-flex justify-content-center align-items-center"><span class="details">Details</span><span class="lnr lnr-arrow-right"></span></a>
+                </div>
+                @endforeach
+            </div>
+            </div>
         </section>
-        <!-- End cta-two Area -->
+        <!-- End blog berita -->
+
+          <!-- Start galleri -->
+        <section class="popular-course-area section-gap bg-gray" id="galeri">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                  <div class="menu-content pb-70 col-lg-8">
+                    <div class="title text-center">
+                      <h1 class="mb-10">Galeri Sekolah</h1>
+                      <p>Berikut adalah Galeri Sekolah</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="active-popular-carusel">
+                    @foreach ($galeri as $item)
+                    <div class="single-popular-carusel">
+                        <div class="thumb-wrap relative">
+                          <div class="thumb relative">
+                            <div class="overlay overlay-bg"></div>
+                            <img class="img-fluid pb-3" src="{{ asset('storage/galeri/' . $item->gambar) }}" alt="">
+                          </div>
+                          <div class="meta d-flex justify-content-between">
+                          </div>
+                        </div>
+                        <div class="details">
+                            <h4>
+                                {{ $item->title }}
+                            </h4>
+                            <h6>
+                                {{ $item->nama_kegiatan }}
+                            </h6>
+                          <p>
+                            {{ $item->deskripsi }}
+                          </p>
+                        </div>
+                      </div>
+                      @endforeach
+                    </div>
+                </div>
+              </div>
+            </div>
+        </section>
+          <!-- End galleri -->
+
+        <!-- Start Struktur organisasi -->
+        <section class="cta-two-area" id="strukturorganisasi">
+            <div class="container">
+            <div class="section-top-border">
+                <div class="center">
+                    <h2 class="text-white text-center">Struktur Organisasi</h2>
+                </div>
+                <div class="d-flex justify-content-center mt-5">
+                    <img src="{{ asset('ClientTemplate/img/struktur-organisai.png') }}" alt="" width="550px" height="550px">
+                </div>
+            </div>
+            </div>
+        </section>
+        <!-- End Struktur organisasi -->
+
+
+
+        <!-- Start slider -->
+         <section class="popular-course-area section-gap bg-gray" id="Slider">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                  <div class="menu-content pb-70 col-lg-8">
+                    <div class="title text-center">
+                      <h1 class="mb-10">Slider</h1>
+                      <p>Berikut adalah Slider Sekolah</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="active-popular-carusel">
+                    @foreach ($slider as $item)
+                    <div class="single-popular-carusel">
+                        <div class="thumb-wrap relative">
+                          <div class="thumb relative">
+                            <div class="overlay overlay-bg"></div>
+                            <img class="img-fluid pb-3" src="{{ asset('storage/slider/' . $item->gambar) }}" alt="">
+                          </div>
+                          <div class="meta d-flex justify-content-between">
+                          </div>
+                        </div>
+                        <div class="details">
+                          <a href="#">
+                            <h4>
+                                {{ $item->title }}
+                            </h4>
+                          </a>
+                          <p>
+                            {{ $item->deskripsi }}
+                          </p>
+                        </div>
+                      </div>
+                      @endforeach
+                    </div>
+                </div>
+              </div>
+            </div>
+         </section>
+          <!-- End slider -->
+
+           <!-- Start FAsilitas -->
+        <section class="upcoming-event-area section-gap" id="fasilitas">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-70 col-lg-8">
+                    <div class="title text-center">
+                    <h1 class="mb-10">Fasilitas</h1>
+                    <p>Berikut adalah Fasilitas sekolah</p>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="active-upcoming-event-carusel">
+                    @foreach ($fasilitas as $item )
+                    <div class="single-carusel row align-items-center">
+                            <div class="col-12 col-md-6 thumb">
+                                <img class="img-fluid" src="{{asset('storage/fasilitas/'. $item->gambar)}}" alt="">
+                            </div>
+                            <div class="detials col-12 col-md-6">
+                                <p>{{ $item->created_at->translatedFormat('l, d F Y') }}</p>
+                                <h4 class="mb-0">{{ $item->nama_fasilitas }}</h4>
+                                <p>{{ $item->deskripsi }}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+          <!-- End FAsilitas -->
+
 @endsection

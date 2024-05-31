@@ -3,24 +3,13 @@
     <div class="row">
       <div class="col-lg-2 col-md-6 col-sm-6">
         <div class="single-footer-widget">
-          <h4>Top Products</h4>
-          <ul>
-            <li><a href="#">Managed Website</a></li>
-            <li><a href="#">Manage Reputation</a></li>
-            <li><a href="#">Power Tools</a></li>
-            <li><a href="#">Marketing Service</a></li>
-          </ul>								
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-6 col-sm-6">
-        <div class="single-footer-widget">
           <h4>Quick links</h4>
           <ul>
             <li><a href="#">Jobs</a></li>
             <li><a href="#">Brand Assets</a></li>
             <li><a href="#">Investor Relations</a></li>
             <li><a href="#">Terms of Service</a></li>
-          </ul>								
+          </ul>
         </div>
       </div>
       <div class="col-lg-2 col-md-6 col-sm-6">
@@ -31,39 +20,24 @@
             <li><a href="#">Brand Assets</a></li>
             <li><a href="#">Investor Relations</a></li>
             <li><a href="#">Terms of Service</a></li>
-          </ul>								
+          </ul>
         </div>
       </div>
-      <div class="col-lg-2 col-md-6 col-sm-6">
+      <div class="col-lg-8 col-md-6 col-sm-6 align-items-end">
         <div class="single-footer-widget">
-          <h4>Resources</h4>
-          <ul>
-            <li><a href="#">Guides</a></li>
-            <li><a href="#">Research</a></li>
-            <li><a href="#">Experts</a></li>
-            <li><a href="#">Agencies</a></li>
-          </ul>								
+            <div style="width: 100%; height: 200px;">
+                <iframe
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    style="border:0"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.4384386889527!2d106.76038381476974!3d-6.23516109549156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f0dc7010c817%3A0x463bf99ce6da76a1!2sMTs%20Al%20Quraniyah%20Ulujami!5e0!3m2!1sen!2sid!4v1622789923203!5m2!1sen!2sid"
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
-      </div>																		
-      <div class="col-lg-4  col-md-6 col-sm-6">
-        <div class="single-footer-widget">
-          <h4>Newsletter</h4>
-          <p>Stay update with our latest</p>
-          <div class="" id="mc_embed_signup">
-             <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get">
-              <div class="input-group">
-                <input type="text" class="form-control" name="EMAIL" placeholder="Enter Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email Address '" required="" type="email">
-                <div class="input-group-btn">
-                  <button class="btn btn-default" type="submit">
-                    <span class="lnr lnr-arrow-right"></span>
-                  </button>    
-                </div>
-                  <div class="info"></div>  
-              </div>
-            </form> 
-          </div>
-        </div>
-      </div>											
+    </div>
+
     </div>
     <div class="footer-bottom row align-items-center justify-content-between">
       <p class="footer-text m-0 col-lg-6 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -75,6 +49,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <a href="#"><i class="fa fa-dribbble"></i></a>
         <a href="#"><i class="fa fa-behance"></i></a>
       </div>
-    </div>						
+    </div>
   </div>
-</footer>	
+</footer>

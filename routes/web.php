@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SejarahController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\BeritaContentController;
 use App\Http\Controllers\Admin\VisiMisiController;
 use App\Http\Controllers\Admin\FasilitasController;
 use App\Http\Controllers\Admin\WaliSiswaController;
@@ -48,6 +49,8 @@ use App\Http\Controllers\WaliCalonSiswa\PendaftaranSiswaController;
 */
 
 Route::get('/', [ClientController::class, 'index'])->name('index');
+Route::get('/berita/{id}', [BeritaController::class, 'showBerita'])->name('berita.show');
+Route::get('/profilependidik/{id}', [TenagaPendidikController::class, 'showPendidik'])->name('profilePendidik.show');
 
 Auth::routes();
 
