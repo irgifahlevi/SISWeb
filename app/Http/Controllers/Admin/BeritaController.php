@@ -104,6 +104,13 @@ class BeritaController extends Controller
         }
     }
 
+
+    public function showBerita($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('ClientView.BeritaContent.index', compact('berita'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
