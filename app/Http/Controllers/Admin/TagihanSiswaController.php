@@ -77,6 +77,8 @@ class TagihanSiswaController extends Controller
         try {
             foreach ($kelas_siswa as $kelas) {
                 foreach ($kelas->Siswa as $siswa) {
+                    $detailBiaya = [];
+                    $params = [];
 
                     $tanggal = Carbon::now()->format('dmy');
                     $last_record = TagihanSiswa::select('no_tagihan')
@@ -116,6 +118,8 @@ class TagihanSiswaController extends Controller
                     $tagihan->save();
 
                     $data = TagihanSiswa::where('id', $tagihan->id)
+                        ->where('siswa_id', $siswa->id)
+                        ->orderBy('id', 'desc')
                         ->firstOrFail();
 
                     $users = User::select('email')

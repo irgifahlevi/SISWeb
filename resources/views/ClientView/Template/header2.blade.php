@@ -20,7 +20,7 @@
     <div class="container main-menu">
       <div class="row align-items-center justify-content-between d-flex">
         <div id="logo">
-          <a href="index.html"><img src="{{asset('ClientTemplate/img/logo.ico')}}" alt="" title="" style="height: 50px; width: 58px;" /></a>
+          <a href="{{route('index')}}"><img src="{{asset('ClientTemplate/img/logo.ico')}}" alt="" title="" style="height: 50px; width: 58px;" /></a>
         </div>
         <nav id="nav-menu-container">
           <ul class="nav-menu">
