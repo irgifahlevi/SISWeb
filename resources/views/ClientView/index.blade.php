@@ -66,28 +66,30 @@
 
 
         {{-- pengantar kepsek --}}
-        <section class="popular-course-area section-gap" id="pengantarKepsek">
-          <div class="container">
-            <div class="section-top-border">
-              <div class="title text-center">
-                <h1 class="mb-10">Prakata kepala sekolah</h1>
-                <p class="mb-30">MTs Al-Quraniyah Ulujami.</p>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <img src="{{ asset('storage/pengantarKepsek/' . $pengantar_kepsek->gambar) }}" alt="" class="img-fluid">
+        @if ($pengantar_kepsek)
+          <section class="popular-course-area section-gap" id="pengantarKepsek">
+            <div class="container">
+              <div class="section-top-border">
+                <div class="title text-center">
+                  <h1 class="mb-10">Prakata kepala sekolah</h1>
+                  <p class="mb-30">MTs Al-Quraniyah Ulujami.</p>
                 </div>
-                <div class="col-md-9 mt-sm-20 left-align-p">
-                  <h5><i>Assalamu’alaikum Warohmatullohi Wabarokatuh</i></h5>
-                  <br>
-                  {{$pengantar_kepsek->deskripsi}}
-                  <br>
-                  <br>
-                  <h5><i>Wabillahi taufik wal hidayah wassalamu’alaikum Warohmatullohi Wabarokatuh.</i></h5>
+                <div class="row">
+                  <div class="col-md-3">
+                    <img src="{{ asset('storage/pengantarKepsek/' . $pengantar_kepsek->gambar) }}" alt="" class="img-fluid">
+                  </div>
+                  <div class="col-md-9 mt-sm-20 left-align-p">
+                    <h5><i>Assalamu’alaikum Warohmatullohi Wabarokatuh</i></h5>
+                    <br>
+                    {{$pengantar_kepsek->deskripsi}}
+                    <br>
+                    <br>
+                    <h5><i>Wabillahi taufik wal hidayah wassalamu’alaikum Warohmatullohi Wabarokatuh.</i></h5>
+                  </div>
                 </div>
-              </div>
-          </div>
-        </section>
+            </div>
+          </section>
+        @endif
 
         <section class="popular-course-area section-gap" id="profilependidik">
             <div class="container">
