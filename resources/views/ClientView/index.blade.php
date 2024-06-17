@@ -147,6 +147,7 @@
                     MTS Alquraniyah Jakarta Ulujami, menyiapkan program pendidikan yang berkualitas dengan lingkungan yang sehat, asri dan nyaman serta didukung oleh tenaga pendidik yang professional serta sarana yang memadai akan menghasilkan lulusan yang Cerdas, Disiplin, Inovatif, dan berukhuwah islamiyah
                 </p>
                 <a class="genric-btn primary" href="{{ Route('register') }}">Registrasi</a>
+                @if ($visi_misi)
                 <div class="row details-content">
                   <div class="col single-detials">
                     <span class="lnr lnr-graduation-hat"></span>
@@ -164,7 +165,8 @@
                       </ul>
                     @endforeach
                   </div>
-                </div>
+                </div>                    
+                @endif
               </div>
             </div>
           </div>
@@ -208,6 +210,7 @@
         <!-- End Ekstrakulikuler -->
 
         <!-- Start cta-one Area -->
+        @if ($sejarah)
         <section class="cta-one-area relative section-gap" id="sejarah">
           <div class="container">
             <div class="overlay overlay-bg"></div>
@@ -222,6 +225,7 @@
             </div>
           </div>
         </section>
+        @endif
         <!-- End cta-one Area -->
 
         <!-- Start blog berita -->
