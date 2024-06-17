@@ -18,21 +18,15 @@
         snap.pay(snap_token, {
           onSuccess: function (result) {
             $('#loading-overlay').show();
-            setTimeout(function(){
-                location.reload();
-            }, 800)
+            location.reload();
           },
           onPending: function (result) {
             $('#loading-overlay').show();
-            setTimeout(function(){
-                location.reload();
-            }, 800)
+            location.reload();
           },
           onError: function (result) {
             $('#loading-overlay').show();
-            setTimeout(function(){
-                location.reload();
-            }, 800)
+            location.reload();
           },
           onClose: function (result) {
             $('#loading-overlay').show();
