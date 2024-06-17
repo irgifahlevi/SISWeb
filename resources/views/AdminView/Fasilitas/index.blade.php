@@ -108,7 +108,7 @@
               </div>
             </div>
           </div>
-          @include('AdminView.Fasilitas.add_fasilitas')
+          @include('AdminView.Fasilitas.add_Fasilitas')
         @endif
       </div>
     </div>
