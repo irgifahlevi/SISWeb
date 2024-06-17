@@ -2228,7 +2228,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     transform: scale(1.1);
 }
 .search-course-area {
-    background: url(../img/s-bg.jpg) center;
+    background: url(../img/bg_banner.jpg) center;
     background-size: cover;
 }
 .search-course-area .overlay-bg {
@@ -2507,7 +2507,7 @@ body.mobile-nav-active #mobile-nav-toggle {
     font-weight: 600;
 }
 .cta-one-area {
-    background: url(../img/cta-bg.jpg) center;
+    background: url(../img/bg_banner2.jpg) center;
     background-size: cover;
     text-align: center;
     color: #fff;

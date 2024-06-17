@@ -84,7 +84,7 @@
           </div>
 
           {{-- Modal edit data --}}
-          @include('AdminView.GaleriContent.edit_Galeri_Content')
+          @include('AdminView.GaleriContent.edit_Galeri_content')
 
 
         {{-- Jika data banner kosong --}}

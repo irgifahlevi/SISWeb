@@ -150,17 +150,19 @@
                 <div class="row details-content">
                   <div class="col single-detials">
                     <span class="lnr lnr-graduation-hat"></span>
-                    <a href="#"><h4>Visi</h4></a>
+                    <a href=""><h4>Visi</h4></a>
                     <p>
                         {{$visi_misi->visi}}
                     </p>
                   </div>
                   <div class="col single-detials">
                     <span class="lnr lnr-license"></span>
-                    <a href="#"><h4>Misi</h4></a>
-                    <ul class="unordered-list">
-                        <li>{{$visi_misi->misi}}</li>
-                    </ul>
+                    <a href=""><h4>Misi</h4></a>
+                    @foreach ($misi_items as $item)
+                      <ul class="unordered-list">
+                        <li>{{$item}}</li>
+                      </ul>
+                    @endforeach
                   </div>
                 </div>
               </div>
@@ -240,7 +242,7 @@
                         <img class="img-fluid" src="{{asset('storage/berita/'. $item->gambar)}}" alt="">
                     </div>
                     <p class="meta"> {{ $item->created_at->translatedFormat('l, d F Y') }} | {{ $item->created_by }}</p>
-                    <a href="blog-single.html">
+                    <a href="{{ route('berita.show', $item->id) }}">
                         <h5>{{ $item->judul }}</h5>
                     </a>
                     <p>
@@ -343,7 +345,7 @@
                           </div>
                         </div>
                         <div class="details">
-                          <a href="#">
+                          <a href="">
                             <h4>
                                 {{ $item->title }}
                             </h4>

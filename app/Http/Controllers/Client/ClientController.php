@@ -29,7 +29,7 @@ class ClientController extends Controller
         $profile_pendidik = ProfilePendidik::with(
             'JenisKelaminPendidik',
             'ProfilePendidik'
-        )->whereHas('ProfilePendidik', function ($query){
+        )->whereHas('ProfilePendidik', function ($query) {
             $query->where('row_status', 0);
         })->where('row_status', '0')->orderBy('id', 'desc')->paginate(5);
 
@@ -41,10 +41,12 @@ class ClientController extends Controller
 
         // $galeri = Galleri::where('row_status', 0)->orderBy('id', 'desc')->paginate(3)->all();
         $galeri = Galleri::where('row_status', 0)->orderBy('id', 'desc')->paginate(3)->all();
+
         $visi_misi = VisiMisi::where('row_status', 0)->orderBy('id', 'desc')->first();
+        $misi_items = explode('•', $visi_misi->misi);
 
         $sejarah = Sejarah::where('row_status', 0)->orderBy('id', 'desc')->first();
 
-        return view('ClientView.index', compact('pengantar_kepsek', 'slider', 'visi_misi', 'profile_pendidik', 'fasilitas', 'ekstrakulikuler', 'berita', 'sejarah', 'galeri'));
+        return view('ClientView.index', compact('pengantar_kepsek', 'slider', 'visi_misi', 'misi_items', 'profile_pendidik', 'fasilitas', 'ekstrakulikuler', 'berita', 'sejarah', 'galeri'));
     }
 }
