@@ -31,7 +31,7 @@ class FasilitasController extends Controller
         // Ambil data dengan paginasi
         $fasilitas = $query->paginate(5)->onEachSide(2)->fragment('fasilitas_content');
 
-        return view('AdminView.fasilitas.index', compact('fasilitas', 'search_fasilitas'));
+        return view('AdminView.Fasilitas.index', compact('fasilitas', 'search_fasilitas'));
     }
 
     /**

@@ -30,7 +30,7 @@ class SejarahController extends Controller
         // ambil data dengan paginasi
         $sejarah = $query->paginate(5)->onEachSide(2)->fragment('sejarah');
 
-        return view('AdminView.sejarah.index', compact('sejarah', 'search_data'));
+        return view('AdminView.Sejarah.index', compact('sejarah', 'search_data'));
     }
 
     /**
