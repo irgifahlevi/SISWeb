@@ -43,7 +43,7 @@ class ClientController extends Controller
         $galeri = Galleri::where('row_status', 0)->orderBy('id', 'desc')->paginate(3)->all();
 
         $visi_misi = VisiMisi::where('row_status', 0)->orderBy('id', 'desc')->first();
-        $misi_items = explode('•', $visi_misi->misi);
+        $misi_items = $visi_misi != null ? explode('•', $visi_misi->misi) : [];
 
         $sejarah = Sejarah::where('row_status', 0)->orderBy('id', 'desc')->first();
 
