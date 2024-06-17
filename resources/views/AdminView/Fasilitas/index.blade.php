@@ -82,7 +82,7 @@
           </div>
 
           {{-- Modal edit data --}}
-          @include('AdminView.Fasilitas.edit_Fasilitas')
+          @include('AdminView.Fasilitas.edit_fasilitas')
 
 
         {{-- Jika data banner kosong --}}
