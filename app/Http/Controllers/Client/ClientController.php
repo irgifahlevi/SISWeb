@@ -24,7 +24,7 @@ class ClientController extends Controller
             ->orderBy('id', 'desc')
             ->first();
 
-        $slider = SliderKonten::where('row_status', 0)->orderBy('id', 'desc')->paginate(3)->all();
+        $slider = SliderKonten::where('row_status', 0)->orderBy('id', 'desc')->paginate(4)->all();
 
         $profile_pendidik = ProfilePendidik::with(
             'JenisKelaminPendidik',
@@ -33,14 +33,14 @@ class ClientController extends Controller
             $query->where('row_status', 0);
         })->where('row_status', '0')->orderBy('id', 'desc')->paginate(5);
 
-        $fasilitas = Fasilitas::where('row_status', 0)->orderBy('id', 'desc')->paginate(3)->all();
+        $fasilitas = Fasilitas::where('row_status', 0)->orderBy('id', 'desc')->paginate(8)->all();
 
-        $berita = Berita::where('row_status', 0)->orderBy('id', 'desc')->paginate(3)->all();
+        $berita = Berita::where('row_status', 0)->orderBy('id', 'desc')->paginate(8)->all();
 
-        $ekstrakulikuler = Ekstrakurikuler::where('row_status', 0)->orderBy('id', 'desc')->paginate(3)->all();
+        $ekstrakulikuler = Ekstrakurikuler::where('row_status', 0)->orderBy('id', 'desc')->paginate(5)->all();
 
         // $galeri = Galleri::where('row_status', 0)->orderBy('id', 'desc')->paginate(3)->all();
-        $galeri = Galleri::where('row_status', 0)->orderBy('id', 'desc')->paginate(3)->all();
+        $galeri = Galleri::where('row_status', 0)->orderBy('id', 'desc')->paginate(8)->all();
 
         $visi_misi = VisiMisi::where('row_status', 0)->orderBy('id', 'desc')->first();
         $misi_items = $visi_misi != null ? explode('•', $visi_misi->misi) : [];
