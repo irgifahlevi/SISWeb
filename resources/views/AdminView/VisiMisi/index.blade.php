@@ -112,7 +112,7 @@
               </div>
             </div>
           </div>
-          @include('AdminView.VisiMisi.add_visimisi')
+          @include('AdminView.VisiMisi.add_VisiMisi')
         @endif
       </div>
     </div>

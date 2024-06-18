@@ -61,8 +61,8 @@ class TenagaPendidikController extends Controller
             $request->all(),
             [
                 'nama_lengkap' => 'required|string|min:4',
-                'nip' => 'nullable|numeric|digits:18',
-                'no_nuptk' => 'nullable|numeric|digits:18',
+                'nip' => 'nullable|numeric|digits_between:16,18',
+                'no_nuptk' => 'nullable|numeric|digits_between:16,18',
                 'mapel' => 'nullable|string',
                 'jabatan' => 'nullable|string',
                 'nik' => 'required|numeric|digits:16',
@@ -169,14 +169,14 @@ class TenagaPendidikController extends Controller
     public function showPendidik(string $id)
     {
         $profile_pendidik = ProfilePendidik::with('JenisKelaminPendidik', 'ProfilePendidik')
-        ->whereHas('ProfilePendidik', function ($query) {
-            $query->where('row_status', 0);
-        })
-        ->where('id', $id)
-        ->where('row_status', 0)
-        ->firstOrFail();
+            ->whereHas('ProfilePendidik', function ($query) {
+                $query->where('row_status', 0);
+            })
+            ->where('id', $id)
+            ->where('row_status', 0)
+            ->firstOrFail();
         // dd($profile_pendidik);
-    return view('ClientView.ProfilePendidikContent.index', compact('profile_pendidik'));
+        return view('ClientView.ProfilePendidikContent.index', compact('profile_pendidik'));
     }
 
     /**

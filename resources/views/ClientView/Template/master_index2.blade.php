@@ -29,6 +29,17 @@
     <link rel="stylesheet" href="{{asset('ClientTemplate/css/owl.carousel.css')}}">
     <link rel="stylesheet" href="{{asset('ClientTemplate/css/jquery-ui.css')}}">
     <link rel="stylesheet" href="{{asset('ClientTemplate/css/main.css')}}">
+  
+    <style>
+      .truncate-multiple-lines {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          line-clamp: 5;
+          -webkit-line-clamp: 5; /* Needed for webkit */
+      }
+    </style>
 </head>
 <body>
     @include('ClientView.Template.header2')

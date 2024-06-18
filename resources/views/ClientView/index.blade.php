@@ -193,14 +193,12 @@
                             <img class="img-fluid" src="{{asset('storage/ekskul/'. $item->gambar)}}" alt="">
                         </div>
                         <div class="detials col-12 col-md-6">
-                            <p>{{ $item->created_at->translatedFormat('l, d F Y') }}</p>
-                            <h4 class="mb-0">{{ $item->title }}</h4>
-                            <p>Jenis Ekskul : {{ $item->jenis }}</p>
-                            <h6 class="mt-3">{{ $item->nama_kegiatan }}</h6>
-                        <p>
+                          <h4 class="mb-0 text-truncate" style="max-width: 260px;">{{ $item->title }}</h4>
+                          <h6 class="mt-3 mb-1">Jenis ekskul : {{ $item->jenis }}</h6>
+                          <p class="truncate-for-eskul">
                             {{ $item->deskripsi }}
-                        </p>
-                    </div>
+                          </p>
+                        </div>
                 </div>
                 @endforeach
                 </div>
@@ -280,7 +278,7 @@
                     <div class="active-popular-carusel">
                     @foreach ($galeri as $item)
                     <div class="single-popular-carusel">
-                        <div class="thumb-wrap relative">
+                        <div class="thumb-wrap relative mb-10">
                           <div class="thumb relative">
                             <div class="overlay overlay-bg"></div>
                             <img class="img-fluid pb-3" src="{{ asset('storage/galeri/' . $item->gambar) }}" alt="">
@@ -295,7 +293,7 @@
                             <h6>
                                 {{ $item->nama_kegiatan }}
                             </h6>
-                          <p>
+                          <p class="mt-3 truncate-multiple-lines">
                             {{ $item->deskripsi }}
                           </p>
                         </div>
@@ -349,12 +347,10 @@
                           </div>
                         </div>
                         <div class="details">
-                          <a href="">
-                            <h4>
-                                {{ $item->title }}
-                            </h4>
-                          </a>
-                          <p>
+                          <h4 class="d-inline-block text-truncate" style="max-width: 260px;">
+                            {{ $item->title }}
+                          </h4>
+                          <p class="mt-3 truncate-multiple-lines">
                             {{ $item->deskripsi }}
                           </p>
                         </div>
@@ -386,10 +382,11 @@
                                 <img class="img-fluid" src="{{asset('storage/fasilitas/'. $item->gambar)}}" alt="">
                             </div>
                             <div class="detials col-12 col-md-6">
-                                <p>{{ $item->created_at->translatedFormat('l, d F Y') }}</p>
-                                <h4 class="mb-0">{{ $item->nama_fasilitas }}</h4>
-                                <p>{{ $item->deskripsi }}</p>
-                        </div>
+                              <h4 class="mb-1text-truncate" style="max-width: 260px;">{{ $item->nama_fasilitas }}</h4>
+                              <p class="truncate-for-eskul">
+                                {{ $item->deskripsi }}
+                              </p>
+                            </div>
                     </div>
                     @endforeach
                     </div>
