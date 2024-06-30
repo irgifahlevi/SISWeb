@@ -1,6 +1,6 @@
 @extends('Template.Admin.master_admin')
 @section('content')
-@include('AdminView.DataPendaftaranSiswa.search')
+@include('AdminView.DokumenPendaftaranSiswa.search')
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row justify-content-center">
@@ -8,69 +8,70 @@
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
 
-        @if (count($data) > 0)
+        {{-- @if (count($data) > 0) --}}
 
           {{-- Tabel --}}
           <div class="card">
-            <h5 class="card-header">Data calon siswa</h5>
+            <h5 class="card-header">Hasil Sleksi calon siswa</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th style="width: 70px;">No.</th>
-                      <th>Nama siswa</th>
-                      <th>No NIK</th>
-                      <th>No KK</th>
-                      <th>Jenis kelamin</th>
-                      <th>Wali</th>
-                      <th>Telepon Wali</th>
-                      <th>Asal sekolah</th>
-                      <th>Tahun lulus</th>
-                      <th>Tanggal Mendaftar</th>
+                      <th>Nama Calon siswa</th>
+                      <th>ID Pendaftar</th>
+                      <th>Hasil</th>
+                      <th>Status</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @php
+                    {{-- @php
                         $nomor = 1 + (($data->currentPage() - 1) * $data->perPage());
-                    @endphp
-                    @foreach($data as $item)
+                    @endphp --}}
+                    {{-- @foreach() --}}
                     <tr>
-                      <td>{{$nomor++}}</td>
-                      <td>{{ $item->nama_lengkap}}</td>
-                      <td>{{ $item->nik }}</td>
-                      <td>{{ $item->no_kk }}</td>
-                      <td>{{ $item->JenisKelaminCalonSiswa->jenis_kelamin}}</td>
-                      <td>{{ $item->WaliCalonSiswa->Users->username }}</td>
-                      <td>{{ formatNoTelpon($item->WaliCalonSiswa->no_telepon) }}</td>
-                      <td>{{ $item->nama_sekolah_asal}}</td>
-                      <td>{{ $item->tahun_lulus}}</td>
-                      <td>{{ $item->created_at }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                       <td>
                         <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                             <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" id="detail" data-id="{{$item->id}}">
-                              <i class='bx bx-show-alt me-1'></i>
-                              Lihat detail
-                            </button>
-                          </div>
-                        </div>
-                      </td>
+                        </button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" type="button" id="hasil">
+                          <i class="bx bx-edit-alt me-1"></i>
+                          Hasil
+                        </button>
+                        <button class="dropdown-item" type="button" id="Lolos-data">
+                            <i class="bx bxs-user-check me-1"></i>
+                          Lolos
+                        </button>
+                        <button class="dropdown-item" type="button" id="Lolos-data">
+                        <i class="bx bxs-user-x me-1"></i>
+                          Tidak Lolos
+                        </button>
+                      </div>
+                    </div>
+                  </td>
                     </tr>
-                    @endforeach
+                    {{-- @endforeach --}}
                   </tbody>
                 </table>
                 <div class="mt-3">
                   <!-- {{-- {{ $dataBarang->links() }} --}} -->
-                  {!! $data->appends(Request::except('page'))->render() !!}
+                  {{-- {!! $data->appends(Request::except('page'))->render() !!} --}}
                 </div>
               </div>
             </div>
           </div>
+
+           {{-- Modal edit data --}}
+           @include('AdminView.InfoHasilSleksi.edit_hasil')
 
           {{-- Loading data--}}
           <div id="loading-overlay" style="display: none;">
@@ -79,7 +80,7 @@
 
 
         {{-- Jika data banner kosong --}}
-        @else
+        {{-- @else --}}
           <div class="card">
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
@@ -103,7 +104,7 @@
               </div>
             </div>
           </div>
-        @endif
+        {{-- @endif --}}
       </div>
     </div>
   </div>
@@ -113,17 +114,5 @@
   <div class="content-backdrop fade"></div>
 </div>
 
-<script>
-  $('body').on('click', `#detail`, function () {
-    var id = $(this).data('id'); // menangkap ID dari data attribute 'data-id'
-    // tampilkan spinner
-    $('#loading-overlay').show();
-    setTimeout(() => {
-      $('#loading-overlay').hide();
-      const url = `data-pendaftaran-siswa/${id}`
-      window.location.href = url;
-    }, 900);
-
-  });
 </script>
 @endsection

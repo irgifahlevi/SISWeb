@@ -28,9 +28,11 @@ use App\Http\Controllers\Admin\PengantarKepsekController;
 use App\Http\Controllers\Admin\BiayaPendaftaranController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
 use App\Http\Controllers\Admin\DataPendaftaranSiswaController;
+use App\Http\Controllers\Admin\DokumenPendaftarController;
+use App\Http\Controllers\Admin\HasilSleksiCalonSiswaController;
 use App\Http\Controllers\Admin\KurikulumController;
 use App\Http\Controllers\Admin\PrestasiController;
-use App\Http\Controllers\Admin\RequestTokenPembayaranController;
+use App\Http\Controllers\Admin\RequestTokenPembayaranController
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
 use App\Http\Controllers\Admin\TransaksiTagihanSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
@@ -129,6 +131,12 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Data pendaftaran siswa
     Route::resource('data-pendaftaran-siswa', DataPendaftaranSiswaController::class);
+
+    // Dokumen pendaftaran siswa
+    Route::resource('dokumen-pendaftaran-siswa', DokumenPendaftarController::class);
+
+    // Dokumen pendaftaran siswa
+    Route::resource('info-sleksi-calon-siswa', HasilSleksiCalonSiswaController::class);
 
     // Membuat tagihan siswa
     Route::resource('tagihan-siswa', TagihanSiswaController::class);

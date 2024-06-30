@@ -145,12 +145,22 @@
       <ul class="menu-sub" {{ request()->routeIs('transaki-pendaftaran.index', 'data-pendaftaran-siswa.index') ? 'style=display:block' : '' }} >
         <li class="menu-item {{\Route::is('transaki-pendaftaran.index') ? 'active' : ''}}">
           <a href="{{route('transaki-pendaftaran.index')}}" class="menu-link">
-            <div data-i18n="Accordion">Transaksi</div>
+            <div data-i18n="Accordion">Pendaftar</div>
           </a>
         </li>
         <li class="menu-item {{\Route::is('data-pendaftaran-siswa.index') ? 'active' : ''}}">
           <a href="{{route('data-pendaftaran-siswa.index')}}" class="menu-link">
             <div data-i18n="Accordion">Calon siswa</div>
+          </a>
+        </li>
+        <li class="menu-item {{\Route::is('dokumen-pendaftaran-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('dokumen-pendaftaran-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Dokumen Pendaftar</div>
+          </a>
+        </li>
+        <li class="menu-item {{\Route::is('info-sleksi-calon-siswa.index') ? 'active' : ''}}">
+          <a href="{{route('info-sleksi-calon-siswa.index')}}" class="menu-link">
+            <div data-i18n="Accordion">Seleksi Pendaftar</div>
           </a>
         </li>
       </ul>

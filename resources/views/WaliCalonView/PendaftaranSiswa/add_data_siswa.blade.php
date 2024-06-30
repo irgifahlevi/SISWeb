@@ -1,3 +1,15 @@
+<style>
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+</style>
 <div class="modal fade" id="add-data-siswa" tabindex="-1" role="dialog" aria-labelledby="modal-add-kategori" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -146,7 +158,86 @@
               <small class="text-danger mt-2 error-message" id="jumlah_saudara-error"></small>
             </div>
           </div>
-        </div>
+
+          <div class="row">
+            <div class="row">
+                <div class="col mb-3">
+                    <label class="form-label">Foto Dokumen<span class="text-danger">*</span></label>
+                    <div class="col mb-3 input-group">
+                        <label for="foto_dokumen" class="visually-hidden">Pilih file</label>
+                        <input type="file" class="form-control visually-hidden" name="foto_dokumen[]" id="foto_dokumen" multiple="true" />
+                        <input type="text" class="form-control" name="nama_dokumen" id="nama_dokumen" placeholder="Masukkan Nama Dokumen" />
+                        <label for="foto_dokumen" class="input-group-text btn btn-primary upload-button">
+                            Upload
+                        </label>
+                    </div>
+                    <small class="text-danger mt-2 error-message" id="gambar-error_1"></small>
+                </div>
+                {{-- <div class="col mb-3">
+                    <label class="form-label">SKHUN Atau Surat Kelulusan<span class="text-danger">*</span></label>
+                    <div class="col mb-3 input-group">
+                        <label for="foto_dokumen_2" class="visually-hidden">Pilih file</label>
+                        <input type="file" class="form-control visually-hidden" name="foto_dokumen_2" id="foto_dokumen_2" />
+                        <input type="text" class="form-control" name="nama_dokumen_2" id="nama_dokumen_2" placeholder="Masukkan Nama Dokumen" />
+                        <label for="foto_dokumen_2" class="input-group-text btn btn-primary upload-button">
+                            Upload
+                        </label>
+                    </div>
+                    <small class="text-danger mt-2 error-message" id="gambar-error_2"></small>
+                </div>
+                <div class="col mb-3">
+                    <label class="form-label">Raport Terakhir<span class="text-danger">*</span></label>
+                    <div class="col mb-3 input-group">
+                        <label for="foto_dokumen_3" class="visually-hidden">Pilih file</label>
+                        <input type="file" class="form-control visually-hidden" name="foto_dokumen_3" id="foto_dokumen_3" />
+                        <input type="text" class="form-control" name="nama_dokumen_3" id="nama_dokumen_3" placeholder="Masukkan Nama Dokumen" />
+                        <label for="foto_dokumen_3" class="input-group-text btn btn-primary upload-button">
+                            Upload
+                        </label>
+                    </div>
+                    <small class="text-danger mt-2 error-message" id="gambar-error_3"></small>
+                </div> --}}
+            </div>
+
+            <script>
+            $(document).ready(function() {
+                // Saat input file berubah untuk foto siswa
+                $('#foto_dokumen').change(function() {
+                    var fileName = $(this).val().split('\\').pop();
+                    if (fileName) {
+                        $('#foto_dokumen').next().next('.upload-button').html('<i class="menu-icon tf-icons bx bx-check"></i>');
+                    } else {
+                        $('#foto_dokumen').next().next('.upload-button').html('Upload');
+                    }
+                });
+
+                // // Saat input file berubah untuk SKHUN atau Surat Kelulusan
+                // $('#foto_dokumen_2').change(function() {
+                //     var fileName = $(this).val().split('\\').pop();
+                //     if (fileName) {
+                //         $('#foto_dokumen_2').next().next('.upload-button').html('<box-icon name="check-circle"></box-icon>');
+                //     } else {
+                //         $('#foto_dokumen_2').next().next('.upload-button').html('Upload');
+                //     }
+                // });
+
+                // // Saat input file berubah untuk raport terakhir
+                // $('#foto_dokumen_3').change(function() {
+                //     var fileName = $(this).val().split('\\').pop();
+                //     if (fileName) {
+                //         $('#foto_dokumen_3').next().next('.upload-button').html('<box-icon name="check-circle"></box-icon>');
+                //     } else {
+                //         $('#foto_dokumen_3').next().next('.upload-button').html('Upload');
+                //     }
+                // });
+            });
+            </script>
+
+          </div>
+
+
+
+
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Simpan data</button>
         </div>
@@ -371,7 +462,7 @@
             }
           });
 
-          
+
           var formData = new FormData(this);
 
           $.ajaxSetup({
@@ -380,7 +471,7 @@
             }
           });
 
-          //for debug 
+          //for debug
           // for (let data of formData.entries()) {
           //   console.log(data[0] + ': ' + data[1]);
           // }
@@ -398,7 +489,7 @@
               success: function(response)
               {
                   if(response.status == 200){
-                    
+
                     // Tutup modal add banner dan kosongkan form
                     $('#loading-overlay').hide();
                     $('#add-data-siswa').modal('hide');
@@ -412,7 +503,7 @@
                       text: `${response.message}`,
                       icon: 'success'
                     });
-                    
+
                     // Reload halaman
                     setTimeout(function(){
                       location.reload();
@@ -431,7 +522,7 @@
                 if(response.status == 500){
                   var res = response;
                   //console.log(res);
-                  
+
                   $('#loading-overlay').hide();
                   $('#add-data-siswa').modal('hide');
                   $('#form-pendaftaran')[0].reset();
@@ -449,7 +540,7 @@
               },
             })
           }, 900);
-          
+
         });
       });
 
@@ -460,7 +551,7 @@
           $('.error-message').text(''); // Menghapus pesan error
           $('#form-pendaftaran')[0].reset(); // Mereset form
         });
-        
+
         // Menambahkan event listener pada modal
         $('#add-data-siswa').on('hidden.bs.modal', function (e) {
           $('.error-message').text(''); // Menghapus pesan error
@@ -486,4 +577,38 @@
       }
 
 </script>
+
+<script>
+    $(document).ready(function() {
+        // Saat input file berubah untuk foto siswa
+        $('#foto_dokumen').change(function() {
+            var fileName = $(this).val().split('\\').pop();
+            if (fileName) {
+                $('#foto_dokumen_1').next().next('.upload-button').html('<i class="menu-icon tf-icons bx bx-check"></i>');
+            } else {
+                $('#foto_dokumen_1').next().next('.upload-button').html('Upload');
+            }
+        });
+
+        // // Saat input file berubah untuk SKHUN atau Surat Kelulusan
+        // $('#foto_dokumen_2').change(function() {
+        //     var fileName = $(this).val().split('\\').pop();
+        //     if (fileName) {
+        //         $('#foto_dokumen_2').next().next('.upload-button').html('<i class="menu-icon tf-icons bx bx-check"></i>');
+        //     } else {
+        //         $('#foto_dokumen_2').next().next('.upload-button').html('Upload');
+        //     }
+        // });
+
+        // // Saat input file berubah untuk raport terakhir
+        // $('#foto_dokumen_3').change(function() {
+        //     var fileName = $(this).val().split('\\').pop();
+        //     if (fileName) {
+        //         $('#foto_dokumen_3').next().next('.upload-button').html('<i class="menu-icon tf-icons bx bx-check"></i>');
+        //     } else {
+        //         $('#foto_dokumen_3').next().next('.upload-button').html('Upload');
+        //     }
+        // });
+    });
+    </script>
 @endsection

@@ -27,6 +27,10 @@ class Pendaftaran extends Model
     {
         return $this->belongsTo(InfoPendaftaran::class, 'info_pendaftaran_id', 'id');
     }
+    public function DokumenCalonSiswa()
+    {
+        return $this->belongsTo(DokumenCalonSiswa::class, 'pendaftaran_id ', 'id');
+     }
 
     public function TokenPendaftaran()
     {
