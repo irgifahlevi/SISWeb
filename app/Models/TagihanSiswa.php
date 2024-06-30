@@ -24,4 +24,9 @@ class TagihanSiswa extends Model
     {
         return $this->hasOne(TransaksiTagihan::class, 'tagihan_siswa_id', 'id');
     }
+
+    public function TokenTagihan()
+    {
+        return $this->hasMany(RequestToken::class, 'tagihan_siswa_id', 'id');
+    }
 }

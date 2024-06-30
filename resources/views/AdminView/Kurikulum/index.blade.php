@@ -1,6 +1,6 @@
 @extends('Template.Admin.master_admin')
 @section('content')
-@include('AdminView.VisiMisi.search')
+@include('AdminView.Kurikulum.search')
 <div id="loading-overlay" style="display: none;">
   @include('Template.loading')
 </div>
@@ -10,60 +10,62 @@
       <div class="col-md-12">
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
-        @if (count($visimisi) > 0)
+        @if (count($kurikulum) > 0)
 
         <div class="mb-3">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" id="add-visimisi" >
+          <button type="button" class="btn btn-primary" id="add-kurikulum" >
             Tambah data
           </button>
 
           <!-- Modal tambah data -->
-          @include('AdminView.VisiMisi.add_VisiMisi')
+          @include('AdminView.Kurikulum.add_kurikulum')
         </div>
           {{-- Tabel --}}
           <div class="card">
-            <h5 class="card-header">Data visimisi konten</h5>
+            <h5 class="card-header">Data kurikulum sekolah</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th>No.</th>
+                      <th style="width: 70px;">No.</th>
                       <th>Title</th>
+                      <th>Nama</th>
                       <th>Deskripsi</th>
-                      <th>Visi</th>
-                      <th>Misi</th>
                       <th>Gambar</th>
-                      <th>Waktu update</th>
+                      <th>Update date</th>
+                      <th>Created by</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     @php
-                        $nomor = 1 + (($visimisi->currentPage() - 1) * $visimisi->perPage());
+                        $nomor = 1 + (($kurikulum->currentPage() - 1) * $kurikulum->perPage());
                     @endphp
-                    @foreach($visimisi as $item)
+                    @foreach($kurikulum as $item)
                     <tr>
                       <td>{{$nomor++}}</td>
                       <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->title }}</span></td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->nama }}</span></td>
                       <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->deskripsi }}</span></td>
-                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->visi }}</span></td>
-                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->misi }}</span></td>
                       <td>
                         <div class="align-items-center">
-                            <img src="{{ asset('storage/visimisi/' . $item->gambar) }}" alt="{{ $item->gambar }}" class="w-px-40 h-auto rounded-circle" />
+                          @if ($item->gambar)
+                            <img src="{{ asset('storage/kurikulum_prestasi/' . $item->gambar) }}" alt="{{ $item->gambar }}" class="w-px-40 h-auto rounded-circle" />
+                          @endif
                         </div>
                       </td>
                       <td>{{ $item->updated_at }}</td>
+                      <td>{{ $item->created_by }}</td>
                       <td>
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                             <i class="bx bx-dots-vertical-rounded"></i>
                           </button>
                           <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" id="edit-visimisi" data-id="{{$item->id}}">
-                              <i class="bx bx-edit-alt me-1"></i>
+                            <button class="dropdown-item" type="button" id="edit-kurikulum" data-id="{{$item->id}}">
+                              <i class="bx bx-edit-alt me-1"></i> 
                               Ubah
                             </button>
                             <button class="dropdown-item" type="button" id="hapus-data" data-id="{{$item->id}}">
@@ -79,24 +81,24 @@
                 </table>
                 <div class="mt-3">
                   <!-- {{-- {{ $dataBarang->links() }} --}} -->
-                  {!! $visimisi->appends(Request::except('page'))->render() !!}
+                  {!! $kurikulum->appends(Request::except('page'))->render() !!}
                 </div>
               </div>
             </div>
           </div>
 
           {{-- Modal edit data --}}
-          @include('AdminView.VisiMisi.edit_visimisi')
-
-
+          @include('AdminView.Kurikulum.edit_kurikulum')
+          
+        
         {{-- Jika data banner kosong --}}
         @else
           <div class="card">
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
                 <div class="card-body">
-                  <h5 class="card-title text-primary">Belum ada data visimisi! 😞</h5>
-                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-visimisi">Tambah data sekarang</button>
+                  <h5 class="card-title text-primary">Belum ada data kurikulum! 😞</h5>
+                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-kurikulum">Tambah data sekarang</button>
                 </div>
               </div>
               <div class="col-sm-5 text-center text-sm-left">
@@ -112,7 +114,7 @@
               </div>
             </div>
           </div>
-          @include('AdminView.VisiMisi.add_VisiMisi')
+          @include('AdminView.Kurikulum.add_kurikulum')
         @endif
       </div>
     </div>
@@ -121,13 +123,13 @@
   @include('Template.footer')
 
   <div class="content-backdrop fade"></div>
-</div>
+</div> 
 
 
 <script>
     $('body').on('click', '#hapus-data', function(){
     var id = $(this).data('id');
-    // loading
+    // loading 
     $('#loading-overlay').show();
 
     setTimeout(() => {
@@ -148,7 +150,7 @@
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '{{ route('visimisi.destroy', [':id']) }}'.replace(':id', id),
+            url: '{{ route('kurikulum-sekolah.destroy', [':id']) }}'.replace(':id', id),
             type: 'DELETE',
             success: function(response) {
               if(response.status == 200){

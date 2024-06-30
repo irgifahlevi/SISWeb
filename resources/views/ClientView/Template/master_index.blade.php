@@ -29,6 +29,32 @@
     <link rel="stylesheet" href="{{asset('ClientTemplate/css/owl.carousel.css')}}">			
     <link rel="stylesheet" href="{{asset('ClientTemplate/css/jquery-ui.css')}}">			
     <link rel="stylesheet" href="{{asset('ClientTemplate/css/main.css')}}">
+
+    <style>
+      .truncate-multiple-lines {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          line-clamp: 6;
+          -webkit-line-clamp: 6;
+      }
+
+      .truncate-for-eskul {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          line-clamp: 3;
+          -webkit-line-clamp: 3;
+      }
+
+      .custom-photo {
+            width: 100px;
+            height: 60px;
+            object-fit: cover; /* Ensures the image covers the container without distorting */
+        }
+    </style>
 </head>
 <body>	
     @include('ClientView.Template.header')

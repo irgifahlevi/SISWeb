@@ -52,6 +52,17 @@
               <small class="text-danger mt-2 error-message" id="nominal_tagihan-error"></small>
             </div>
           </div>
+          <div class="row">
+            <div class="col mb-3">
+              <label class="form-label">Semester tagihan<span class="text-danger">*</span></label>
+              <select class="form-select" name="semester" id="semester">
+                <option value="">Pilih semester</option>
+                <option value="ganjil">Ganjil</option>
+                <option value="genap">Genap</option>
+              </select>
+              <small class="text-danger mt-2 error-message" id="semester-error"></small>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Simpan</button>
@@ -133,6 +144,13 @@
             const maxLength = 100;
             if (inputVal !== '' || inputVal <= maxLength) {
               $('#nominal_tagihan-error').text('');
+            }
+          });
+
+          $('#semester').on('change', function(){
+            const inputVal = $(this).val();
+            if(inputVal !== ''){
+              $('#semester-error').text('');
             }
           });
 

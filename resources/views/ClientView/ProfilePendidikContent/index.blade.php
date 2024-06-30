@@ -21,37 +21,105 @@
         <!-- Start event-details Area -->
         <section class="event-details-area section-gap">
             <div class="container" >
+                <div class="row d-flex justify-content-center">
+                    <div class="menu-content pb-70 col-lg-8">
+                        <div class="title text-center">
+                        <h1 class="mb-10">Profile detail</h1>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-8 event-details-left">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <img src="{{ asset('storage/pendidik/' . $profile_pendidik->foto) }}" alt="" class="img-fluid">
-                            </div>
-                            <div class="col-md-4 mt-sm-20 left-align-p">
-                                <div>
-                                    <p><h6>Nama Lengkap </h6> {{ $profile_pendidik->ProfilePendidik->nama_lengkap }}</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="{{ asset('storage/pendidik/' . $profile_pendidik->foto) }}" alt="" class="img-fluid">
                                 </div>
-                                <div class="mt-2">
-                                    <p><h6>Tempat , Tanggal Lahir </h6>{{ $profile_pendidik->tempat_lahir }} , {{ $profile_pendidik->tanggal_lahir }}</p>
-                                    <p><h6>Agama</h6>{{ $profile_pendidik->agama }}</p>
-                                    <p><h6>Jabatan </h6>{{ $profile_pendidik->ProfilePendidik->jabatan }}</p>
-                                    <p><h6>Mapel </h6>    {{ $profile_pendidik->ProfilePendidik->jabatan }}</p>
-                                    <p><h6>Nip </h6>{{ $profile_pendidik->ProfilePendidik->nip }}</p>
-                                    <p><h6>No Nuptk </h6>{{ $profile_pendidik->ProfilePendidik->no_nuptk }}</p>
+                                <div class="col-md-4 mt-sm-20 left-align-p">
+                                    <div class="mb-2">
+                                        <h6>Nama Lengkap</h6>
+                                        <p class="card-text">{{ $profile_pendidik->ProfilePendidik->nama_lengkap }}</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Tempat, Tanggal Lahir</h6>
+                                        <p class="card-text">{{ $profile_pendidik->tempat_lahir }}, {{ $profile_pendidik->tanggal_lahir }}</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Jenis kelamin</h6>
+                                        <p class="card-text">{{ $profile_pendidik->JenisKelaminPendidik->jenis_kelamin }}</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Agama</h6>
+                                        <p class="card-text">{{ $profile_pendidik->agama }}</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Jabatan</h6>
+                                        <p class="card-text">{{ $profile_pendidik->ProfilePendidik->jabatan }}</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Mata pelajaran</h6>
+                                        <p class="card-text">{{ $profile_pendidik->ProfilePendidik->mapel }}</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>NIP</h6>
+                                        <p class="card-text">{{ $profile_pendidik->ProfilePendidik->nip }}</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>No NUPTK</h6>
+                                        <p class="card-text">{{ $profile_pendidik->ProfilePendidik->no_nuptk }}</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>No telepon</h6>
+                                        <p class="card-text">@if ($profile_pendidik->no_telepon)
+                                            {{ $profile_pendidik->no_telepon }}
+                                        @else
+                                            -
+                                        @endif</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Email</h6>
+                                        <p class="card-text">@if ($profile_pendidik->email)
+                                            {{ $profile_pendidik->email }}
+                                        @else
+                                            -
+                                        @endif</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Alamat</h6>
+                                        <p class="card-text">@if ($profile_pendidik->alamat)
+                                            {{ $profile_pendidik->alamat }}
+                                        @else
+                                            -
+                                        @endif</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Sertifikasi</h6>
+                                        <p class="card-text">@if ($profile_pendidik->sertifikasi)
+                                            {{ $profile_pendidik->sertifikasi }}
+                                        @else
+                                            -
+                                        @endif</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Tahun sertifikasi</h6>
+                                        <p class="card-text">@if ($profile_pendidik->tahun_sertifikasi)
+                                            {{ $profile_pendidik->tahun_sertifikasi }}
+                                        @else
+                                            -
+                                        @endif</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                     <div class="col-lg-4 event-details-right">
                         <div class="single-event-details">
                             <h4>Details</h4>
                             <ul class="mt-10">
                                 <li class="justify-content-between d-flex">
-                                    <span>Tanggal Ditambahkan</span>
+                                    <span>Tanggal</span>
                                     <span>{{ ($profile_pendidik->created_at)->translatedFormat('l, d F Y') }}</span>
                                 </li>
                                 <li class="justify-content-between d-flex">
-                                    <span>DItambahkan Oleh</span>
+                                    <span>Dibuat oleh</span>
                                     <span>{{ $profile_pendidik->created_by }}</span>
                                 </li>
                             </ul>

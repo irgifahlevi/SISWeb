@@ -90,6 +90,12 @@
             <div data-i18n="Analytics">Tagihan saya</div>
           </a>
         </li>
+        <li class="menu-item {{\Route::is('tagihan.transaksi') ? 'active' : ''}}">
+          <a href="{{route('tagihan.transaksi')}}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-money"></i>
+            <div data-i18n="Analytics">Transaksi</div>
+          </a>
+        </li>
       @endif
     @endauth
   </ul>
