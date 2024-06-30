@@ -10,7 +10,7 @@
             class="form-control border-0 shadow-none"
             placeholder="Search..."
             aria-label="Search..."
-            value="{{$search_data}}"
+            {{-- value="{{$search_data}}" --}}
             name="search_data"
           />
         </form>

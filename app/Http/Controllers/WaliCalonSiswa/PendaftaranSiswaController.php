@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\WaliCalonSiswa;
 
+use Exception;
 use App\Models\CalonSiswa;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use App\Models\WaliCalonSiswa;
+use App\Models\DokumenPendaftar;
 use Illuminate\Support\Carbon;
 use App\Helpers\GeneralHelpers;
 use App\Helpers\PaymentHelpers;
@@ -74,6 +76,10 @@ class PendaftaranSiswaController extends Controller
                 'tahun_lulus' => 'required|numeric|digits:4',
                 'anak_ke' => 'required|numeric|max:10',
                 'jumlah_saudara' => 'required|numeric|max:10',
+                'foto_dokumen' => 'required|array', // memastikan foto_dokumen adalah array
+                'foto_dokumen.*' => 'required|image|mimes:jpeg,png|max:2048', // validasi setiap item dalam array
+                'nama_dokumen' => 'required|string|min:4',
+
             ]
         );
 
@@ -122,6 +128,32 @@ class PendaftaranSiswaController extends Controller
                 GeneralHelpers::setRowStatusActive($siswa);
 
                 $siswa->save();
+
+                if($request->hasFile('foto_dokumen')) {
+                    $dokumen = new DokumenPendaftar();
+                    $dokumen->nama_dokumen = $request->nama_dokumen;
+                    $dokumen->catatan = $request->catatan;
+
+                    // Ambil semua file yang diupload
+                    $images = $request->file('foto_dokumen');
+
+                    foreach ($images as $image) {
+                        $imageName = time() . '_' . $image->getClientOriginalName(); // Ubah agar nama gambar unik
+                        $path = $image->storeAs('public/dokumencalonsiswa', $imageName);
+                        $imagePath = basename($path);
+
+                        // Simpan informasi dokumen untuk setiap file
+                        $newDokumen = clone $dokumen; // Clone objek dokumen untuk setiap file
+                        $newDokumen->foto_dokumen = $imagePath;
+
+                        GeneralHelpers::setCreatedAt($newDokumen);
+                        GeneralHelpers::setCreatedBy($newDokumen);
+                        GeneralHelpers::setUpdatedAtNull($newDokumen);
+                        GeneralHelpers::setRowStatusActive($newDokumen);
+
+                        $newDokumen->save();
+                    }
+                }
 
                 // buat create data pendaftaran
                 $daftar = new Pendaftaran();

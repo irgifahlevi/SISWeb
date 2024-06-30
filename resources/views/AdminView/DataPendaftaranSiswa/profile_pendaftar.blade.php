@@ -6,7 +6,7 @@
       <div class="col-md-12">
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
-       
+
         @if ($data)
           <div class="card">
             <h5 class="card-header">Detail data</h5>
@@ -143,7 +143,7 @@
                 </div>
               </div>
           </div>
-        
+
         {{-- Jika data banner kosong --}}
         @else
           <div class="card">
@@ -177,5 +177,5 @@
   @include('Template.footer')
 
   <div class="content-backdrop fade"></div>
-</div> 
+</div>
 @endsection

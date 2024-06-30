@@ -18,7 +18,6 @@
       href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet"
     />
-
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="{{asset('Template/assets/vendor/fonts/boxicons.css')}}" />
 
@@ -48,7 +47,7 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> --}}
     <script src="{{asset('Template/js/jquery.mask.min.js')}}"></script>
     <style>
-  
+
       .my-swal {
         z-index: 10000000; !important
       }
@@ -86,8 +85,8 @@
         0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
         40% { box-shadow: 0 2.5em 0 0 }
       }
-          
-          
+
+
 
       #loading-overlay {
         position: fixed;
