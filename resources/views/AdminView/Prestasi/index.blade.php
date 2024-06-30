@@ -1,6 +1,6 @@
 @extends('Template.Admin.master_admin')
 @section('content')
-@include('AdminView.DaftarTagihanSiswa.search')
+@include('AdminView.Prestasi.search')
 <div id="loading-overlay" style="display: none;">
   @include('Template.loading')
 </div>
@@ -10,94 +10,86 @@
       <div class="col-md-12">
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
-        @if (count($data) > 0)
+        @if (count($prestasi) > 0)
 
         <div class="mb-3">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" id="add-tagihan" >
+          <button type="button" class="btn btn-primary" id="add-prestasi" >
             Tambah data
           </button>
 
           <!-- Modal tambah data -->
-          @include('AdminView.DaftarTagihanSiswa.add_tagihan')
+          @include('AdminView.Prestasi.add_prestasi')
         </div>
           {{-- Tabel --}}
-          <div class="card mb-3">
-            <h5 class="card-header">Daftar tagihan siswa</h5>
+          <div class="card">
+            <h5 class="card-header">Data prestasi sekolah</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th style="width: 70px;">No.</th>
-                      <th>No tagihan</th>
-                      <th>Kode tagihan</th>
-                      <th>Nama tagihan</th>
-                      <th>Kelas</th>
-                      <th>Nama siswa</th>
-                      <th>Tgl Jatuh Tempo</th>
-                      <th>Semester</th>
-                      <th>Kategori tagihan</th>
-                      <th>Nominal tagihan</th>
-                      <th>Status</th>
+                      <th>Title</th>
+                      <th>Nama</th>
+                      <th>Deskripsi</th>
+                      <th>Gambar</th>
+                      <th>Update date</th>
+                      <th>Created by</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     @php
-                        $nomor = 1 + (($data->currentPage() - 1) * $data->perPage());
+                        $nomor = 1 + (($prestasi->currentPage() - 1) * $prestasi->perPage());
                     @endphp
-                    @foreach($data as $item)
+                    @foreach($prestasi as $item)
                     <tr>
                       <td>{{$nomor++}}</td>
-                      <td>{{$item->no_tagihan}}</td>
-                      <td>{{$item->kode_tagihan}}</td>
-                      <td>{{$item->nama_tagihan}}</td>
-                      <td>{{$item->TagihanKelas->kelas}}</td>
-                      <td>{{$item->TagihanSiswas->nama_lengkap}}</td>
-                      <td>{{$item->jatuh_tempo}}</td>
-                      <td>{{ formatSemester($item->semester)  }}</td>
-                      <td>{{setFormatKategoriTagihan($item->kategori_tagihan)}}</td>
-                      <td>{{formatRupiah($item->nominal_tagihan)}}</td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->title }}</span></td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->nama }}</span></td>
+                      <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->deskripsi }}</span></td>
                       <td>
-                        @if ($item->status == 'dibayar')
-                          <span class="badge bg-success">Dibayar</span>
-                        @elseif($item->status == 'belum_dibayar')
-                          <span class="badge bg-warning">Belum dibayar</span>
-                        @elseif($item->status == 'dibatalkan')
-                          <span class="badge bg-danger">Dibatalkan</span>
-                        @elseif($item->status == 'Failed')
-                          <span class="badge bg-danger">Failed</span>
-                        @elseif($item->status == 'Expired')
-                          <span class="badge bg-danger">Expired</span>
-                        @endif
+                        <div class="align-items-center">
+                          @if ($item->gambar)
+                            <img src="{{ asset('storage/kurikulum_prestasi/' . $item->gambar) }}" alt="{{ $item->gambar }}" class="w-px-40 h-auto rounded-circle" />
+                          @endif
+                        </div>
                       </td>
+                      <td>{{ $item->updated_at }}</td>
+                      <td>{{ $item->created_by }}</td>
                       <td>
-                        @if ($item->status == 'dibatalkan' || $item->status == 'Failed' || $item->status == 'Expired')
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                             <i class="bx bx-dots-vertical-rounded"></i>
                           </button>
                           <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" id="buat-ulang" data-id="{{$item->kode_tagihan}}">
+                            <button class="dropdown-item" type="button" id="edit-prestasi" data-id="{{$item->id}}">
                               <i class="bx bx-edit-alt me-1"></i> 
-                                Buat ulang
-                              </button>
-                            </div>
+                              Ubah
+                            </button>
+                            <button class="dropdown-item" type="button" id="hapus-data" data-id="{{$item->id}}">
+                              <i class='bx bx-trash me-1'></i>
+                              Hapus
+                            </button>
                           </div>
-                          @endif
-                      </td>			
+                        </div>
+                      </td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
                 <div class="mt-3">
                   <!-- {{-- {{ $dataBarang->links() }} --}} -->
-                  {!! $data->appends(Request::except('page'))->render() !!}
+                  {!! $prestasi->appends(Request::except('page'))->render() !!}
                 </div>
               </div>
             </div>
-          </div>        
+          </div>
+
+          {{-- Modal edit data --}}
+          @include('AdminView.Prestasi.edit_prestasi')
+          
         
         {{-- Jika data banner kosong --}}
         @else
@@ -105,8 +97,8 @@
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
                 <div class="card-body">
-                  <h5 class="card-title text-primary">Belum ada data tagihan! 😞</h5>
-                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-tagihan">Tambah data sekarang</button>
+                  <h5 class="card-title text-primary">Belum ada data prestasi! 😞</h5>
+                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-prestasi">Tambah data sekarang</button>
                 </div>
               </div>
               <div class="col-sm-5 text-center text-sm-left">
@@ -122,7 +114,7 @@
               </div>
             </div>
           </div>
-          @include('AdminView.DaftarTagihanSiswa.add_tagihan')
+          @include('AdminView.Prestasi.add_prestasi')
         @endif
       </div>
     </div>
@@ -135,9 +127,9 @@
 
 
 <script>
-    $('body').on('click', '#buat-ulang', function(){
+    $('body').on('click', '#hapus-data', function(){
     var id = $(this).data('id');
-    
+    // loading 
     $('#loading-overlay').show();
 
     setTimeout(() => {
@@ -146,7 +138,7 @@
           container: 'my-swal',
         },
         title: 'Apa anda yakin!',
-        text: "Ingin buat ulang tagihan ?",
+        text: "Ingin menghapus data ?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#696cff',
@@ -158,8 +150,8 @@
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '{{ route('regenerate.tagihan', [':id']) }}'.replace(':id', id),
-            type: 'PUT',
+            url: '{{ route('prestasi-sekolah.destroy', [':id']) }}'.replace(':id', id),
+            type: 'DELETE',
             success: function(response) {
               if(response.status == 200){
 
@@ -168,7 +160,7 @@
                   customClass: {
                     container: 'my-swal',
                   },
-                  title: 'Updated!',
+                  title: 'Deleted!',
                   text: `${response.message}`,
                   icon: 'success'
                 });

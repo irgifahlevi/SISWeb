@@ -131,6 +131,33 @@
             </div>
             <div class="row">
               <div class="col mb-3">
+                <label class="form-label">Sertifikasi</label>
+                <input type="text" class="form-control" name="sertifikasi" id="sertifikasis"/>
+                <small class="text-danger mt-2 error-messages" id="sertifikasi-errors"></small>
+              </div>
+              <div class="col mb-3">
+                <label class="form-label">Jenis sertifikasi</label>
+                <select class="form-select" name="jenis_sertifikasi" id="jenis_sertifikasis">
+                  <option value="">Pilih jenis sertifikasi</option>
+                  <option value="PSPL">Pola PSPL</option>
+                  <option value="PF">Pola PF</option>
+                  <option value="PLPG">Pola PLPG</option>
+                </select>
+                <small class="text-danger mt-2 error-messages" id="jenis_sertifikasi-errors"></small>
+              </div>
+              <div class="col mb-3">
+                <label class="form-label">Tahun sertifikasi</label>
+                <input type="number" class="form-control" name="tahun_sertifikasi" id="tahun_sertifikasis"/>
+                <small class="text-danger mt-2 error-messages" id="tahun_sertifikasi-errors"></small>
+              </div>
+              <div class="col mb-3">
+                <label class="form-label">Keterangan</label>
+                <input type="text" class="form-control" name="deskripsi" id="deskripsis"/>
+                <small class="text-danger mt-2 error-messages" id="deskripsi-errors"></small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col mb-3">
                 <label class="form-label">Alamat</label>
                 <textarea class="form-control" name="alamat" id="alamats" rows="3"></textarea>
                 <small class="text-danger mt-2 error-messages" id="alamat-errors"></small>
@@ -224,6 +251,10 @@ function getDataInfo(data)
           $('#edit-modal-pendidik').find('input[name="kota"]').val(data.kota);
           $('#edit-modal-pendidik').find('input[name="kode_pos"]').val(data.kode_pos);
           $('#edit-modal-pendidik').find('input[name="email"]').val(data.email);
+          $('#edit-modal-pendidik').find('input[name="sertifikasi"]').val(data.sertifikasi);
+          $('#edit-modal-pendidik').find('select[name="jenis_sertifikasi"]').val(data.jenis_sertifikasi);
+          $('#edit-modal-pendidik').find('input[name="tahun_sertifikasi"]').val(data.tahun_sertifikasi);
+          $('#edit-modal-pendidik').find('input[name="deskripsi"]').val(data.deskripsi);
         }
       },
       error: function(response)
@@ -273,6 +304,10 @@ function getDataInfo(data)
       const kota = $('#edit-modal-pendidik').find('input[name="kota"]').val();
       const kode_pos = $('#edit-modal-pendidik').find('input[name="kode_pos"]').val();
       const email = $('#edit-modal-pendidik').find('input[name="email"]').val();
+      const sertifikasi = $('#edit-modal-pendidik').find('input[name="sertifikasi"]').val();
+      const jenis_sertifikasi = $('#edit-modal-pendidik').find('select[name="jenis_sertifikasi"]').val();
+      const tahun_sertifikasi = $('#edit-modal-pendidik').find('input[name="tahun_sertifikasi"]').val();
+      const deskripsi = $('#edit-modal-pendidik').find('input[name="deskripsi"]').val();
 
       const foto = $('#edit-modal-pendidik').find('input[name="foto"]')[0].files[0];
 
@@ -299,6 +334,10 @@ function getDataInfo(data)
       formData.append('kota', kota);
       formData.append('kode_pos', kode_pos);
       formData.append('email', email);
+      formData.append('sertifikasi', sertifikasi);
+      formData.append('jenis_sertifikasi', jenis_sertifikasi);
+      formData.append('tahun_sertifikasi', tahun_sertifikasi);
+      formData.append('deskripsi', deskripsi);
 
       if(foto !== undefined){
         formData.append('foto', foto);
@@ -450,6 +489,37 @@ function getDataInfo(data)
         const maxLength = 255;
         if (inputVal !== '' || inputVal.length <= maxLength) {
           $('#alamat-errors').text('');
+        }
+      });
+
+      $('#sertifikasis').on('input', function() {
+        const inputVal = $(this).val();
+        const maxLength = 50;
+        if (inputVal !== '' || inputVal <= maxLength) {
+          $('#sertifikasi-errors').text('');
+        }
+      });
+
+      $('#jenis_sertifikasis').on('change', function() {
+        const inputVal = $(this).val();
+        if(inputVal !== ''){
+          $('#jenis_sertifikasi-errors').text('');
+        }
+      });
+
+      $('#tahun_sertifikasis').on('input', function() {
+        const inputVal = $(this).val();
+        const maxLength = 4;
+        if (inputVal !== '' || inputVal <= maxLength) {
+          $('#tahun_sertifikasi-errors').text('');
+        }
+      });
+
+      $('#deskripsis').on('input', function() {
+        const inputVal = $(this).val();
+        const maxLength = 50;
+        if (inputVal !== '' || inputVal <= maxLength) {
+          $('#deskripsi-errors').text('');
         }
       });
 

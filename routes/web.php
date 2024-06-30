@@ -28,11 +28,17 @@ use App\Http\Controllers\Admin\PengantarKepsekController;
 use App\Http\Controllers\Admin\BiayaPendaftaranController;
 use App\Http\Controllers\Admin\RegistrasiAccountController;
 use App\Http\Controllers\Admin\DataPendaftaranSiswaController;
+use App\Http\Controllers\Admin\KurikulumController;
+use App\Http\Controllers\Admin\PrestasiController;
+use App\Http\Controllers\Admin\RequestTokenPembayaranController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
 use App\Http\Controllers\Admin\TransaksiTagihanSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;
 use App\Http\Controllers\Admin\TransaksiPendaftaranSiswaController;
+use App\Http\Controllers\Siswa\RequestTokenTagihanController;
+use App\Http\Controllers\Siswa\TransaksiMyTagihanController;
 use App\Http\Controllers\WaliCalonSiswa\PendaftaranSiswaController;
+use App\Http\Controllers\WaliCalonSiswa\RequestTokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,6 +142,18 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
     // Tenaga pendidik
     Route::resource('tenaga-pendidik', TenagaPendidikController::class);
     Route::get('tenaga-pendidik-detail/{id}', [TenagaPendidikController::class, 'getDetail'])->name('detail.tenaga.pendidik');
+
+    // Kurikulum dan prstasi sekolah
+    Route::resource('kurikulum-sekolah', KurikulumController::class);
+
+    // Perstasi sekolah
+    Route::resource('prestasi-sekolah', PrestasiController::class);
+
+    // Request generate token
+    Route::get('request-generate-token', [RequestTokenPembayaranController::class, 'index'])->name('request.generate.token');
+
+    // Generate token pembayaran
+    Route::put('update-token/{kode_pembayaran}/request/{type}', [RequestTokenPembayaranController::class, 'updateToken'])->name('update.token.pembayaran');
 });
 
 
@@ -153,6 +171,9 @@ Route::prefix('wali_calon')->middleware(['auth', 'auth.wali_calon'])->group(func
 
     // Pendaftaran siswa
     Route::resource('pendaftaran-siswa', PendaftaranSiswaController::class);
+
+    // Request tagihan token pendaftaran siswa
+    Route::post('request-token-pendaftaran/{id}/{type}', [RequestTokenController::class, 'store'])->name('request-token-pendaftaran');
 });
 
 
@@ -167,6 +188,12 @@ Route::prefix('siswa')->middleware(['auth', 'auth.siswa'])->group(function () {
 
     // My tagihan
     Route::resource('tagihan-saya', MyTagihanSiswaController::class);
+
+    // My transaksi
+    Route::get('my-transaksi-tagihan', [TransaksiMyTagihanController::class, 'index'])->name('tagihan.transaksi');
+    Route::post('export-tagihan-saya', [TransaksiMyTagihanController::class, 'showDocument'])->name('export.document');
+    // Request tagihan token
+    Route::post('request-token-tagihan/{id}/{type}', [RequestTokenTagihanController::class, 'store'])->name('request-token-tagihan');
 });
 
 Route::get('logout', function () {

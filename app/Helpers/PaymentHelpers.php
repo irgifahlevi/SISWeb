@@ -10,6 +10,7 @@ class PaymentHelpers
   private static $success = "Success";
   private static $pending = "Pending";
   private static $failed = "Failed";
+  private static $expired = "Expired";
   private static $belum_dibayar = "belum_dibayar";
   private static $dibayar = "dibayar";
   private static $dibatalkan = "dibatalkan";
@@ -30,6 +31,11 @@ class PaymentHelpers
   public static function setFailed($model)
   {
     $model->status = self::$failed;
+  }
+
+  public static function setExpired($model)
+  {
+    $model->status = self::$expired;
   }
 
   public static function setBelumDibayar($model)

@@ -64,6 +64,7 @@ class TagihanSiswaController extends Controller
                 'kategori_tagihan' => 'required|in:spp,iuran,uts,uas,kursus,buku',
                 'nominal_tagihan' => 'required|numeric',
                 'kelas_id' => 'required|exists:kelas,id',
+                'semester' => 'required|in:ganjil,genap'
             ]
         );
 
@@ -107,6 +108,8 @@ class TagihanSiswaController extends Controller
                     $tagihan->jatuh_tempo = $request->jatuh_tempo;
                     $tagihan->kategori_tagihan = $request->kategori_tagihan;
                     $tagihan->nominal_tagihan = $request->nominal_tagihan;
+                    $tagihan->semester = $request->semester;
+
                     PaymentHelpers::setBelumDibayar($tagihan);
                     PaymentHelpers::setOnline($tagihan);
 
@@ -166,7 +169,7 @@ class TagihanSiswaController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
-            return ResponseHelpers::ErrorResponse($e->getMessage(), 400);
+            return ResponseHelpers::ErrorResponse($e->getMessage(), 500);
         }
 
         return ResponseHelpers::SuccessResponse('Data berhasil ditambahkan', '', 200);

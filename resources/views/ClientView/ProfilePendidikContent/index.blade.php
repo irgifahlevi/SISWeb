@@ -69,15 +69,43 @@
                                     </div>
                                     <div class="mb-2">
                                         <h6>No telepon</h6>
-                                        <p class="card-text">{{ $profile_pendidik->no_telepon }}</p>
+                                        <p class="card-text">@if ($profile_pendidik->no_telepon)
+                                            {{ $profile_pendidik->no_telepon }}
+                                        @else
+                                            -
+                                        @endif</p>
                                     </div>
                                     <div class="mb-2">
-                                        <h6>No telepon</h6>
-                                        <p class="card-text">{{ $profile_pendidik->email }}</p>
+                                        <h6>Email</h6>
+                                        <p class="card-text">@if ($profile_pendidik->email)
+                                            {{ $profile_pendidik->email }}
+                                        @else
+                                            -
+                                        @endif</p>
                                     </div>
                                     <div class="mb-2">
                                         <h6>Alamat</h6>
-                                        <p class="card-text">{{ $profile_pendidik->alamat }}</p>
+                                        <p class="card-text">@if ($profile_pendidik->alamat)
+                                            {{ $profile_pendidik->alamat }}
+                                        @else
+                                            -
+                                        @endif</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Sertifikasi</h6>
+                                        <p class="card-text">@if ($profile_pendidik->sertifikasi)
+                                            {{ $profile_pendidik->sertifikasi }}
+                                        @else
+                                            -
+                                        @endif</p>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>Tahun sertifikasi</h6>
+                                        <p class="card-text">@if ($profile_pendidik->tahun_sertifikasi)
+                                            {{ $profile_pendidik->tahun_sertifikasi }}
+                                        @else
+                                            -
+                                        @endif</p>
                                     </div>
                                 </div>
                             </div>

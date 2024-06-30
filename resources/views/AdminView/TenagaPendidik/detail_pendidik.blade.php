@@ -50,6 +50,15 @@
                         <a  class="list-group-item"
                           >Alamat lengkap : {{$data->alamat}}</a
                         >
+                        <a  class="list-group-item"
+                          >Sertifikasi : {{$data->sertifikasi}}</a
+                        >
+                        <a  class="list-group-item"
+                          >Jenis sertifikasi : {{formatJenisSertifikasi($data->jenis_sertifikasi)}}</a
+                        >
+                        <a  class="list-group-item"
+                          >Tahun sertifikasi : {{$data->tahun_sertifikasi}}</a
+                        >
                     </div>
                   </div>
                 </div>

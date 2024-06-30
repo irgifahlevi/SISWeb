@@ -48,6 +48,12 @@
           line-clamp: 3;
           -webkit-line-clamp: 3;
       }
+
+      .custom-photo {
+            width: 100px;
+            height: 60px;
+            object-fit: cover; /* Ensures the image covers the container without distorting */
+        }
     </style>
 </head>
 <body>	

@@ -23,7 +23,7 @@ class MyTagihanSiswaController extends Controller
         $siswa = Siswa::where('user_id', $user_id)->with('KelasSiswa', 'SiswaTagihan')->first();
 
         // Mendapatkan tagihan siswa yang belum dibayar
-        $tagihanQuery = $siswa->SiswaTagihan()->where('row_status', 0)->orderBy('id', 'desc');
+        $tagihanQuery = $siswa->SiswaTagihan()->where('status', '!=', 'dibayar')->where('row_status', 0)->orderBy('id', 'desc');
 
         // Jika ada pencarian, tambahkan kondisi pencarian
         if ($search_tagihan) {
@@ -72,8 +72,7 @@ class MyTagihanSiswaController extends Controller
             $query->where('status', 'dibayar');
             $query->where('row_status', 0);
         })->first();
-
-        return view('SiswaView.MyTagihanSiswa.invoice_tagihan', compact('data', 'kode'));
+        return view('SiswaView.MyTransaksiSiswa.invoice_transaksi_tagihan', compact('data', 'kode'));
     }
 
     /**

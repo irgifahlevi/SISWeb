@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('no_pendaftaran');
             $table->string('kode_pendaftaran');
-            $table->enum('status', ['Pending', 'Success', 'Failed']);
+            $table->enum('status', ['Pending', 'Success', 'Failed', 'Expired', 'Waiting']);
             $table->tinyInteger('is_bayar');
             $table->integer('jumlah_item');
             $table->integer('total_bayar');

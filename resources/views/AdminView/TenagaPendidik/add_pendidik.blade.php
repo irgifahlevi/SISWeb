@@ -128,6 +128,33 @@
           </div>
           <div class="row">
             <div class="col mb-3">
+              <label class="form-label">Sertifikasi</label>
+              <input type="text" class="form-control" name="sertifikasi" id="sertifikasi"/>
+              <small class="text-danger mt-2 error-message" id="sertifikasi-error"></small>
+            </div>
+            <div class="col mb-3">
+              <label class="form-label">Jenis sertifikasi</label>
+              <select class="form-select" name="jenis_sertifikasi" id="jenis_sertifikasi">
+                <option value="">Pilih jenis sertifikasi</option>
+                <option value="PSPL">Pola PSPL</option>
+                <option value="PF">Pola PF</option>
+                <option value="PLPG">Pola PLPG</option>
+              </select>
+              <small class="text-danger mt-2 error-message" id="jenis_sertifikasi-error"></small>
+            </div>
+            <div class="col mb-3">
+              <label class="form-label">Tahun sertifikasi</label>
+              <input type="number" class="form-control" name="tahun_sertifikasi" id="tahun_sertifikasi"/>
+              <small class="text-danger mt-2 error-message" id="tahun_sertifikasi-error"></small>
+            </div>
+            <div class="col mb-3">
+              <label class="form-label">Keterangan</label>
+              <input type="text" class="form-control" name="deskripsi" id="deskripsi"/>
+              <small class="text-danger mt-2 error-message" id="deskripsi-error"></small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-3">
               <label class="form-label">Alamat</label>
               <textarea class="form-control" name="alamat" id="alamat" rows="3"></textarea>
               <small class="text-danger mt-2 error-message" id="alamat-error"></small>
@@ -338,6 +365,37 @@
         const maxLength = 255;
         if (inputVal !== '' || inputVal.length <= maxLength) {
           $('#alamat-error').text('');
+        }
+      });
+
+      $('#sertifikasi').on('input', function() {
+        const inputVal = $(this).val();
+        const maxLength = 50;
+        if (inputVal !== '' || inputVal <= maxLength) {
+          $('#sertifikasi-error').text('');
+        }
+      });
+
+      $('#jenis_sertifikasi').on('change', function() {
+        const inputVal = $(this).val();
+        if(inputVal !== ''){
+          $('#jenis_sertifikasi-error').text('');
+        }
+      });
+
+      $('#tahun_sertifikasi').on('input', function() {
+        const inputVal = $(this).val();
+        const maxLength = 4;
+        if (inputVal !== '' || inputVal <= maxLength) {
+          $('#tahun_sertifikasi-error').text('');
+        }
+      });
+
+      $('#deskripsi').on('input', function() {
+        const inputVal = $(this).val();
+        const maxLength = 50;
+        if (inputVal !== '' || inputVal <= maxLength) {
+          $('#deskripsi-error').text('');
         }
       });
 
