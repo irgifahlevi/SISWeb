@@ -91,6 +91,137 @@
           </section>
         @endif
 
+
+        <section class="post-content-area single-post-area" id="kurikulum">
+          <div class="container">
+            <div class="title text-center">
+              <h1 class="mb-10">Kurikulum sekolah</h1>
+              <p class="mb-30">MTs Al-Quraniyah Ulujami</p>
+            </div>
+            <div class="row">
+              @if ($kurikulum_sekolah)
+                <div class="col-lg-8 posts-list">
+                  <div class="single-post row">
+                    <div class="col-lg-12">
+                      <h3 class="mt-20 mb-20">{{$kurikulum_sekolah->title}}</h3>
+                      <p class="excert">
+                        {{$kurikulum_sekolah->nama}}
+                      </p>									
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="feature-img">
+                        <img class="img-fluid" src="{{ asset('storage/kurikulum_prestasi/' . $kurikulum_sekolah->gambar) }}" alt="{{$kurikulum_sekolah->gambar}}">
+                      </div>									
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="quotes">
+                        <p class="mb-2">Keterangan : </p>
+                        @foreach ($kurikulum_items as $items)
+                        <ul class="unordered-list">
+                          <li>{{$items}}</li>
+                        </ul>
+                        @endforeach
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endif
+              
+              <div class="col-lg-4 sidebar-widgets">
+                <div class="widget-wrap">
+                  <div class="single-sidebar-widget popular-post-widget">
+                    <h4 class="popular-title">Berita populer</h4>
+                    <div class="popular-post-list">
+                      @if ($berita_populer)
+                        @foreach ($berita_populer as $item)
+                        <div class="single-post-list d-flex flex-row align-items-center">
+                          <div class="thumb">
+                            <img class="img-fluid" src="{{asset('storage/berita/'. $item->gambar)}}" alt="{{asset('storage/berita/'. $item->gambar)}}">
+                          </div>
+                          <div class="details">
+                            <a href="{{ route('berita.show', $item->id) }}"><h6 class="mb-1 text-truncate" style="max-width: 200px;">{{ $item->judul }}</h6></a>
+                            <p>{{ $item->created_at->translatedFormat('l, d F Y') }}</p>
+                          </div>
+                        </div>
+                        @endforeach		
+                      @endif											
+                    </div>
+                  </div>
+                  <div class="single-sidebar-widget popular-post-widget">
+                    <h4 class="popular-title">Kegiatan sekolah</h4>
+                    <div class="popular-post-list">
+                      @if ($kegiatan)
+                      @foreach ($kegiatan as $item)
+                        <div class="single-post-list d-flex flex-row align-items-center">
+                            <div class="thumb">
+                              <img class="img-fluid custom-photo" src="{{asset('storage/galeri/'. $item->gambar)}}" alt="{{asset('storage/berita/'. $item->gambar)}}">
+                            </div>
+                            <div class="details">
+                              <a><h6 class="mb-1 text-truncate" style="max-width: 200px;">{{ $item->nama_kegiatan }}</h6></a>
+                              <p>{{ $item->created_at->translatedFormat('l, d F Y') }}</p>
+                            </div>
+                          </div>
+                        @endforeach		
+                      @endif											
+                    </div>													
+                  </div>
+                  <div class="single-sidebar-widget tag-cloud-widget">
+                    <h4 class="tagcloud-title">Ketegori</h4>
+                    <ul>
+                      <li><a>Kegiatan sekolah</a></li>
+                      <li><a>Lomba</a></li>
+                      <li><a>Event Workshop</a></li>
+                      <li><a>Pensi</a></li>
+                    </ul>
+                  </div>								
+                </div>
+              </div>
+            </div>
+          </div>	
+        </section>
+
+        <section class="popular-course-area section-gap bg-gray" id="prestasi">
+          <div class="container">
+              <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-70 col-lg-8">
+                  <div class="title text-center">
+                    <h1 class="mb-10">Prestasi sekolah</h1>
+                    <p class="mb-30">MTs Al-Quraniyah Ulujami.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="active-popular-carusel">
+                    @if ($prestasi_sekolah)
+                      @foreach ($prestasi_sekolah as $item)
+                        <div class="single-popular-carusel">
+                          <div class="thumb-wrap relative mb-10">
+                            <div class="thumb relative">
+                              <div class="overlay overlay-bg"></div>
+                              <img class="img-fluid pb-4" src="{{ asset('storage/kurikulum_prestasi/' . $item->gambar) }}" alt="">
+                            </div>
+                            <div class="meta d-flex justify-content-between">
+                            </div>
+                          </div>
+                          <div class="details">
+                              <h4>
+                                  {{ $item->title }}
+                              </h4>
+                              <h6 class="mb-1 text-truncate" style="max-width: 200px;">{{ $item->nama }}</h6>
+                              <p class="mt-3 mb-2 truncate-multiple-lines">
+                                {{ $item->deskripsi }}
+                              </p>
+                              <p>Tahun : {{$item->tahun}}</p>
+                          </div>
+                        </div>
+                      @endforeach
+                    @endif
+                  </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
         <section class="popular-course-area section-gap" id="profilependidik">
             <div class="container">
                 <div class="row d-flex justify-content-center">
@@ -123,6 +254,18 @@
                                         No NIP : {{ $item->ProfilePendidik->nip }}
                                         <br>
                                         No NUPTK : {{ $item->ProfilePendidik->no_nuptk }}
+                                        <br>
+                                        Sertifikasi : @if ($item->sertifikasi)
+                                          {{ $item->sertifikasi }}
+                                        @else
+                                          -
+                                        @endif
+                                        <br>
+                                        Tahun sertifikasi : @if ($item->tahun_sertifikasi)
+                                          {{ $item->tahun_sertifikasi }}
+                                        @else
+                                          -
+                                        @endif
                                         <br>
                                     </p>
                                 </div>
@@ -382,7 +525,7 @@
                                 <img class="img-fluid" src="{{asset('storage/fasilitas/'. $item->gambar)}}" alt="">
                             </div>
                             <div class="detials col-12 col-md-6">
-                              <h4 class="mb-1text-truncate" style="max-width: 260px;">{{ $item->nama_fasilitas }}</h4>
+                              <h4 class="mb-1 text-truncate" style="max-width: 260px;">{{ $item->nama_fasilitas }}</h4>
                               <p class="truncate-for-eskul">
                                 {{ $item->deskripsi }}
                               </p>

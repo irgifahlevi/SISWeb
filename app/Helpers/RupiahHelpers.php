@@ -19,6 +19,22 @@ function formatGelombang($gelombang)
   }
 }
 
+function formatSemester($item)
+{
+  return $item == "ganjil" ? "Ganjil (I)" : "Genap (II)";
+}
+
+function formatJenisSertifikasi($jenis)
+{
+  if ($jenis == "PSPL") {
+    return "Pola PSPL";
+  } else if ($jenis == "PF") {
+    return "Pola PF";
+  } else if ($jenis == "PLPG") {
+    return "Pola PLPG";
+  }
+}
+
 function formatNoTelpon($noTelpon)
 {
   return "+62" . $noTelpon;

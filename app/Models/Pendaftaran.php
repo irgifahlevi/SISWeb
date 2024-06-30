@@ -27,4 +27,9 @@ class Pendaftaran extends Model
     {
         return $this->belongsTo(InfoPendaftaran::class, 'info_pendaftaran_id', 'id');
     }
+
+    public function TokenPendaftaran()
+    {
+        return $this->hasMany(RequestToken::class, 'pendaftaran_id', 'id');
+    }
 }

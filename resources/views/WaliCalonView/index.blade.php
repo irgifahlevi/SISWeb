@@ -110,6 +110,10 @@
                                   <span class="badge bg-primary">Pending</span>
                                 @elseif($item->status == 'Failed')
                                   <span class="badge bg-danger">Failed</span>
+                                @elseif($item->status == 'Expired')
+                                  <span class="badge bg-danger">Expired</span>
+                                @elseif($item->status == 'Waiting')
+                                  <span class="badge bg-primary">Waiting</span>
                                 @endif
                               </td>
                               <td> 
@@ -131,11 +135,27 @@
                                         Lihat invoice
                                       </button>
                                     @else
-                                      <button class="dropdown-item" type="button" id="bayar-pendaftaran" data-id="{{$item->token_pembayaran}}">
-                                        <i class='bx bx-barcode me-1'></i>
-                                        Bayar
-                                      </button>
-                                      @include('WaliCalonView.PendaftaranSiswa.payment_midtrans')
+                                      @if ($item->status != 'Waiting')
+                                        @if ($item->status == 'Pending')
+                                          <button class="dropdown-item" type="button" id="bayar-pendaftaran" data-id="{{$item->token_pembayaran}}">
+                                            <i class='bx bx-barcode me-1'></i>
+                                            Bayar
+                                          </button>
+                                          @include('WaliCalonView.PendaftaranSiswa.payment_midtrans')
+                                        @else
+                                          <button class="dropdown-item" type="button" id="request" data-id="{{$item->id}}">
+                                            {{-- <i class='bx bx-show-alt me-1'></i> --}}
+                                            <i class='bx bx-reset me-1'></i>
+                                            Request token
+                                          </button>
+                                        @endif
+                                      @else
+                                        <button class="dropdown-item" type="button">
+                                          {{-- <i class='bx bx-show-alt me-1'></i> --}}
+                                          <i class='bx bxs-hourglass-top me-1'></i>
+                                          Waiting generate token
+                                        </button>
+                                      @endif
                                     @endif
                                   </div>
                                 </div>
@@ -187,5 +207,74 @@
     }, 900);
 
   });
+
+  $('body').on('click', '#request', function(){
+    var id = $(this).data('id');
+    var type = 'pendaftaran_siswa';
+
+    // loading 
+    $('#loading-overlay').show();
+
+    setTimeout(() => {
+      Swal.fire({
+        customClass:{
+          container: 'my-swal',
+        },
+        title: 'Apa anda yakin!',
+        text: "Ingin regenerate token pembayaran ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#696cff',
+        cancelButtonColor: '#ff3e1d',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed){
+          $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: '{{ route('request-token-pendaftaran', [':id', ':type']) }}'.replace(':id', id).replace(':type', type),
+            type: 'POST',
+            success: function(response) {
+              if(response.status == 200){
+
+                $('#loading-overlay').hide();
+                Swal.fire({
+                  customClass: {
+                    container: 'my-swal',
+                  },
+                  title: 'Requested!',
+                  text: `${response.message}`,
+                  icon: 'success'
+                });
+
+                // Reload halaman
+                setTimeout(function(){
+                  location.reload();
+                }, 800);
+              }
+            },
+            error: function(response){
+              if(response.status == 500){
+                $('#loading-overlay').hide();
+                var res = response;
+                Swal.fire({
+                  customClass: {
+                    container: 'my-swal',
+                  },
+                  title: `${res.statusText}`,
+                  text: `${res.responseJSON.message}`,
+                  icon: 'error'
+                });
+              }
+            },
+          });
+        }
+        else {
+          $('#loading-overlay').hide();
+        }
+      });
+    }, 800);
+  })
 </script>
 @endsection

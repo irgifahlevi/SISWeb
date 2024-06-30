@@ -58,10 +58,15 @@ class HandleAfterPaymentController extends Controller
                     return ResponseHelpers::SuccessResponse('Pembayaran failed', '', 201);
                 } else if ($request->transaction_status == 'expire') {
                     $data->is_bayar = PaymentHelpers::setFalse();
-                    PaymentHelpers::setFailed($data);
+                    PaymentHelpers::setExpired($data);
                     $data->save();
                     return ResponseHelpers::SuccessResponse('Pembayaran failed', '', 201);
                 } else if ($request->transaction_status == 'cancel') {
+                    $data->is_bayar = PaymentHelpers::setFalse();
+                    PaymentHelpers::setFailed($data);
+                    $data->save();
+                    return ResponseHelpers::SuccessResponse('Pembayaran failed', '', 201);
+                } else if ($request->transaction_status == 'failure') {
                     $data->is_bayar = PaymentHelpers::setFalse();
                     PaymentHelpers::setFailed($data);
                     $data->save();
@@ -151,12 +156,17 @@ class HandleAfterPaymentController extends Controller
                         $data->save();
                         return ResponseHelpers::SuccessResponse('Pembayaran failed', '', 201);
                     } else if ($request->transaction_status == 'expire') {
-                        PaymentHelpers::setDibatalkan($data);
+                        PaymentHelpers::setExpired($data);
                         GeneralHelpers::setUpdatedAt($data);
                         $data->save();
                         return ResponseHelpers::SuccessResponse('Pembayaran failed', '', 201);
                     } else if ($request->transaction_status == 'cancel') {
-                        PaymentHelpers::setDibatalkan($data);
+                        PaymentHelpers::setFailed($data);
+                        GeneralHelpers::setUpdatedAt($data);
+                        $data->save();
+                        return ResponseHelpers::SuccessResponse('Pembayaran failed', '', 201);
+                    } else if ($request->transaction_status == 'failure') {
+                        PaymentHelpers::setFailed($data);
                         GeneralHelpers::setUpdatedAt($data);
                         $data->save();
                         return ResponseHelpers::SuccessResponse('Pembayaran failed', '', 201);

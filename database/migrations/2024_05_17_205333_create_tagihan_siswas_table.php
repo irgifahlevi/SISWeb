@@ -22,14 +22,14 @@ return new class extends Migration
             $table->date('jatuh_tempo');
             $table->enum('kategori_tagihan', ['spp', 'iuran', 'uas', 'uts', 'kursus', 'buku']);
             $table->integer('nominal_tagihan');
-            $table->enum('status', ['belum_dibayar', 'dibayar', 'dibatalkan'])->default('belum_dibayar');
+            $table->enum('status', ['belum_dibayar', 'dibayar', 'dibatalkan', 'waiting', 'Failed', 'Expired'])->default('belum_dibayar');
             $table->string('jenis_pembayaran')->nullable();
             $table->string('token_tagihan')->nullable();
             $table->string('created_by')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
             $table->tinyInteger('row_status');
-
+            $table->enum('semester', ['ganjil', 'genap'])->default('ganjil');
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
             $table->foreign('siswa_id')->references('id')->on('siswas')->onDelete('cascade');
         });

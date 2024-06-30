@@ -156,6 +156,19 @@
       </ul>
     </li>
 
+    <li class="menu-item {{ request()->routeIs('request.generate.token') ? 'active' : '' }}">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bxs-chart"></i>
+        <div data-i18n="User interface">Request token</div>
+      </a>
+      <ul class="menu-sub" {{ request()->routeIs('request.generate.token') ? 'style=display:block' : '' }} >
+        <li class="menu-item {{\Route::is('request.generate.token') ? 'active' : ''}}">
+          <a href="{{route('request.generate.token')}}" class="menu-link">
+            <div data-i18n="Accordion">Request generate token</div>
+          </a>
+        </li>
+      </ul>
+    </li>
 
     <li class="menu-item {{ request()->routeIs('info-pendaftaran.index', 'biaya-pendaftaran.index', 'kelas-siswa.index') ? 'active' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -183,12 +196,12 @@
 
       </ul>
     </li>
-    <li class="menu-item {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index', 'galeri-content.index', 'fasilitas.index', 'visimisi.index', 'sejarah.index', 'pengantarKepsek.index', 'tenaga-pendidik.index') ? 'active' : '' }}">
+    <li class="menu-item {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index', 'galeri-content.index', 'fasilitas.index', 'visimisi.index', 'sejarah.index', 'pengantarKepsek.index', 'tenaga-pendidik.index', 'kurikulum-sekolah.index', 'prestasi-sekolah.index') ? 'active' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bxs-book-content"></i>
         <div data-i18n="User interface">Kelola content</div>
       </a>
-      <ul class="menu-sub" {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index', 'galeri-content.index', 'fasilitas.index', 'visimisi.index', 'sejarah.index', 'pengantarKepsek.index', 'tenaga-pendidik.index') ? 'style=display:block' : '' }} >
+      <ul class="menu-sub" {{ request()->routeIs('slider-content.index', 'ekskul-content.index', 'konten-berita.index', 'galeri-content.index', 'fasilitas.index', 'visimisi.index', 'sejarah.index', 'pengantarKepsek.index', 'tenaga-pendidik.index', 'kurikulum-sekolah.index', 'prestasi-sekolah.index') ? 'style=display:block' : '' }} >
         <li class="menu-item {{\Route::is('slider-content.index') ? 'active' : ''}}">
           <a href="{{route('slider-content.index')}}" class="menu-link">
             <div data-i18n="Accordion">Slider</div>
@@ -234,6 +247,16 @@
         <li class="menu-item {{ \Route::is('tenaga-pendidik.index')? 'active' : '' }}">
           <a href="{{ Route('tenaga-pendidik.index') }}" class="menu-link">
             <div data-i18n="Footer">Tenaga pendidik</div>
+          </a>
+        </li>
+        <li class="menu-item {{ \Route::is('kurikulum-sekolah.index')? 'active' : '' }}">
+          <a href="{{ Route('kurikulum-sekolah.index') }}" class="menu-link">
+            <div data-i18n="Footer">Kurikulum sekolah</div>
+          </a>
+        </li>
+        <li class="menu-item {{ \Route::is('prestasi-sekolah.index')? 'active' : '' }}">
+          <a href="{{ Route('prestasi-sekolah.index') }}" class="menu-link">
+            <div data-i18n="Footer">Prestasi sekolah</div>
           </a>
         </li>
       </ul>

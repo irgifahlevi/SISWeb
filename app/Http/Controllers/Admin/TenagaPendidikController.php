@@ -79,7 +79,10 @@ class TenagaPendidikController extends Controller
                 'kode_pos' => 'nullable|numeric|digits:5',
                 'email' => 'nullable|email|max:255|unique:profile_pendidiks',
                 'foto' => 'required|image|mimes:jpeg,png|max:1000',
-
+                'sertifikasi' => 'nullable|max:50',
+                'jenis_sertifikasi' => 'nullable|in:PSPL,PF,PLPG',
+                'tahun_sertifikasi' => 'nullable|numeric|digits:4',
+                'deskripsi' => 'nullable|max:50'
             ]
         );
 
@@ -116,6 +119,10 @@ class TenagaPendidikController extends Controller
             $profile->kota = $request->kota;
             $profile->kode_pos = $request->kode_pos;
             $profile->email = $request->email;
+            $profile->sertifikasi = $request->sertifikasi;
+            $profile->jenis_sertifikasi = $request->jenis_sertifikasi;
+            $profile->tahun_sertifikasi = $request->tahun_sertifikasi;
+            $profile->deskripsi = $request->deskripsi;
 
             $image = $request->file('foto');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -200,8 +207,8 @@ class TenagaPendidikController extends Controller
             $request->all(),
             [
                 'nama_lengkap' => 'required|string|min:4',
-                'nip' => 'nullable|numeric|digits:18',
-                'no_nuptk' => 'nullable|numeric|digits:18',
+                'nip' => 'nullable|numeric|digits_between:16,18',
+                'no_nuptk' => 'nullable|numeric|digits_between:16,18',
                 'mapel' => 'nullable|string',
                 'jabatan' => 'nullable|string',
                 'nik' => 'required|numeric|digits:16',
@@ -218,7 +225,10 @@ class TenagaPendidikController extends Controller
                 'kode_pos' => 'nullable|numeric|digits:5',
                 'email' => 'nullable|email:rfc,dns|max:255',
                 'foto' => 'nullable|image|mimes:jpeg,png|max:1000',
-
+                'sertifikasi' => 'nullable|max:50',
+                'jenis_sertifikasi' => 'nullable|in:PSPL,PF,PLPG',
+                'tahun_sertifikasi' => 'nullable|numeric|digits:4',
+                'deskripsi' => 'nullable|max:50'
             ]
         );
 
@@ -258,6 +268,10 @@ class TenagaPendidikController extends Controller
                 $profile->kota = $request->kota;
                 $profile->kode_pos = $request->kode_pos;
                 $profile->email = $request->email;
+                $profile->sertifikasi = $request->sertifikasi;
+                $profile->jenis_sertifikasi = $request->jenis_sertifikasi;
+                $profile->tahun_sertifikasi = $request->tahun_sertifikasi;
+                $profile->deskripsi = $request->deskripsi;
 
                 if ($request->hasFile('foto')) {
                     Storage::delete('public/pendidik/' . $profile->foto);

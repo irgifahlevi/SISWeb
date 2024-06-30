@@ -1,6 +1,6 @@
 @extends('Template.Admin.master_admin')
 @section('content')
-@include('AdminView.DaftarTagihanSiswa.search')
+@include('AdminView.RequestToken.search')
 <div id="loading-overlay" style="display: none;">
   @include('Template.loading')
 </div>
@@ -11,35 +11,22 @@
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
         @if (count($data) > 0)
-
-        <div class="mb-3">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" id="add-tagihan" >
-            Tambah data
-          </button>
-
-          <!-- Modal tambah data -->
-          @include('AdminView.DaftarTagihanSiswa.add_tagihan')
-        </div>
           {{-- Tabel --}}
           <div class="card mb-3">
-            <h5 class="card-header">Daftar tagihan siswa</h5>
+            <h5 class="card-header">Daftar request token pembayaran</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th style="width: 70px;">No.</th>
-                      <th>No tagihan</th>
-                      <th>Kode tagihan</th>
-                      <th>Nama tagihan</th>
-                      <th>Kelas</th>
-                      <th>Nama siswa</th>
-                      <th>Tgl Jatuh Tempo</th>
-                      <th>Semester</th>
-                      <th>Kategori tagihan</th>
-                      <th>Nominal tagihan</th>
+                      <th>Kode pembayaran</th>
+                      <th>Type</th>
                       <th>Status</th>
+                      <th>Requester</th>
+                      <th>Nominal pembayaran</th>
+                      <th>Deskripsi</th>
+                      <th>Tanggal dibuat</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -48,46 +35,44 @@
                         $nomor = 1 + (($data->currentPage() - 1) * $data->perPage());
                     @endphp
                     @foreach($data as $item)
-                    <tr>
-                      <td>{{$nomor++}}</td>
-                      <td>{{$item->no_tagihan}}</td>
-                      <td>{{$item->kode_tagihan}}</td>
-                      <td>{{$item->nama_tagihan}}</td>
-                      <td>{{$item->TagihanKelas->kelas}}</td>
-                      <td>{{$item->TagihanSiswas->nama_lengkap}}</td>
-                      <td>{{$item->jatuh_tempo}}</td>
-                      <td>{{ formatSemester($item->semester)  }}</td>
-                      <td>{{setFormatKategoriTagihan($item->kategori_tagihan)}}</td>
-                      <td>{{formatRupiah($item->nominal_tagihan)}}</td>
-                      <td>
-                        @if ($item->status == 'dibayar')
-                          <span class="badge bg-success">Dibayar</span>
-                        @elseif($item->status == 'belum_dibayar')
-                          <span class="badge bg-warning">Belum dibayar</span>
-                        @elseif($item->status == 'dibatalkan')
-                          <span class="badge bg-danger">Dibatalkan</span>
-                        @elseif($item->status == 'Failed')
-                          <span class="badge bg-danger">Failed</span>
-                        @elseif($item->status == 'Expired')
-                          <span class="badge bg-danger">Expired</span>
-                        @endif
-                      </td>
-                      <td>
-                        @if ($item->status == 'dibatalkan' || $item->status == 'Failed' || $item->status == 'Expired')
-                        <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                          </button>
-                          <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" id="buat-ulang" data-id="{{$item->kode_tagihan}}">
-                              <i class="bx bx-edit-alt me-1"></i> 
-                                Buat ulang
-                              </button>
-                            </div>
-                          </div>
-                          @endif
-                      </td>			
-                    </tr>
+                      @php
+                          $isPendaftaran = $item->type == 'pendaftaran_siswa';
+                          $isTagihan = $item->type == 'tagihan_siswa';
+                          $tokenType = $isPendaftaran ? 'Pendaftaran' : ($isTagihan ? 'Tagihan' : '');
+                          $kodePembayaran = $isPendaftaran ? $item->RequestTokenPendaftaran->kode_pendaftaran : ($isTagihan ? $item->RequestTokenTagihan->kode_tagihan : '');
+                          $status = $isPendaftaran ? $item->RequestTokenPendaftaran->status : ($isTagihan ? $item->RequestTokenTagihan->status : '');
+                          $nominalPembayaran = $isPendaftaran ? formatRupiah($item->RequestTokenPendaftaran->total_bayar) : ($isTagihan ? formatRupiah($item->RequestTokenTagihan->nominal_tagihan) : '');
+                          $createdAt = $isPendaftaran ? $item->RequestTokenPendaftaran->created_at : ($isTagihan ? $item->RequestTokenTagihan->created_at : '');
+                          $waitingGenerate = $status == 'Waiting' || $status == 'waiting';
+                      @endphp
+                      <tr>
+                          <td>{{$nomor++}}</td>
+                          <td>{{ $kodePembayaran }}</td>
+                          <td>{{ $tokenType }}</td>
+                          <td>
+                              @if ($waitingGenerate)
+                                  <span class="badge bg-warning">Waiting generate</span>
+                              @endif
+                          </td>
+                          <td>{{$item->created_by}}</td>
+                          <td>{{ $nominalPembayaran }}</td>
+                          <td>{{$item->deskripsi}}</td>
+                          <td>{{ $createdAt }}</td>
+                          <td>
+                              @if ($waitingGenerate)
+                                  <div class="dropdown">
+                                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                          <i class="bx bx-dots-vertical-rounded"></i>
+                                      </button>
+                                      <div class="dropdown-menu">
+                                        <button class="dropdown-item" type="button" id="buat-ulang-token" data-id="{{ $kodePembayaran }}" data-type="{{ $item->id }}">
+                                            <i class="bx bx-edit-alt me-1"></i> Buat ulang
+                                        </button>
+                                      </div>
+                                  </div>
+                              @endif
+                          </td>
+                      </tr>
                     @endforeach
                   </tbody>
                 </table>
@@ -105,8 +90,8 @@
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
                 <div class="card-body">
-                  <h5 class="card-title text-primary">Belum ada data tagihan! 😞</h5>
-                  <button class="btn btn-sm btn-outline-primary" type="button" id="add-tagihan">Tambah data sekarang</button>
+                  <h5 class="card-title text-primary">Belum ada request token pembayaran! 😞</h5>
+                  <button class="btn btn-sm btn-outline-primary" type="button" >Mengerti</button>
                 </div>
               </div>
               <div class="col-sm-5 text-center text-sm-left">
@@ -122,7 +107,6 @@
               </div>
             </div>
           </div>
-          @include('AdminView.DaftarTagihanSiswa.add_tagihan')
         @endif
       </div>
     </div>
@@ -135,9 +119,9 @@
 
 
 <script>
-    $('body').on('click', '#buat-ulang', function(){
-    var id = $(this).data('id');
-    
+    $('body').on('click', '#buat-ulang-token', function(){
+      const id = $(this).data('id');
+      const type = $(this).data('type');
     $('#loading-overlay').show();
 
     setTimeout(() => {
@@ -158,7 +142,7 @@
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: '{{ route('regenerate.tagihan', [':id']) }}'.replace(':id', id),
+            url: '{{ route('update.token.pembayaran', [':id', ':type']) }}'.replace(':id', id).replace(':type', type),
             type: 'PUT',
             success: function(response) {
               if(response.status == 200){

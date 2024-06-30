@@ -29,6 +29,9 @@ return new class extends Migration
             $table->string('email')->nullable()->unique();
             $table->string('foto')->nullable();
             $table->text('deskripsi')->nullable();
+            $table->string('sertifikasi')->nullable();
+            $table->enum('jenis_sertifikasi', ['PSPL', 'PF', 'PLPG']);
+            $table->string('tahun_sertifikasi')->nullable();
             $table->string('created_by')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();

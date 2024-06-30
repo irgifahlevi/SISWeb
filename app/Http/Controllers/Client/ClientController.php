@@ -7,6 +7,7 @@ use App\Models\Berita;
 use App\Models\Ekstrakurikuler;
 use App\Models\Fasilitas;
 use App\Models\Galleri;
+use App\Models\KurikulumPrestasi;
 use App\Models\PengantarKepsek;
 use App\Models\ProfilePendidik;
 use App\Models\Sejarah;
@@ -47,6 +48,39 @@ class ClientController extends Controller
 
         $sejarah = Sejarah::where('row_status', 0)->orderBy('id', 'desc')->first();
 
-        return view('ClientView.index', compact('pengantar_kepsek', 'slider', 'visi_misi', 'misi_items', 'profile_pendidik', 'fasilitas', 'ekstrakulikuler', 'berita', 'sejarah', 'galeri'));
+        // berita populer
+        $berita_populer = Berita::where('row_status', 0)
+            ->orderBy('id', 'asc')
+            ->paginate(5)->all();
+
+        // kurikulum
+        $kurikulum_sekolah = KurikulumPrestasi::where('jenis_info', 'kurikulum')
+            ->where('row_status', 0)->orderBy('id', 'desc')->first();
+        $kurikulum_items = $kurikulum_sekolah != null ? explode('.', $kurikulum_sekolah->deskripsi) : [];
+
+        $kegiatan = Galleri::where('row_status', 0)
+            ->orderBy('id', 'asc')
+            ->paginate(5)->all();
+
+        $prestasi_sekolah = KurikulumPrestasi::where('jenis_info', 'prestasi')
+            ->where('row_status', 0)->orderBy('id', 'desc')->paginate(8);
+
+        return view('ClientView.index', compact(
+            'pengantar_kepsek',
+            'slider',
+            'visi_misi',
+            'misi_items',
+            'profile_pendidik',
+            'fasilitas',
+            'ekstrakulikuler',
+            'berita',
+            'sejarah',
+            'galeri',
+            'berita_populer',
+            'kurikulum_sekolah',
+            'kurikulum_items',
+            'kegiatan',
+            'prestasi_sekolah'
+        ));
     }
 }
