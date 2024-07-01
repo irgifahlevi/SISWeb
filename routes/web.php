@@ -32,7 +32,7 @@ use App\Http\Controllers\Admin\DokumenPendaftarController;
 use App\Http\Controllers\Admin\HasilSleksiCalonSiswaController;
 use App\Http\Controllers\Admin\KurikulumController;
 use App\Http\Controllers\Admin\PrestasiController;
-use App\Http\Controllers\Admin\RequestTokenPembayaranController
+use App\Http\Controllers\Admin\RequestTokenPembayaranController;
 use App\Http\Controllers\WaliCalonSiswa\ProfileWaliController;
 use App\Http\Controllers\Admin\TransaksiTagihanSiswaController;
 use App\Http\Controllers\WaliCalonSiswa\WaliCalonSiswaController;

@@ -38,7 +38,6 @@ return new class extends Migration
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
             $table->tinyInteger('row_status');
-            $table->string('nomer_induk_sekolah');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
