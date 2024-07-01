@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('nama_sekolah_asal');
             $table->text('alamat_sekolah_asal');
             $table->string('kota_sekolah_asal', 20);
+            $table->bigInteger('no_nisn_sekolah_asal');
             $table->smallInteger('tahun_lulus');
             $table->tinyInteger('anak_ke');
             $table->tinyInteger('jumlah_saudara');
