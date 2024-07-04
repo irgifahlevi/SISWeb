@@ -29,8 +29,8 @@ class Pendaftaran extends Model
     }
     public function DokumenCalonSiswa()
     {
-        return $this->belongsTo(DokumenCalonSiswa::class, 'pendaftaran_id ', 'id');
-     }
+        return $this->hasMany(DokumenPendaftaranCalonSiswa::class, 'pendaftaran_id', 'id');
+    }
 
     public function TokenPendaftaran()
     {

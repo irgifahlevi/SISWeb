@@ -3,21 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
+use App\Models\Pendaftaran;
+use Illuminate\Http\Request;
 use App\Helpers\GeneralHelpers;
 use App\Helpers\ResponseHelpers;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Models\HasilSleksiCalonSiswa;
+use Illuminate\Support\Facades\Validator;
 
 class HasilSleksiCalonSiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('AdminView.InfoHasilSleksi.index');
+        $search_data = $request->query('search_data');
+
+        $query = Pendaftaran::with('CalonWaliPendaftaran.Users', 'CalonSiswaPendaftaran.JenisKelaminCalonSiswa', 'InfoBiayaPendaftaran.BiayaPendaftaran')
+            ->where('row_status', 0)
+            ->whereHas('DokumenCalonSiswa', function ($q) {
+                $q->where('status', 'valid')
+                    ->havingRaw('COUNT(*) = 3');
+            })
+            ->orderBy('id', 'desc');
+
+        if (!empty($search_data)) {
+            $query->where('kode_pendaftaran', 'like', '%' . $search_data . '%');
+        }
+
+        $data = $query->paginate(10)->onEachSide(2)->fragment('transaksi');
+
+        return view('AdminView.InfoHasilSleksi.index', compact('data', 'search_data'));
     }
 
     /**
