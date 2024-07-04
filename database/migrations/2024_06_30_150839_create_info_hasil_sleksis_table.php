@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('info_hasil_sleksis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pendaftaran_id');
-            $table->enum('status',['Lolos', 'Tidak Lolos'])->nullable();
-            $table->string('Hasil')->nullable();
+            $table->enum('status', ['lolos', 'tidak_lolos', 'dicadangkan'])->nullable();
+            $table->string('hasil')->nullable();
             $table->string('created_by')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
