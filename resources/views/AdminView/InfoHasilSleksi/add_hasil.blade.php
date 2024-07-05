@@ -26,16 +26,43 @@
                 <input type="text" class="form-control" name="wali_calon_siswa" id="wali_calon_siswa" disabled/>
               </div>
             </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label class="form-label">Hasil nilai<span class="text-danger">*</span></label>
-                <input type="number" class="form-control" name="hasil" id="hasil"/>
-                <small class="text-danger mt-2 error-message" id="hasil-error"></small>
-              </div>
+            <div class="col mb-3">
+              <label class="form-label">Membaca AL-Quran<span class="text-danger">*</span></label>
+              <select class="form-select" name="membaca" id="membaca">
+                <option value="">Pilih nilai</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <small class="text-danger mt-2 error-message" id="membaca-error"></small>
+            </div>
+            <div class="col mb-3">
+              <label class="form-label">Penulisan bahasa arab<span class="text-danger">*</span></label>
+              <select class="form-select" name="menulis" id="menulis">
+                <option value="">Pilih nilai</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <small class="text-danger mt-2 error-message" id="menulis-error"></small>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
         </form>
       </div>
@@ -81,68 +108,76 @@
     $('#edit-form-info').on('submit', function(e){
       e.preventDefault();
       // console.log('test');
-      var id = $('#add-modal-hasil').find('input[name="id"]').val();
-      const status = $('#add-modal-hasil').find('select[name="status"]').val();
-      const deskripsi = $('#add-modal-hasil').find('textarea[name="deskripsi"]').val();
 
-      const formData = new FormData();
-
-      formData.append('_method', 'PUT'); // formData gak fungsi di method PUT
-      formData.append('id', id);
-      formData.append('status', status);
-      formData.append('deskripsi', deskripsi);
-
+      const kode_pendaftaran = $('#add-modal-hasil').find('input[name="kode_pendaftaran"]').val();
+      const calon_siswa = $('#add-modal-hasil').find('input[name="nama_calon_siswa"]').val();
+      const wali_siswa = $('#add-modal-hasil').find('input[name="wali_calon_siswa"]').val();
       // console.log(formData);
 
-      $('#statuss').on('change', function(){
+      $('#membaca').on('change', function() {
         const inputVal = $(this).val();
         if(inputVal !== ''){
-          $('#status-errors').text('');
+          $('#membaca-error').text('');
         }
       });
 
-      $('#deskripsis').on('input', function() {
+      $('#menulis').on('change', function() {
         const inputVal = $(this).val();
-        const maxLength = 100;
-        if (inputVal !== '' || inputVal.length <= maxLength) {
-          $('#deskripsi-errors').text('');
+        if(inputVal !== ''){
+          $('#menulis-error').text('');
         }
       });
       
+      var formData = new FormData(this);
+
+      formData.append('kode_pendaftaran', kode_pendaftaran);
+      formData.append('calon_siswa', calon_siswa);
+      formData.append('wali_siswa', wali_siswa);
+
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
 
       $('#loading-overlay').show();
       
+
+      //for debug 
+      // for (let data of formData.entries()) {
+      //   console.log(data[0] + ': ' + data[1]);
+      // }
+
       setTimeout(() => {
         $.ajax({
-          url: '{{ route('info-pendaftaran.update', ':id') }}'.replace(':id', id),
           type: 'POST',
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
+          url: '{{route('info-sleksi-calon-siswa.store')}}',
           data: formData,
-          contentType: false,
-          processData: false,
           dataType: 'json',
-          success: function(response){
+          processData: false,
+          contentType: false,
+          success: function(response)
+          {
             if(response.status == 200){
-                // Tutup modal edit banner dan reset form
-                $('#add-modal-hasil').modal('hide');
-                $('#edit-form-info')[0].reset();
-                $('#loading-overlay').hide();
+                    
+              // Tutup modal add banner dan kosongkan form
+              $('#loading-overlay').hide();
+              $('#add-modal-hasil').modal('hide');
+              $('#edit-form-info')[0].reset();
 
-                Swal.fire({
-                  customClass: {
-                    container: 'my-swal',
-                  },
-                  title: 'Updated!',
-                  text: `${response.message}`,
-                  icon: 'success'
-                });
-
-                // Reload halaman
-                setTimeout(function(){
-                  location.reload();
-                }, 800)
+              Swal.fire({
+                customClass: {
+                  container: 'my-swal',
+                },
+                title: 'Created!',
+                text: `${response.message}`,
+                icon: 'success'
+              });
+                    
+              // Reload halaman
+              setTimeout(function(){
+                location.reload();
+              }, 800)
             }
           },
           error: function(response)
@@ -151,24 +186,24 @@
               let errors = response.responseJSON.message;
               for (let key in errors) {
                 let errorMessage = errors[key].join(', ');
-                $('#' + key + '-errors').text(errorMessage);
+                $('#' + key + '-error').text(errorMessage);
               }
             }
             if(response.status == 500){
               var res = response;
               //console.log(res);
-              
+                  
+              $('#loading-overlay').hide();
               $('#add-modal-hasil').modal('hide');
               $('#edit-form-info')[0].reset();
-              $('#loading-overlay').hide();
 
               Swal.fire({
-                customClass: {
-                  container: 'my-swal',
-                },
-                title: `${res.statusText}`,
-                text: `${res.responseJSON.message}`,
-                icon: 'error'
+                  customClass: {
+                      container: 'my-swal',
+                  },
+                  title: `${res.statusText}`,
+                  text: `${res.responseJSON.message}`,
+                  icon: 'error'
               });
             }
             $('#loading-overlay').hide();
@@ -186,12 +221,12 @@
 
     // Menambahkan event listener pada tombol close
     $('.close-edit-data').on('click', function (e) {
-      $('.error-messages').text('');
+      $('.error-message').text('');
     });
     
     // Menambahkan event listener pada modal
     $('#add-modal-hasil').on('hidden.bs.modal', function (e) {
-      $('.error-messages').text('');
+      $('.error-message').text('');
     });
   });
 </script>

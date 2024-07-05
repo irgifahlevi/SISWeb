@@ -9,6 +9,7 @@ use App\Helpers\GeneralHelpers;
 use App\Helpers\ResponseHelpers;
 use App\Http\Controllers\Controller;
 use App\Models\HasilSleksiCalonSiswa;
+use App\Models\HasilSeleksiCalonSiswa;
 use Illuminate\Support\Facades\Validator;
 
 class HasilSleksiCalonSiswaController extends Controller
@@ -50,7 +51,70 @@ class HasilSleksiCalonSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'membaca' => 'required|in:1,2,3,4,5,6,7,8,9,10',
+                'menulis' => 'required|in:1,2,3,4,5,6,7,8,9,10'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return ResponseHelpers::ErrorResponse($validator->messages(), 400);
+        }
+
+        try {
+
+            // Bobot masing-masing tes 40%
+            $bobot_membaca = 0.5;
+            $bobot_menulis = 0.5;
+
+            // Hitung nilai akumulatif dengan mempertimbangkan bobot
+            $nilai_akumulatif = ($request->membaca * $bobot_membaca) + ($request->menulis * $bobot_menulis);
+
+            // Batas nilai minimum untuk lulus
+            $batas_lulus = 7;
+
+            // Nilai akumulatif ke dalam variabel hasil
+            $total = sprintf("%.1f", $nilai_akumulatif);
+
+            $hasil = "";
+            // Menentukan lulus
+            if ($total >= $batas_lulus) {
+                $hasil = "lolos";
+            } else if ($total >= 5.5) {
+                $hasil = "dicadangkan";
+            } else {
+                $hasil = "tidak_lolos";
+            }
+
+            $data_pendaftaran = Pendaftaran::where('kode_pendaftaran', $request->kode_pendaftaran)
+                ->where('row_status', 0)
+                ->first();
+
+            if ($data_pendaftaran != null) {
+                $data = new HasilSeleksiCalonSiswa();
+
+                $data->pendaftaran_id = $data_pendaftaran->id;
+                $data->membaca = $request->membaca;
+                $data->menulis = $request->menulis;
+                $data->hasil = $total;
+                $data->status = $hasil;
+
+                GeneralHelpers::setCreatedAt($data);
+                GeneralHelpers::setCreatedBy($data);
+                GeneralHelpers::setUpdatedAtNull($data);
+                GeneralHelpers::setRowStatusActive($data);
+
+                $data->save();
+
+                return ResponseHelpers::SuccessResponse('Data berhasil ditambahkan', '', 200);
+            } else {
+                return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
+            }
+        } catch (Exception $th) {
+            return ResponseHelpers::ErrorResponse('Internal server error, try again later' . $th, 500);
+        }
     }
 
     /**
