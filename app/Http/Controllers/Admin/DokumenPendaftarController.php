@@ -4,16 +4,27 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\DokumenCalonSiswa;
+use App\Models\Pendaftaran;
 
 class DokumenPendaftarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('AdminView.DokumenPendaftaranSiswa.index');
+        $search_transaksi = $request->query('search_transaksi');
+
+        $query = Pendaftaran::with('CalonWaliPendaftaran.Users', 'CalonSiswaPendaftaran.JenisKelaminCalonSiswa', 'InfoBiayaPendaftaran.BiayaPendaftaran')
+            ->where('row_status', 0)
+            ->orderBy('id', 'desc');
+
+        if (!empty($search_transaksi)) {
+            $query->where('kode_pendaftaran', 'like', '%' . $search_transaksi . '%');
+        }
+
+        $data = $query->paginate(10)->onEachSide(2)->fragment('transaksi');
+        return view('AdminView.DokumenPendaftaranSiswa.index', compact('data', 'search_transaksi'));
     }
 
     /**

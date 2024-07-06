@@ -7,7 +7,7 @@ use App\Models\CalonSiswa;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use App\Models\WaliCalonSiswa;
-use App\Models\DokumenPendaftar;
+use App\Models\DokumenPendaftaranCalonSiswa;
 use Illuminate\Support\Carbon;
 use App\Helpers\GeneralHelpers;
 use App\Helpers\PaymentHelpers;
@@ -53,6 +53,7 @@ class PendaftaranSiswaController extends Controller
                 'nik' => 'required|numeric|digits:16',
                 'no_kk' => 'required|numeric|digits:16',
                 'no_nisn' => 'nullable|numeric|digits:10',
+                'no_nisn_sekolah_asal' => 'nullable|numeric|digits:10',
                 'no_telepon' => 'nullable|numeric',
                 'jenis_kelamin_id' => 'required|exists:jenis_kelamins,id',
                 'tempat_lahir' => 'required|max:100',
@@ -120,6 +121,7 @@ class PendaftaranSiswaController extends Controller
                 $siswa->tahun_lulus = $request->tahun_lulus;
                 $siswa->anak_ke = $request->anak_ke;
                 $siswa->jumlah_saudara = $request->jumlah_saudara;
+                $siswa->no_nisn_sekolah_asal = $request->no_nisn_sekolah_asal;
 
 
                 GeneralHelpers::setCreatedAt($siswa);
@@ -128,32 +130,6 @@ class PendaftaranSiswaController extends Controller
                 GeneralHelpers::setRowStatusActive($siswa);
 
                 $siswa->save();
-
-                if($request->hasFile('foto_dokumen')) {
-                    $dokumen = new DokumenPendaftar();
-                    $dokumen->nama_dokumen = $request->nama_dokumen;
-                    $dokumen->catatan = $request->catatan;
-
-                    // Ambil semua file yang diupload
-                    $images = $request->file('foto_dokumen');
-
-                    foreach ($images as $image) {
-                        $imageName = time() . '_' . $image->getClientOriginalName(); // Ubah agar nama gambar unik
-                        $path = $image->storeAs('public/dokumencalonsiswa', $imageName);
-                        $imagePath = basename($path);
-
-                        // Simpan informasi dokumen untuk setiap file
-                        $newDokumen = clone $dokumen; // Clone objek dokumen untuk setiap file
-                        $newDokumen->foto_dokumen = $imagePath;
-
-                        GeneralHelpers::setCreatedAt($newDokumen);
-                        GeneralHelpers::setCreatedBy($newDokumen);
-                        GeneralHelpers::setUpdatedAtNull($newDokumen);
-                        GeneralHelpers::setRowStatusActive($newDokumen);
-
-                        $newDokumen->save();
-                    }
-                }
 
                 // buat create data pendaftaran
                 $daftar = new Pendaftaran();
@@ -240,6 +216,7 @@ class PendaftaranSiswaController extends Controller
                 $daftar->info_pendaftaran_id = $pendaftaran->id;
                 $daftar->calon_siswa_id = $siswa->id;
                 $daftar->wali_calon_siswa_id = $wali_calon_id->id;
+                $daftar->status_seleksi = "belum_dinilai";
                 PaymentHelpers::setOnline($daftar);
                 PaymentHelpers::setPending($daftar);
 
@@ -249,9 +226,36 @@ class PendaftaranSiswaController extends Controller
                 GeneralHelpers::setRowStatusActive($daftar);
 
                 $daftar->save();
+
+                if($request->hasFile('foto_dokumen')) {
+                    $dokumen = new DokumenPendaftaranCalonSiswa();
+                    $dokumen->nama_dokumen = $request->nama_dokumen;
+                    $dokumen->catatan = $request->catatan;
+                    $dokumen->pendaftaran_id = $daftar->id;
+
+                    // Ambil semua file yang diupload
+                    $images = $request->file('foto_dokumen');
+
+                    foreach ($images as $image) {
+                        $imageName = time() . '_' . $image->getClientOriginalName(); // Ubah agar nama gambar unik
+                        $path = $image->storeAs('public/dokumencalonsiswa', $imageName);
+                        $imagePath = basename($path);
+
+                        // Simpan informasi dokumen untuk setiap file
+                        $newDokumen = clone $dokumen; // Clone objek dokumen untuk setiap file
+                        $newDokumen->foto_dokumen = $imagePath;
+
+                        GeneralHelpers::setCreatedAt($newDokumen);
+                        GeneralHelpers::setCreatedBy($newDokumen);
+                        GeneralHelpers::setUpdatedAtNull($newDokumen);
+                        GeneralHelpers::setRowStatusActive($newDokumen);
+
+                        $newDokumen->save();
+                    }
+                }
             });
         } catch (Exception $e) {
-            return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
+            return ResponseHelpers::ErrorResponse('Internal server error, try again later'. $e, 500);
         }
         return ResponseHelpers::SuccessResponse('Data berhasil ditambahkan', '', 200);
     }

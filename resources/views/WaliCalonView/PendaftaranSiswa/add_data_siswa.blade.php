@@ -139,7 +139,7 @@
           <div class="row">
             <div class="col mb-3">
               <label class="form-label">Kota asal sekolah<span class="text-danger">*</span></label>
-              <input type="tet" class="form-control" name="kota_sekolah_asal" id="kota_sekolah_asal" placeholder="Kota asal sekolah"/>
+              <input type="text" class="form-control" name="kota_sekolah_asal" id="kota_sekolah_asal" placeholder="Kota asal sekolah"/>
               <small class="text-danger mt-2 error-message" id="kota_sekolah_asal-error"></small>
             </div>
             <div class="col mb-3">
@@ -158,21 +158,58 @@
               <small class="text-danger mt-2 error-message" id="jumlah_saudara-error"></small>
             </div>
           </div>
+          <div class="row">
+            <div class="col mb-3">
+              <label class="form-label">NISN Sekolah<span class="text-danger">*</span></label>
+              <input type="number" class="form-control" name="no_nisn_sekolah_asal" id="no_nisn_sekolah_asal" placeholder="Tahun lulus calon siswa"/>
+              <small class="text-danger mt-2 error-message" id="no_nisn_sekolah_asal-error"></small>
+            </div>
+            {{-- dokumen 1 --}}
+            <div class="col mb-3">
+              <label class="form-label">Foto Dokumen<span class="text-danger">*</span></label>
+              <div class="col mb-3 input-group">
+                  <label for="foto_dokumen" class="visually-hidden">Pilih file</label>
+                  <input type="file" class="form-control visually-hidden" name="foto_dokumen[]" id="foto_dokumen" multiple="true" />
+                  <input type="text" class="form-control" name="nama_dokumen" id="nama_dokumen" placeholder="Masukkan Nama Dokumen" />
+                  <label for="foto_dokumen" class="input-group-text btn btn-primary upload-button">
+                      Upload
+                  </label>
+              </div>
+              <small class="text-danger mt-2 error-message" id="gambar-error_1"></small>
+            </div>
+
+            {{-- dokumen 2 --}}
+            <div class="col mb-3">
+              <label class="form-label">Foto Dokumen<span class="text-danger">*</span></label>
+              <div class="col mb-3 input-group">
+                  <label for="foto_dokumen" class="visually-hidden">Pilih file</label>
+                  <input type="file" class="form-control visually-hidden" name="foto_dokumen[]" id="foto_dokumen" multiple="true" />
+                  <input type="text" class="form-control" name="nama_dokumen" id="nama_dokumen" placeholder="Masukkan Nama Dokumen" />
+                  <label for="foto_dokumen" class="input-group-text btn btn-primary upload-button">
+                      Upload
+                  </label>
+              </div>
+              <small class="text-danger mt-2 error-message" id="gambar-error_1"></small>
+            </div>
+
+            {{-- dokumen 3 --}}
+            <div class="col mb-3">
+              <label class="form-label">Foto Dokumen<span class="text-danger">*</span></label>
+              <div class="col mb-3 input-group">
+                  <label for="foto_dokumen" class="visually-hidden">Pilih file</label>
+                  <input type="file" class="form-control visually-hidden" name="foto_dokumen[]" id="foto_dokumen" multiple="true" />
+                  <input type="text" class="form-control" name="nama_dokumen" id="nama_dokumen" placeholder="Masukkan Nama Dokumen" />
+                  <label for="foto_dokumen" class="input-group-text btn btn-primary upload-button">
+                      Upload
+                  </label>
+              </div>
+              <small class="text-danger mt-2 error-message" id="gambar-error_1"></small>
+            </div>
+          </div>
 
           <div class="row">
             <div class="row">
-                <div class="col mb-3">
-                    <label class="form-label">Foto Dokumen<span class="text-danger">*</span></label>
-                    <div class="col mb-3 input-group">
-                        <label for="foto_dokumen" class="visually-hidden">Pilih file</label>
-                        <input type="file" class="form-control visually-hidden" name="foto_dokumen[]" id="foto_dokumen" multiple="true" />
-                        <input type="text" class="form-control" name="nama_dokumen" id="nama_dokumen" placeholder="Masukkan Nama Dokumen" />
-                        <label for="foto_dokumen" class="input-group-text btn btn-primary upload-button">
-                            Upload
-                        </label>
-                    </div>
-                    <small class="text-danger mt-2 error-message" id="gambar-error_1"></small>
-                </div>
+
                 {{-- <div class="col mb-3">
                     <label class="form-label">SKHUN Atau Surat Kelulusan<span class="text-danger">*</span></label>
                     <div class="col mb-3 input-group">
@@ -443,6 +480,14 @@
             const maxLength = 20;
             if (inputVal !== '' || inputVal <= maxLength) {
               $('#tahun_lulus-error').text('');
+            }
+          });
+
+          $('#no_nisn_sekolah_asal').on('input', function() {
+            const inputVal = $(this).val();
+            const maxLength = 20;
+            if (inputVal !== '' || inputVal <= maxLength) {
+              $('#no_nisn_sekolah_asal-error').text('');
             }
           });
 
