@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\QueryException;
 use Throwable;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -17,6 +19,22 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof NotFoundHttpException) {
+            return response()->view('Error.404', [], 404);
+        }
+        if ($this->isHttpException($exception) && $exception->getStatusCode() == 500) {
+            return response()->view('Error.500', [], 500);
+        }
+        if ($exception instanceof QueryException) {
+            return response()->view('Error.Database', [], 500);
+        }
+
+        //return parent::render($request, $exception);
+        return response()->view('Error.General', ['exception' => $exception], 500);
+    }
 
     /**
      * Register the exception handling callbacks for the application.

@@ -55,6 +55,10 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $messages = [
+            'username.unique' => 'Invalid username or email.',
+            'email.unique' => 'Invalid username or email.',
+        ];
         return Validator::make($data, [
             'username' => [
                 'required',
@@ -79,7 +83,7 @@ class RegisterController extends Controller
                     return $query->where('email', $data['email']);
                 })
             ]
-        ]);
+        ], $messages);
     }
 
     /**
@@ -114,7 +118,7 @@ class RegisterController extends Controller
             GeneralHelpers::sendNewNotification($title, $username, $email);
             return redirect()->route('login')->with('message', 'Registrasi account berhasil diajukan, mohon tunggu beberapa menit');
         } catch (\Throwable $th) {
-            return redirect()->back();
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 }

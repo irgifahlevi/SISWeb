@@ -80,6 +80,11 @@
                                       <i class='bx bx-barcode me-1'></i>
                                       Bayar
                                     </button>
+                                    <button class="dropdown-item" type="button" id="request" data-id="{{$item->id}}">
+                                      {{-- <i class='bx bx-show-alt me-1'></i> --}}
+                                      <i class='bx bx-reset me-1'></i>
+                                      Request token
+                                    </button>
                                   @include('SiswaView.MyTagihanSiswa.payment_midtrans')
                                 @else
                                   <button class="dropdown-item" type="button" id="request" data-id="{{$item->id}}">

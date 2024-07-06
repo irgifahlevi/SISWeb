@@ -53,6 +53,7 @@ class WaliCalonSiswaController extends Controller
             $list_pendaftaran = Pendaftaran::with('CalonWaliPendaftaran', 'CalonSiswaPendaftaran')
                 ->where('row_status', 0)
                 ->where('wali_calon_siswa_id', $data->id)
+                ->where('status_seleksi', '!=', 'belum_dinilai')
                 ->whereHas('CalonWaliPendaftaran', function ($query) {
                     $query->where('row_status', 0);
                 })->whereHas('CalonSiswaPendaftaran', function ($query) {
