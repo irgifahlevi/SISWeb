@@ -8,7 +8,7 @@
 
         {{-- Jika jumlah data banner lebih dari 0 --}}
 
-        {{-- @if (count($data) > 0) --}}
+        @if (count($data) > 0)
 
           {{-- Tabel --}}
           <div class="card">
@@ -29,14 +29,14 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {{-- @php
+                    @php
                         $nomor = 1 + (($data->currentPage() - 1) * $data->perPage());
-                    @endphp --}}
-                    {{-- @foreach() --}}
+                    @endphp
+                    @foreach($data as $item )
                     <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>{{ $item->nama_lengkap }}</td>
+                      <td>{{ $item->pendaftar_id }}</td>
+                      <td>{{ $item-> }}</td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -64,7 +64,7 @@
                     </div>
                   </td>
                     </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                   </tbody>
                 </table>
                 <div class="mt-3">
@@ -79,13 +79,13 @@
            @include('AdminView.DokumenPendaftaranSiswa.edit_catatan')
 
           {{-- Loading data--}}
-          {{-- <div id="loading-overlay" style="display: none;">
+          <div id="loading-overlay" style="display: none;">
             @include('Template.loading')
-          </div> --}}
+          </div>
 
 
         {{-- Jika data banner kosong --}}
-        {{-- @else --}}
+        @else
           <div class="card">
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
@@ -109,7 +109,7 @@
               </div>
             </div>
           </div>
-        {{-- @endif --}}
+        @endif
       </div>
     </div>
   </div>
