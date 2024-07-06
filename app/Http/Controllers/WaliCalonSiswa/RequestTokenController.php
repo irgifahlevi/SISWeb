@@ -18,7 +18,7 @@ class RequestTokenController extends Controller
         DB::beginTransaction();
         try {
             $data = Pendaftaran::findOrFail($id);
-            if (($data->status = 'Failed' || $data->status = 'Expired') && $type = 'pendaftaran_siswa') {
+            if (($data->status = 'Failed' || $data->status = 'Expired') && $type = 'pendaftaran_siswa' && $data->status_seleksi != "tidak_lolos") {
                 $new_request = new RequestToken();
                 $new_request->pendaftaran_id = $data->id;
                 $new_request->type = $type;

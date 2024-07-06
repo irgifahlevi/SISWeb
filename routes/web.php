@@ -57,6 +57,11 @@ use App\Http\Controllers\WaliCalonSiswa\RequestTokenController;
 */
 
 Route::get('/', [ClientController::class, 'index'])->name('index');
+
+Route::get('/test-error-500', function () {
+    // Menyebabkan error 500
+    abort(500);
+});
 Route::get('/berita/{id}', [BeritaController::class, 'showBerita'])->name('berita.show');
 Route::get('/profilependidik/{id}', [TenagaPendidikController::class, 'showPendidik'])->name('profilePendidik.show');
 

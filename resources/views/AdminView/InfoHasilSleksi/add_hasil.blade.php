@@ -149,67 +149,89 @@
       // }
 
       setTimeout(() => {
-        $.ajax({
-          type: 'POST',
-          url: '{{route('info-sleksi-calon-siswa.store')}}',
-          data: formData,
-          dataType: 'json',
-          processData: false,
-          contentType: false,
-          success: function(response)
-          {
-            if(response.status == 200){
-                    
-              // Tutup modal add banner dan kosongkan form
-              $('#loading-overlay').hide();
-              $('#add-modal-hasil').modal('hide');
-              $('#edit-form-info')[0].reset();
+      Swal.fire({
+        customClass:{
+          container: 'my-swal',
+        },
+        title: 'Apa anda yakin ingin menyimpan data ?',
+        text: "Data yang disimpan tidak dapat di ubah kembali",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#696cff',
+        cancelButtonColor: '#ff3e1d',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed){
+          setTimeout(() => {
+            $.ajax({
+              type: 'POST',
+              url: '{{route('info-sleksi-calon-siswa.store')}}',
+              data: formData,
+              dataType: 'json',
+              processData: false,
+              contentType: false,
+              success: function(response)
+              {
+                if(response.status == 200){
+                        
+                  // Tutup modal add banner dan kosongkan form
+                  $('#loading-overlay').hide();
+                  $('#add-modal-hasil').modal('hide');
+                  $('#edit-form-info')[0].reset();
 
-              Swal.fire({
-                customClass: {
-                  container: 'my-swal',
-                },
-                title: 'Created!',
-                text: `${response.message}`,
-                icon: 'success'
-              });
-                    
-              // Reload halaman
-              setTimeout(function(){
-                location.reload();
-              }, 800)
-            }
-          },
-          error: function(response)
-          {
-            if(response.status == 400){
-              let errors = response.responseJSON.message;
-              for (let key in errors) {
-                let errorMessage = errors[key].join(', ');
-                $('#' + key + '-error').text(errorMessage);
-              }
-            }
-            if(response.status == 500){
-              var res = response;
-              //console.log(res);
-                  
-              $('#loading-overlay').hide();
-              $('#add-modal-hasil').modal('hide');
-              $('#edit-form-info')[0].reset();
-
-              Swal.fire({
-                  customClass: {
+                  Swal.fire({
+                    customClass: {
                       container: 'my-swal',
-                  },
-                  title: `${res.statusText}`,
-                  text: `${res.responseJSON.message}`,
-                  icon: 'error'
-              });
-            }
-            $('#loading-overlay').hide();
-          },
-        })
-      }, 900);
+                    },
+                    title: 'Created!',
+                    text: `${response.message}`,
+                    icon: 'success'
+                  });
+                        
+                  // Reload halaman
+                  setTimeout(function(){
+                    location.reload();
+                  }, 800)
+                }
+              },
+              error: function(response)
+              {
+                if(response.status == 400){
+                  let errors = response.responseJSON.message;
+                  for (let key in errors) {
+                    let errorMessage = errors[key].join(', ');
+                    $('#' + key + '-error').text(errorMessage);
+                  }
+                }
+                if(response.status == 500){
+                  var res = response;
+                  //console.log(res);
+                      
+                  $('#loading-overlay').hide();
+                  $('#add-modal-hasil').modal('hide');
+                  $('#edit-form-info')[0].reset();
+
+                  Swal.fire({
+                      customClass: {
+                          container: 'my-swal',
+                      },
+                      title: `${res.statusText}`,
+                      text: `${res.responseJSON.message}`,
+                      icon: 'error'
+                  });
+                }
+                $('#loading-overlay').hide();
+              },
+            })
+          }, 900);
+        }
+        else {
+          $('#loading-overlay').hide();
+        }
+      });
+
+      //$('#loading-overlay').hide();
+    }, 800);
     });
   });
 

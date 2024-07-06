@@ -137,12 +137,12 @@
       </ul>
     </li>
 
-    <li class="menu-item {{ request()->routeIs('transaki-pendaftaran.index', 'data-pendaftaran-siswa.index') ? 'active' : '' }}">
+    <li class="menu-item {{ request()->routeIs('transaki-pendaftaran.index', 'data-pendaftaran-siswa.index', 'dokumen-pendaftaran-siswa.index', 'info-sleksi-calon-siswa.index') ? 'active' : '' }}">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-columns"></i>
         <div data-i18n="User interface">Data pendaftaran</div>
       </a>
-      <ul class="menu-sub" {{ request()->routeIs('transaki-pendaftaran.index', 'data-pendaftaran-siswa.index') ? 'style=display:block' : '' }} >
+      <ul class="menu-sub" {{ request()->routeIs('transaki-pendaftaran.index', 'data-pendaftaran-siswa.index', 'dokumen-pendaftaran-siswa.index', 'info-sleksi-calon-siswa.index') ? 'style=display:block' : '' }} >
         <li class="menu-item {{\Route::is('transaki-pendaftaran.index') ? 'active' : ''}}">
           <a href="{{route('transaki-pendaftaran.index')}}" class="menu-link">
             <div data-i18n="Accordion">Pendaftar</div>
