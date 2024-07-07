@@ -17,6 +17,8 @@ class TransaksiPendaftaranSiswaController extends Controller
 
         $query = Pendaftaran::with('CalonWaliPendaftaran.Users', 'CalonSiswaPendaftaran.JenisKelaminCalonSiswa', 'InfoBiayaPendaftaran.BiayaPendaftaran')
             ->where('row_status', 0)
+            ->where('status_seleksi', '=', 'lolos')
+            ->where('is_document', '=', 1)
             ->orderBy('id', 'desc');
 
         if (!empty($search_transaksi)) {

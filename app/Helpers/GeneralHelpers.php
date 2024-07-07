@@ -122,8 +122,19 @@ class GeneralHelpers
       0 => "lolos",
       1 => "tidak_lolos",
       2 => "belum_dinilai",
+      3 => "review_document",
     ];
 
     return isset($statusSeleksi[$key]) ? $statusSeleksi[$key] : null;
+  }
+
+  public static function setTrueDocument($model)
+  {
+    $model->is_document = 1;
+  }
+
+  public static function setFalseDocument($model)
+  {
+    $model->is_document = 0;
   }
 }

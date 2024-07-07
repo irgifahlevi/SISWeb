@@ -57,11 +57,6 @@ use App\Http\Controllers\WaliCalonSiswa\RequestTokenController;
 */
 
 Route::get('/', [ClientController::class, 'index'])->name('index');
-
-Route::get('/test-error-500', function () {
-    // Menyebabkan error 500
-    abort(500);
-});
 Route::get('/berita/{id}', [BeritaController::class, 'showBerita'])->name('berita.show');
 Route::get('/profilependidik/{id}', [TenagaPendidikController::class, 'showPendidik'])->name('profilePendidik.show');
 
@@ -167,6 +162,9 @@ Route::prefix('admin')->middleware(['auth', 'auth.admin'])->group(function () {
 
     // Generate token pembayaran
     Route::put('update-token/{kode_pembayaran}/request/{type}', [RequestTokenPembayaranController::class, 'updateToken'])->name('update.token.pembayaran');
+
+    Route::get('dokumen-pendaftaran-siswa/{kode}/{id}', [DokumenPendaftarController::class, 'detailDokumen'])->name('detail.document');
+    Route::put('update-status-document/{id}/{code}/{status', [DokumenPendaftarController::class, 'updateStatus'])->name('update.status.document');
 });
 
 

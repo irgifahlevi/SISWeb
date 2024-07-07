@@ -216,10 +216,11 @@ class PendaftaranSiswaController extends Controller
                 $daftar->info_pendaftaran_id = $pendaftaran->id;
                 $daftar->calon_siswa_id = $siswa->id;
                 $daftar->wali_calon_siswa_id = $wali_calon_id->id;
-                $daftar->status_seleksi = GeneralHelpers::setStatusSeleksi(2); // belum dinilai
+                $daftar->status_seleksi = GeneralHelpers::setStatusSeleksi(3); // review document
                 PaymentHelpers::setOnline($daftar);
                 PaymentHelpers::setPending($daftar);
 
+                GeneralHelpers::setFalseDocument($daftar);
                 GeneralHelpers::setCreatedAt($daftar);
                 GeneralHelpers::setCreatedBy($daftar);
                 GeneralHelpers::setUpdatedAtNull($daftar);
@@ -283,7 +284,7 @@ class PendaftaranSiswaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        dd($id);
     }
 
     /**

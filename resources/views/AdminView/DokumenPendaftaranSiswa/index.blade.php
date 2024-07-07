@@ -9,20 +9,23 @@
         {{-- Jika jumlah data banner lebih dari 0 --}}
 
         @if (count($data) > 0)
-        {{-- @dd($data); --}}
+
           {{-- Tabel --}}
           <div class="card">
-            <h5 class="card-header">Dokumen calon siswa</h5>
+            <h5 class="card-header">Data pendaftar baru</h5>
             <div class="card-body">
               <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                   <thead>
                     <tr>
                       <th style="width: 70px;">No.</th>
-                      <th>Nama Wali Siswa</th>
-                      <th>Nama siswa</th>
-                      <th>ID Pendaftar</th>
-                      <th>Status</th>
+                      <th>No pendaftaran</th>
+                      <th>Kode pendaftaran</th>
+                      <th>Calon siswa</th>
+                      <th>Wali</th>
+                      <th>Tel Wali</th>
+                      <th>Gel daftar</th>
+                      <th>Tgl pendaftaran</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -30,62 +33,50 @@
                     @php
                         $nomor = 1 + (($data->currentPage() - 1) * $data->perPage());
                     @endphp
-                    @foreach($data as $item )
+                    @foreach($data as $item)
                     <tr>
-                        <td>{{$nomor++}}</td>
-                        <td>{{ $item->CalonWaliPendaftaran->Users->username }}</td>
-                        <td>{{ $item->CalonSiswaPendaftaran->nama_lengkap}}</td>
-                        <td>{{ $item->kode_pendaftaran }}</td>
-                        <td>{{ $item->catatan }}</td>
-                        <td>
-                            <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <button class="dropdown-item" type="button" id="catatan">
-                            <i class="bx bx-edit-alt me-1"></i>
-                            Catatan
-                            </button>
-                            <button class="dropdown-item" type="button" id="Valid-data">
-                                <i class="bx bx bxs-badge-check
-                                me-1"></i>
-                            Valid
-                            </button>
-                            <button class="dropdown-item" type="button" id="Invalid-data">
-                            <i class="bx bx bxs-x-square me-1"></i>
-                            Invalid
-                            </button>
-                            <button class="dropdown-item" type="button" id="detail" data-kode="{{$item->kode_pendaftaran}}">
-                            <i class="bx bx bx-search-alt"></i>
-                            Detail
-                            </button>
+                      <td>{{$nomor++}}</td>
+                      <td>{{ $item->no_pendaftaran }}</td>
+                      <td>{{ $item->kode_pendaftaran }}</td>
+                      <td>{{ $item->CalonSiswaPendaftaran->nama_lengkap }}</td>
+                      <td>{{ $item->CalonWaliPendaftaran->Users->username }}</td>
+                      <td>{{ formatNoTelpon($item->CalonWaliPendaftaran->no_telepon) }}</td>
+                      <td>{{ formatGelombang($item->InfoBiayaPendaftaran->gelombang) }}</td>
+                      <td>{{ $item->tanggal_pendaftaran }}</td>
+                      <td>
+                        <div class="dropdown">
+                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                          </button>
+                          <div class="dropdown-menu">
+                            @if ($item->status_seleksi == "review_document")
+                              <button class="dropdown-item" type="button" id="detail" data-kode="{{$item->kode_pendaftaran}}">
+                                <i class="bx bx-edit-alt me-1"></i>
+                                Validasi
+                              </button>
+                            @else
+                            -
+                            @endif
+                          </div>
                         </div>
-                        </div>
-                    </td>
+                      </td>	
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
                 <div class="mt-3">
                   <!-- {{-- {{ $dataBarang->links() }} --}} -->
-                  {{-- {!! $data->appends(Request::except('page'))->render() !!} --}}
+                  {!! $data->appends(Request::except('page'))->render() !!}
                 </div>
               </div>
             </div>
           </div>
 
-           {{-- Modal edit data --}}
-           @include('AdminView.DokumenPendaftaranSiswa.edit_catatan')
-
-           {{-- Modal edit data
-           @include('AdminView.DokumenPendaftaranSiswa.detail_dokumen') --}}
-
           {{-- Loading data--}}
           <div id="loading-overlay" style="display: none;">
             @include('Template.loading')
           </div>
-
+          
 
         {{-- Jika data banner kosong --}}
         @else
@@ -93,7 +84,7 @@
             <div class="d-flex align-items-end row">
               <div class="col-sm-7">
                 <div class="card-body">
-                  <h5 class="card-title text-primary">Belum ada transaksi apapun! 😞</h5>
+                  <h5 class="card-title text-primary">Belum ada data pendaftar! 😞</h5>
                   <p class="mb-4">
                     Silahkan kembali lagi nanti
                   </p>
