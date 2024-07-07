@@ -42,6 +42,7 @@ class PendaftaranSiswaController extends Controller
      */
     public function store(Request $request)
     {
+
         // Menghapus tanda hubung ("-") dari nomor telepon
         $request->merge(['no_telepon' => str_replace('-', '', $request->no_telepon)]);
 
@@ -53,7 +54,7 @@ class PendaftaranSiswaController extends Controller
                 'nik' => 'required|numeric|digits:16',
                 'no_kk' => 'required|numeric|digits:16',
                 'no_nisn' => 'nullable|numeric|digits:10',
-                'no_nisn_sekolah_asal' => 'nullable|numeric|digits:10',
+                'no_nisn_sekolah_asal' => 'required|numeric|digits:10',
                 'no_telepon' => 'nullable|numeric',
                 'jenis_kelamin_id' => 'required|exists:jenis_kelamins,id',
                 'tempat_lahir' => 'required|max:100',
@@ -77,10 +78,9 @@ class PendaftaranSiswaController extends Controller
                 'tahun_lulus' => 'required|numeric|digits:4',
                 'anak_ke' => 'required|numeric|max:10',
                 'jumlah_saudara' => 'required|numeric|max:10',
-                'foto_dokumen' => 'required|array', // memastikan foto_dokumen adalah array
-                'foto_dokumen.*' => 'required|image|mimes:jpeg,png|max:2048', // validasi setiap item dalam array
-                'nama_dokumen' => 'required|string|min:4',
-
+                'pas_foto' => 'required|image|mimes:jpeg,png,jpg|max:1000',
+                'skhun' => 'required|image|mimes:jpeg,png,jpg|max:1000',
+                'raport_terakhir' => 'required|image|mimes:jpeg,png,jpg|max:1000',
             ]
         );
 
@@ -216,7 +216,7 @@ class PendaftaranSiswaController extends Controller
                 $daftar->info_pendaftaran_id = $pendaftaran->id;
                 $daftar->calon_siswa_id = $siswa->id;
                 $daftar->wali_calon_siswa_id = $wali_calon_id->id;
-                $daftar->status_seleksi = "belum_dinilai";
+                $daftar->status_seleksi = GeneralHelpers::setStatusSeleksi(2); // belum dinilai
                 PaymentHelpers::setOnline($daftar);
                 PaymentHelpers::setPending($daftar);
 
@@ -227,35 +227,35 @@ class PendaftaranSiswaController extends Controller
 
                 $daftar->save();
 
-                if($request->hasFile('foto_dokumen')) {
-                    $dokumen = new DokumenPendaftaranCalonSiswa();
-                    $dokumen->nama_dokumen = $request->nama_dokumen;
-                    $dokumen->catatan = $request->catatan;
-                    $dokumen->pendaftaran_id = $daftar->id;
+                if ($request->hasFile('pas_foto') && $request->hasFile('skhun') && $request->hasFile('raport_terakhir')) {
+                    $files = [
+                        'pas_foto' => $request->file('pas_foto'),
+                        'skhun' => $request->file('skhun'),
+                        'raport_terakhir' => $request->file('raport_terakhir'),
+                    ];
 
-                    // Ambil semua file yang diupload
-                    $images = $request->file('foto_dokumen');
-
-                    foreach ($images as $image) {
-                        $imageName = time() . '_' . $image->getClientOriginalName(); // Ubah agar nama gambar unik
-                        $path = $image->storeAs('public/dokumencalonsiswa', $imageName);
+                    foreach ($files as $key => $file) {
+                        $image = $file;
+                        $imageName = time() . '.' . $image->getClientOriginalExtension();
+                        $path = $image->storeAs('public/dokument_calon_siswa', $imageName);
                         $imagePath = basename($path);
 
-                        // Simpan informasi dokumen untuk setiap file
-                        $newDokumen = clone $dokumen; // Clone objek dokumen untuk setiap file
-                        $newDokumen->foto_dokumen = $imagePath;
+                        $dokumen = new DokumenPendaftaranCalonSiswa();
+                        $dokumen->foto_dokumen = $imagePath;
+                        $dokumen->nama_dokumen = GeneralHelpers::generateDocumentName($key, $kode_pendaftaran);
+                        $dokumen->pendaftaran_id = $daftar->id;
 
-                        GeneralHelpers::setCreatedAt($newDokumen);
-                        GeneralHelpers::setCreatedBy($newDokumen);
-                        GeneralHelpers::setUpdatedAtNull($newDokumen);
-                        GeneralHelpers::setRowStatusActive($newDokumen);
-
-                        $newDokumen->save();
+                        GeneralHelpers::setInvalidDocument($dokumen);
+                        GeneralHelpers::setCreatedAt($dokumen);
+                        GeneralHelpers::setCreatedBy($dokumen);
+                        GeneralHelpers::setUpdatedAtNull($dokumen);
+                        GeneralHelpers::setRowStatusActive($dokumen);
+                        $dokumen->save();
                     }
                 }
             });
         } catch (Exception $e) {
-            return ResponseHelpers::ErrorResponse('Internal server error, try again later'. $e, 500);
+            return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
         return ResponseHelpers::SuccessResponse('Data berhasil ditambahkan', '', 200);
     }
