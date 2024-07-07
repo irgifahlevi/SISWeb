@@ -9,7 +9,7 @@
         {{-- Jika jumlah data banner lebih dari 0 --}}
 
         @if (count($data) > 0)
-
+        {{-- @dd($data); --}}
           {{-- Tabel --}}
           <div class="card">
             <h5 class="card-header">Dokumen calon siswa</h5>
@@ -19,12 +19,10 @@
                   <thead>
                     <tr>
                       <th style="width: 70px;">No.</th>
+                      <th>Nama Wali Siswa</th>
                       <th>Nama siswa</th>
                       <th>ID Pendaftar</th>
-                      <th>Foto Dokumen</th>
-                      <th>Nama Dokumen</th>
                       <th>Status</th>
-                      <th>Catatan</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -34,35 +32,37 @@
                     @endphp
                     @foreach($data as $item )
                     <tr>
-                      <td>{{ $item->nama_lengkap }}</td>
-                      <td>{{ $item->pendaftar_id }}</td>
-                      <td>{{ $item-> }}</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <div class="dropdown">
-                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <button class="dropdown-item" type="button" id="catatan">
-                          <i class="bx bx-edit-alt me-1"></i>
-                          Catatan
-                        </button>
-                        <button class="dropdown-item" type="button" id="Valid-data">
-                            <i class="bx bx bxs-badge-check
-                            me-1"></i>
-                          Valid
-                        </button>
-                        <button class="dropdown-item" type="button" id="Invalid-data">
-                        <i class="bx bx bxs-x-square me-1"></i>
-                          Invalid
-                        </button>
-                      </div>
-                    </div>
-                  </td>
+                        <td>{{$nomor++}}</td>
+                        <td>{{ $item->CalonWaliPendaftaran->Users->username }}</td>
+                        <td>{{ $item->CalonSiswaPendaftaran->nama_lengkap}}</td>
+                        <td>{{ $item->kode_pendaftaran }}</td>
+                        <td>{{ $item->catatan }}</td>
+                        <td>
+                            <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <button class="dropdown-item" type="button" id="catatan">
+                            <i class="bx bx-edit-alt me-1"></i>
+                            Catatan
+                            </button>
+                            <button class="dropdown-item" type="button" id="Valid-data">
+                                <i class="bx bx bxs-badge-check
+                                me-1"></i>
+                            Valid
+                            </button>
+                            <button class="dropdown-item" type="button" id="Invalid-data">
+                            <i class="bx bx bxs-x-square me-1"></i>
+                            Invalid
+                            </button>
+                            <button class="dropdown-item" type="button" id="detail" data-kode="{{$item->kode_pendaftaran}}">
+                            <i class="bx bx bx-search-alt"></i>
+                            Detail
+                            </button>
+                        </div>
+                        </div>
+                    </td>
                     </tr>
                     @endforeach
                   </tbody>
@@ -77,6 +77,9 @@
 
            {{-- Modal edit data --}}
            @include('AdminView.DokumenPendaftaranSiswa.edit_catatan')
+
+           {{-- Modal edit data
+           @include('AdminView.DokumenPendaftaranSiswa.detail_dokumen') --}}
 
           {{-- Loading data--}}
           <div id="loading-overlay" style="display: none;">
@@ -119,5 +122,19 @@
   <div class="content-backdrop fade"></div>
 </div>
 
-</script>
+
+<script>
+    $('body').on('click', `#detail`, function () {
+      var kode_pendaftar = $(this).data('kode'); // menangkap ID dari data attribute 'data-id'
+      // tampilkan spinner
+      //console.log(kode_pendaftar)
+      $('#loading-overlay').show();
+      setTimeout(() => {
+        $('#loading-overlay').hide();
+        const url = `dokumen-pendaftaran-siswa/${kode_pendaftar}`
+        window.location.href = url;
+      }, 900);
+
+    });
+  </script>-
 @endsection
