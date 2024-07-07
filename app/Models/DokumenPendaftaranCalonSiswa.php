@@ -14,4 +14,5 @@ class DokumenPendaftaranCalonSiswa extends Model
     {
         return $this->belongsTo(Pendaftaran::class, 'pendaftaran_id', 'id');
     }
+
 }
