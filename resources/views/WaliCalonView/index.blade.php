@@ -62,12 +62,103 @@
               @include('WaliCalonView.PendaftaranSiswa.add_data_siswa')
               @endif
             </div>
-            </div>
-          </div>        
+          </div>  
+          
+          @if (count($list_status_dokumen) > 0)
+            {{-- @dd($list_status_dokumen) --}}
+            <div class="card mb-4">
+              <h5 class="card-header">Status pendaftaran saya</h5>
+              <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                          <th>No pendaftar</th>
+                          <th>Kode pendaftar</th>
+                          <th>Siswa</th>
+                          <th>Wali</th>
+                          <th>Gelombang</th>
+                          <th>Status dokumen</th>
+                          <th>Catatan</th>
+                          {{-- <th>Aksi</th> --}}
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @php
+                          $nomor = 1;
+                      @endphp
+                      @foreach($list_status_dokumen as $item)
+                      <tr>
+                          <td>{{ $item->no_pendaftaran }}</td>
+                          <td><span class="d-inline-block text-truncate" style="max-width: 164px;">{{ $item->kode_pendaftaran }}</span></td>
+                          <td>{{ $item->CalonSiswaPendaftaran->nama_lengkap }}</td>
+                          <td>{{ $item->CalonWaliPendaftaran->Users->username }}</td>
+                          <td>
+                            @if ($item->InfoBiayaPendaftaran)
+                                {{ formatGelombang($item->InfoBiayaPendaftaran->gelombang) }}
+                            @else
+                                N/A
+                            @endif
+                          </td>
+                          <td>
+                            @if ($item->DokumenCalonSiswa->where('status', 'valid')->count() == 3)
+                                Valid
+                            @else
+                                Invalid
+                            @endif
+                          </td>
+                          <td>
+                            @php
+                                $invalidDokumen = $item->DokumenCalonSiswa->where('status', 'invalid');
+                            @endphp
+                            @if ($invalidDokumen->count() > 0)
+                              @foreach ($invalidDokumen as $dokumen)
+                                {{ $dokumen->nama_dokumen }}
+                                <ul>
+                                  <li>@if ($dokumen->catatan)
+                                    {{ $dokumen->catatan }}
+                                  @else
+                                      In review
+                                  @endif</li>
+                                </ul>
+                              @endforeach
+                            @else
+                                Segera lakukan test ke sekolah
+                            @endif
+                        </td>
+                          {{-- <td>
+                            @if ($item->DokumenCalonSiswa->where('status', 'valid')->count() != 3)
+                              <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <button class="dropdown-item" type="button" id="edit-documents" data-id="{{$item->kode_pendaftaran}}">
+                                    <i class='bx bx-show-alt me-1'></i>
+                                    Edit
+                                  </button>
+                                </div>
+                              </div>
+                            @else
+                                -
+                            @endif
+                          </td> --}}
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                  <div class="mt-3">
+                    {!! $list_status_dokumen->appends(Request::except('page'))->render() !!}
+                  </div>
+                </div>
+              </div>
+            </div>  
+            {{-- @include('WaliCalonView.PendaftaranSiswa.edit_data_pendaftaran') --}}
+          @endif
           
           @if (count($list_pendaftaran) > 0)
             <div class="card mb-3">
-              <h5 class="card-header">Data pendaftaran</h5>
+              <h5 class="card-header">Pembayaran saya</h5>
               <div class="card-body">
                 <div class="table-responsive text-nowrap">
                   <table class="table table-bordered">
@@ -194,6 +285,7 @@
                   </tbody>
                   </table>
                   <div class="mt-3">
+                    {!! $list_pendaftaran->appends(Request::except('page'))->render() !!}
                   </div>
                 </div>
               </div>
@@ -308,4 +400,7 @@
     }, 800);
   })
 </script>
+
+
+
 @endsection

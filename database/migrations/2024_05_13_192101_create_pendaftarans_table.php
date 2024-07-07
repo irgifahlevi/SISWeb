@@ -26,7 +26,8 @@ return new class extends Migration
             $table->string('jenis_pembayaran');
             $table->string('channel_pembayaran')->nullable();
             $table->string('token_pembayaran')->nullable();
-            $table->enum('status_seleksi', ['lolos', 'tidak_lolos']);
+            $table->enum('status_seleksi', ['lolos', 'tidak_lolos', 'belum_dinilai', 'review_document']);
+            $table->tinyInteger('is_document');
             $table->string('created_by')->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();

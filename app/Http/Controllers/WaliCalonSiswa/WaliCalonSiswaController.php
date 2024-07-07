@@ -49,20 +49,28 @@ class WaliCalonSiswaController extends Controller
 
         // list data pendaftaran before payment
         $list_pendaftaran = "";
+        $list_status_dokumen = "";
         if ($data) {
+            $list_status_dokumen = Pendaftaran::with('CalonWaliPendaftaran', 'CalonSiswaPendaftaran', 'DokumenCalonSiswa')
+                ->where('row_status', 0)
+                ->where('wali_calon_siswa_id', $data->id)
+                ->where('status_seleksi', '=', 'review_document')
+                ->paginate(5);
+
             $list_pendaftaran = Pendaftaran::with('CalonWaliPendaftaran', 'CalonSiswaPendaftaran')
                 ->where('row_status', 0)
                 ->where('wali_calon_siswa_id', $data->id)
                 ->where('status_seleksi', '!=', 'belum_dinilai')
+                ->where('status_seleksi', '!=', 'review_document')
                 ->whereHas('CalonWaliPendaftaran', function ($query) {
                     $query->where('row_status', 0);
                 })->whereHas('CalonSiswaPendaftaran', function ($query) {
                     $query->where('row_status', 0);
                 })->orderBy('id', 'desc')
-                ->get();
+                ->paginate(5);
         }
 
-        return view('WaliCalonView.index', compact('data', 'list_biaya', 'info_pendaftaran_id', 'list_pendaftaran'));
+        return view('WaliCalonView.index', compact('data', 'list_biaya', 'info_pendaftaran_id', 'list_pendaftaran', 'list_status_dokumen'));
     }
 
     public function updatePassword(Request $request, string $id)
