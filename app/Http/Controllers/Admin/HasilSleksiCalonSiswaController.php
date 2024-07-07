@@ -87,9 +87,9 @@ class HasilSleksiCalonSiswaController extends Controller
             $hasil = "";
             // Menentukan lulus
             if ($total >= $batas_lulus) {
-                $hasil = "lolos";
+                $hasil = GeneralHelpers::setStatusSeleksi(0); // lolos
             } else {
-                $hasil = "tidak_lolos";
+                $hasil = GeneralHelpers::setStatusSeleksi(1); // tidak lolos
             }
 
             $data_pendaftaran = Pendaftaran::with('CalonWaliPendaftaran.Users', 'CalonSiswaPendaftaran')
@@ -152,7 +152,7 @@ class HasilSleksiCalonSiswaController extends Controller
             }
         } catch (Exception $th) {
             DB::rollBack();
-            return ResponseHelpers::ErrorResponse('Internal server error, try again later' . $th, 500);
+            return ResponseHelpers::ErrorResponse('Internal server error, try again later', 500);
         }
     }
 

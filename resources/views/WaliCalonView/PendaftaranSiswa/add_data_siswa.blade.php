@@ -27,29 +27,29 @@
           </div>
           <div class="row">
             <input type="hidden" name="gelombang_id" class="form-control" id="gelombang_id">
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Nama lengkap<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" placeholder="Nama calon siswa"/>
               <small class="text-danger mt-2 error-message" id="nama_lengkap-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">NIK<span class="text-danger">*</span></label>
               <input type="number" class="form-control" name="nik" id="nik" placeholder="NIK 16 digit"/>
               <small class="text-danger mt-2 error-message" id="nik-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">No KK<span class="text-danger">*</span></label>
               <input type="number" class="form-control" name="no_kk" id="no_kk" placeholder="Nomor KK 16 digit"/>
               <small class="text-danger mt-2 error-message" id="no_kk-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">No NISN</label>
               <input type="number" class="form-control" name="no_nisn" id="no_nisn" placeholder="NISN calon siswa (opsional)"/>
               <small class="text-danger mt-2 error-message" id="no_nisn-error"></small>
             </div>
           </div>
           <div class="row">
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label" for="no_telepon">No Telepon</label>
                 <div class="input-group input-group-merge">
                   <span class="input-group-text">(+62)</span>
@@ -57,26 +57,26 @@
                 </div>
                 <small class="text-danger mt-2 error-message" id="no_telepon-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Jenis kelamin<span class="text-danger">*</span></label>
               <select class="form-select" name="jenis_kelamin_id" id="jenis_kelamin_id">
                 <option value="">Pilih jenis kelamin</option>
               </select>
               <small class="text-danger mt-2 error-message" id="jenis_kelamin_id-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Tempat lahir<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" placeholder="Tempat lahir calon siswa"/>
               <small class="text-danger mt-2 error-message" id="tempat_lahir-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Tanggal lahir<span class="text-danger">*</span></label>
               <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir"/>
               <small class="text-danger mt-2 error-message" id="tanggal_lahir-error"></small>
             </div>
           </div>
           <div class="row">
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Agama<span class="text-danger">*</span></label>
               <select class="form-select" name="agama" id="agama">
                 <option value="">Pilih agama</option>
@@ -84,197 +84,125 @@
               </select>
               <small class="text-danger mt-2 error-message" id="agama-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Kelurahan<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="kelurahan" id="kelurahan" placeholder="Masukkan kelurahan"/>
               <small class="text-danger mt-2 error-message" id="kelurahan-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Kecamatan<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="kecamatan" id="kecamatan" placeholder="Masukkan kecamatan"/>
               <small class="text-danger mt-2 error-message" id="kecamatan-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Kota<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="kota" id="kota" placeholder="Masukkan kota"/>
               <small class="text-danger mt-2 error-message" id="kota-error"></small>
             </div>
           </div>
           <div class="row">
-            <div class="col mb-3">
+            <div class="col-12 mb-3">
               <label class="form-label">Alamat<span class="text-danger">*</span></label>
               <textarea class="form-control" name="alamat" id="alamat" rows="3" placeholder="Masukkan alamat lengkap"></textarea>
               <small class="text-danger mt-2 error-message" id="alamat-error"></small>
             </div>
           </div>
           <div class="row">
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Kode POS<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="kode_pos" id="kode_pos" placeholder="Kode pos 5 digit"/>
               <small class="text-danger mt-2 error-message" id="kode_pos-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Email</label>
               <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan email (opsional)"/>
               <small class="text-danger mt-2 error-message" id="email-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Tempat tinggal</label>
               <input type="text" class="form-control" name="tempat_tinggal" id="tempat_tinggal" placeholder="Tempat tinggal calon siswa"/>
               <small class="text-danger mt-2 error-message" id="tempat_tinggal-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Asal sekolah<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="nama_sekolah_asal" id="nama_sekolah_asal" placeholder="Nama asal sekolah"/>
               <small class="text-danger mt-2 error-message" id="nama_sekolah_asal-error"></small>
             </div>
           </div>
           <div class="row">
-            <div class="col mb-3">
+            <div class="col-12 mb-3">
               <label class="form-label">Alamat asal sekolah<span class="text-danger">*</span></label>
               <textarea class="form-control" name="alamat_sekolah_asal" id="alamat_sekolah_asal" rows="3" placeholder="Masukkan alamat lengkap asal sekolah"></textarea>
               <small class="text-danger mt-2 error-message" id="alamat_sekolah_asal-error"></small>
             </div>
           </div>
           <div class="row">
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Kota asal sekolah<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="kota_sekolah_asal" id="kota_sekolah_asal" placeholder="Kota asal sekolah"/>
               <small class="text-danger mt-2 error-message" id="kota_sekolah_asal-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Tahun lulus<span class="text-danger">*</span></label>
               <input type="number" class="form-control" name="tahun_lulus" id="tahun_lulus" placeholder="Tahun lulus calon siswa"/>
               <small class="text-danger mt-2 error-message" id="tahun_lulus-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Anak ke<span class="text-danger">*</span></label>
               <input type="number" class="form-control" name="anak_ke" id="anak_ke" placeholder="Masukkan anak ke"/>
               <small class="text-danger mt-2 error-message" id="anak_ke-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3">
               <label class="form-label">Jumlah saudara<span class="text-danger">*</span></label>
               <input type="number" class="form-control" name="jumlah_saudara" id="jumlah_saudara" placeholder="Jumlah saudara"/>
               <small class="text-danger mt-2 error-message" id="jumlah_saudara-error"></small>
             </div>
           </div>
           <div class="row">
-            <div class="col mb-3">
+            <div class="col-12 mb-3">
               <label class="form-label">NISN Sekolah<span class="text-danger">*</span></label>
               <input type="number" class="form-control" name="no_nisn_sekolah_asal" id="no_nisn_sekolah_asal" placeholder="Tahun lulus calon siswa"/>
               <small class="text-danger mt-2 error-message" id="no_nisn_sekolah_asal-error"></small>
             </div>
-            {{-- dokumen 1 --}}
-            <div class="col mb-3">
-              <label class="form-label">Foto Dokumen<span class="text-danger">*</span></label>
-              <div class="col mb-3 input-group">
-                  <label for="foto_dokumen" class="visually-hidden">Pilih file</label>
-                  <input type="file" class="form-control visually-hidden" name="foto_dokumen[]" id="foto_dokumen" multiple="true" />
-                  <input type="text" class="form-control" name="nama_dokumen" id="nama_dokumen" placeholder="Masukkan Nama Dokumen" />
-                  <label for="foto_dokumen" class="input-group-text btn btn-primary upload-button">
-                      Upload
-                  </label>
-              </div>
-              <small class="text-danger mt-2 error-message" id="gambar-error_1"></small>
-            </div>
-
-            {{-- dokumen 2 --}}
-            <div class="col mb-3">
-              <label class="form-label">Foto Dokumen<span class="text-danger">*</span></label>
-              <div class="col mb-3 input-group">
-                  <label for="foto_dokumen" class="visually-hidden">Pilih file</label>
-                  <input type="file" class="form-control visually-hidden" name="foto_dokumen[]" id="foto_dokumen" multiple="true" />
-                  <input type="text" class="form-control" name="nama_dokumen" id="nama_dokumen" placeholder="Masukkan Nama Dokumen" />
-                  <label for="foto_dokumen" class="input-group-text btn btn-primary upload-button">
-                      Upload
-                  </label>
-              </div>
-              <small class="text-danger mt-2 error-message" id="gambar-error_1"></small>
-            </div>
-
-            {{-- dokumen 3 --}}
-            <div class="col mb-3">
-              <label class="form-label">Foto Dokumen<span class="text-danger">*</span></label>
-              <div class="col mb-3 input-group">
-                  <label for="foto_dokumen" class="visually-hidden">Pilih file</label>
-                  <input type="file" class="form-control visually-hidden" name="foto_dokumen[]" id="foto_dokumen" multiple="true" />
-                  <input type="text" class="form-control" name="nama_dokumen" id="nama_dokumen" placeholder="Masukkan Nama Dokumen" />
-                  <label for="foto_dokumen" class="input-group-text btn btn-primary upload-button">
-                      Upload
-                  </label>
-              </div>
-              <small class="text-danger mt-2 error-message" id="gambar-error_1"></small>
-            </div>
           </div>
-
           <div class="row">
-            <div class="row">
-
-                {{-- <div class="col mb-3">
-                    <label class="form-label">SKHUN Atau Surat Kelulusan<span class="text-danger">*</span></label>
-                    <div class="col mb-3 input-group">
-                        <label for="foto_dokumen_2" class="visually-hidden">Pilih file</label>
-                        <input type="file" class="form-control visually-hidden" name="foto_dokumen_2" id="foto_dokumen_2" />
-                        <input type="text" class="form-control" name="nama_dokumen_2" id="nama_dokumen_2" placeholder="Masukkan Nama Dokumen" />
-                        <label for="foto_dokumen_2" class="input-group-text btn btn-primary upload-button">
-                            Upload
-                        </label>
-                    </div>
-                    <small class="text-danger mt-2 error-message" id="gambar-error_2"></small>
-                </div>
-                <div class="col mb-3">
-                    <label class="form-label">Raport Terakhir<span class="text-danger">*</span></label>
-                    <div class="col mb-3 input-group">
-                        <label for="foto_dokumen_3" class="visually-hidden">Pilih file</label>
-                        <input type="file" class="form-control visually-hidden" name="foto_dokumen_3" id="foto_dokumen_3" />
-                        <input type="text" class="form-control" name="nama_dokumen_3" id="nama_dokumen_3" placeholder="Masukkan Nama Dokumen" />
-                        <label for="foto_dokumen_3" class="input-group-text btn btn-primary upload-button">
-                            Upload
-                        </label>
-                    </div>
-                    <small class="text-danger mt-2 error-message" id="gambar-error_3"></small>
-                </div> --}}
+            <!-- Dokumen 1: Pas Foto -->
+            <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3">
+              <label class="form-label">Pas Foto<span class="text-danger">*</span></label>
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 input-group">
+                  <input type="file" class="form-control" name="pas_foto" id="pas_foto" multiple>
+                  <label for="foto_dokumen" class="input-group-text btn btn-primary upload-button">
+                      Upload
+                  </label>
+              </div>
+              <small class="text-danger mt-2 error-message" id="pas_foto-error"></small>
             </div>
 
-            <script>
-            $(document).ready(function() {
-                // Saat input file berubah untuk foto siswa
-                $('#foto_dokumen').change(function() {
-                    var fileName = $(this).val().split('\\').pop();
-                    if (fileName) {
-                        $('#foto_dokumen').next().next('.upload-button').html('<i class="menu-icon tf-icons bx bx-check"></i>');
-                    } else {
-                        $('#foto_dokumen').next().next('.upload-button').html('Upload');
-                    }
-                });
+            <!-- Dokumen 2: SKHUN atau Surat Kelulusan -->
+            <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3">
+              <label class="form-label">SKHUN / Keterangan Lulus<span class="text-danger">*</span></label>
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 input-group">
+                  <input type="file" class="form-control" name="skhun" id="skhun" multiple>
+                  <label for="skhun" class="input-group-text btn btn-primary upload-button">
+                      Upload
+                  </label>
+              </div>
+              <small class="text-danger mt-2 error-message" id="skhun-error"></small>
+            </div>
 
-                // // Saat input file berubah untuk SKHUN atau Surat Kelulusan
-                // $('#foto_dokumen_2').change(function() {
-                //     var fileName = $(this).val().split('\\').pop();
-                //     if (fileName) {
-                //         $('#foto_dokumen_2').next().next('.upload-button').html('<box-icon name="check-circle"></box-icon>');
-                //     } else {
-                //         $('#foto_dokumen_2').next().next('.upload-button').html('Upload');
-                //     }
-                // });
-
-                // // Saat input file berubah untuk raport terakhir
-                // $('#foto_dokumen_3').change(function() {
-                //     var fileName = $(this).val().split('\\').pop();
-                //     if (fileName) {
-                //         $('#foto_dokumen_3').next().next('.upload-button').html('<box-icon name="check-circle"></box-icon>');
-                //     } else {
-                //         $('#foto_dokumen_3').next().next('.upload-button').html('Upload');
-                //     }
-                // });
-            });
-            </script>
-
+            <!-- Dokumen 3: Raport Terakhir -->
+            <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-3">
+              <label class="form-label">Raport Terakhir<span class="text-danger">*</span></label>
+              <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 input-group">
+                  <input type="file" class="form-control" name="raport_terakhir" id="raport_terakhir" multiple>
+                  <label for="raport_terakhir" class="input-group-text btn btn-primary upload-button">
+                      Upload
+                  </label>
+              </div>
+              <small class="text-danger mt-2 error-message" id="raport_terakhir-error"></small>
+            </div>
           </div>
-
-
-
-
+        </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Simpan data</button>
         </div>
@@ -323,6 +251,55 @@
 
   // Simpan data
   $(document).ready(function(){
+
+
+    $('#pas_foto').change(function() {
+        const inputVal = $(this).val();
+        if(inputVal !== ''){
+          $('#pas_foto-error').text('');
+        }
+        var fileName = $(this).val().split('\\').pop();
+        if (fileName) {
+            // Mengubah isi dari tombol "Upload" menjadi ikon ceklis
+            $(this).siblings('.upload-button').html('<i class="bx bx-check"></i> Uploaded');
+        } else {
+            // Jika tidak ada file yang dipilih, kembalikan ke teks "Upload"
+            $(this).siblings('.upload-button').html('Upload');
+        }
+    });
+
+    // Saat input file berubah untuk SKHUN atau Surat Kelulusan
+    $('#skhun').change(function() {
+        const inputVal = $(this).val();
+        if(inputVal !== ''){
+          $('#skhun-error').text('');
+        }
+        var fileName = $(this).val().split('\\').pop();
+        if (fileName) {
+            // Mengubah isi dari tombol "Upload" menjadi ikon ceklis
+            $(this).siblings('.upload-button').html('<i class="bx bx-check"></i> Uploaded');
+        } else {
+            // Jika tidak ada file yang dipilih, kembalikan ke teks "Upload"
+            $(this).siblings('.upload-button').html('Upload');
+        }
+    });
+
+    // Saat input file berubah untuk Raport Terakhir
+    $('#raport_terakhir').change(function() {
+        const inputVal = $(this).val();
+        if(inputVal !== ''){
+          $('#raport_terakhir-error').text('');
+        }
+        var fileName = $(this).val().split('\\').pop();
+        if (fileName) {
+            // Mengubah isi dari tombol "Upload" menjadi ikon ceklis
+            $(this).siblings('.upload-button').html('<i class="bx bx-check"></i> Uploaded');
+        } else {
+            // Jika tidak ada file yang dipilih, kembalikan ke teks "Upload"
+            $(this).siblings('.upload-button').html('Upload');
+        }
+    });
+
     $('#form-pendaftaran').on('submit', function(e){
       e.preventDefault();
           // console.log('test');
@@ -507,6 +484,26 @@
             }
           });
 
+          $('#pas_foto').on('change', function(){
+            const inputVal = $(this).val();
+            if(inputVal !== ''){
+              $('#pas_foto-error').text('');
+            }
+          });
+
+          $('#skhun').on('change', function(){
+            const inputVal = $(this).val();
+            if(inputVal !== ''){
+              $('#skhun-error').text('');
+            }
+          });
+
+          $('#raport_terakhir').on('change', function(){
+            const inputVal = $(this).val();
+            if(inputVal !== ''){
+              $('#raport_terakhir-error').text('');
+            }
+          });
 
           var formData = new FormData(this);
 

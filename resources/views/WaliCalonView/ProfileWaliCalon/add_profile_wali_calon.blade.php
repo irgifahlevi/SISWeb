@@ -37,12 +37,12 @@
             </div>
           </div>
           <div class="row">
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 mb-3">
               <label class="form-label">Pekerjaan<span class="text-danger">*</span></label>
               <input type="text" class="form-control" name="pekerjaan" id="pekerjaan" placeholder="Pekerjaan saat ini"/>
               <small class="text-danger mt-2 error-message" id="pekerjaan-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 mb-3">
               <label class="form-label">Pendidikan terakhir<span class="text-danger">*</span></label>
               <select class="form-select" name="pendidikan" id="pendidikan">
                 <option value="">Pilih pendidikan terakhir</option>
@@ -57,14 +57,14 @@
             </div>
           </div>
           <div class="row">
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 mb-3">
               <label class="form-label">Jenis kelamin<span class="text-danger">*</span></label>
               <select class="form-select" name="jenis_kelamin_id" id="jenis_kelamin_id">
                 <option value="">Pilih jenis kelamin</option>
               </select>
               <small class="text-danger mt-2 error-message" id="jenis_kelamin_id-error"></small>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-sm-6 mb-3">
               <label class="form-label">Penghasilan<span class="text-danger">*</span></label>
               <input type="text" class="form-control rupiah" name="penghasilan" id="penghasilan" placeholder="Penghasilan perbulan"></input>
               <small class="text-danger mt-2 error-message" id="penghasilan-error"></small>

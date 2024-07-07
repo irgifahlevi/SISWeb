@@ -94,4 +94,36 @@ class GeneralHelpers
     $random_number = self::generateRandomNumber(4);
     return $inisial . "-" . $random_number . "-" . $tanggal;
   }
+
+  public static function generateDocumentName($key, $code)
+  {
+    $documentNames = [
+      'pas_foto' => 'PAS-FOTO-',
+      'skhun' => 'SKHUN-',
+      'raport_terakhir' => 'RAPORT-',
+    ];
+
+    return $documentNames[$key] . $code;
+  }
+
+  public static function setInvalidDocument($model)
+  {
+    $model->status = "invalid";
+  }
+
+  public static function setValidDocument($model)
+  {
+    $model->status = "valid";
+  }
+
+  public static function setStatusSeleksi($key)
+  {
+    $statusSeleksi = [
+      0 => "lolos",
+      1 => "tidak_lolos",
+      2 => "belum_dinilai",
+    ];
+
+    return isset($statusSeleksi[$key]) ? $statusSeleksi[$key] : null;
+  }
 }
