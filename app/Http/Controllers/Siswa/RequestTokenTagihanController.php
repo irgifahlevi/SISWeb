@@ -17,8 +17,21 @@ class RequestTokenTagihanController extends Controller
     {
         DB::beginTransaction();
         try {
-            $data = TagihanSiswa::findOrFail($id);
-            if (($data->status = 'dibatalkan' || $data->status = 'Failed' || $data->status = 'Expired') && $type = 'tagihan_siswa') {
+            if ($type !== 'tagihan_siswa') {
+                return ResponseHelpers::ErrorResponse('Invalid request type', 500);
+            }
+
+            $data = TagihanSiswa::select('id', 'no_tagihan', 'kode_tagihan', 'status', 'nominal_tagihan', 'created_at')
+                ->findOrFail($id);
+
+            // check data
+            foreach ($data->getAttributes() as $key => $value) {
+                if (is_null($value) || empty($value)) {
+                    return ResponseHelpers::ErrorResponse('Invalid request generate token, data has been not valid!', 500);
+                }
+            }
+
+            if ($this->isCancellableStatus($data->status)) {
                 $new_request = new RequestToken();
                 $new_request->tagihan_siswa_id = $data->id;
                 $new_request->type = $type;
@@ -43,5 +56,11 @@ class RequestTokenTagihanController extends Controller
             DB::rollBack();
             return ResponseHelpers::ErrorResponse('Internal server error, try again later!' . $th, 500);
         }
+    }
+
+    // private function
+    private function isCancellableStatus($status)
+    {
+        return in_array($status, ['belum_dibayar', 'dibatalkan', 'Failed', 'Expired']);
     }
 }

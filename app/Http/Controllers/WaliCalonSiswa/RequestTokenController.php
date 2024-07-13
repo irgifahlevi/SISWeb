@@ -17,8 +17,21 @@ class RequestTokenController extends Controller
     {
         DB::beginTransaction();
         try {
-            $data = Pendaftaran::findOrFail($id);
-            if (($data->status = 'Failed' || $data->status = 'Expired') && $type = 'pendaftaran_siswa' && $data->status_seleksi != "tidak_lolos") {
+            if ($type !== 'pendaftaran_siswa') {
+                return ResponseHelpers::ErrorResponse('Invalid request type', 500);
+            }
+
+            $data = Pendaftaran::select('id', 'no_pendaftaran', 'kode_pendaftaran', 'status', 'total_bayar', 'created_at')
+                ->findOrFail($id);
+
+            // check data
+            foreach ($data->getAttributes() as $key => $value) {
+                if (is_null($value) || empty($value)) {
+                    return ResponseHelpers::ErrorResponse('Invalid request generate token, data has been not valid!', 500);
+                }
+            }
+
+            if ($this->isCancellableStatus($data->status) && $data->status_seleksi != "tidak_lolos") {
                 $new_request = new RequestToken();
                 $new_request->pendaftaran_id = $data->id;
                 $new_request->type = $type;
@@ -43,5 +56,11 @@ class RequestTokenController extends Controller
             DB::rollBack();
             return ResponseHelpers::ErrorResponse('Internal server error, try again later!' . $th, 500);
         }
+    }
+
+    // private function
+    private function isCancellableStatus($status)
+    {
+        return in_array($status, ['Failed', 'Expired', 'Pending']);
     }
 }
