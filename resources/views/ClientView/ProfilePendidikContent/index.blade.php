@@ -70,7 +70,7 @@
                                     <div class="mb-2">
                                         <h6>No telepon</h6>
                                         <p class="card-text">@if ($profile_pendidik->no_telepon)
-                                            {{ $profile_pendidik->no_telepon }}
+                                            {{formatNoTelpon( $profile_pendidik->no_telepon)}}
                                         @else
                                             -
                                         @endif</p>
